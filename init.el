@@ -19,6 +19,7 @@
 		     js2-mode;;jsIDE
 		     nodejs-repl;;在emacs中使用node执行js代码
 		     markdown-mode;;支持markdown语法
+		     magit
 		      )
   "所有自己需安装的包")
 
