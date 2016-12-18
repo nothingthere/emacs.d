@@ -1,3 +1,5 @@
 **\auto-save-list
-##**\elpa 防止安转不安全的包后报错
+elpa
 recentf
+.session
+abbrev_defs
