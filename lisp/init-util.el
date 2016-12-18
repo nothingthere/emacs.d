@@ -4,12 +4,23 @@
 
 ;;加载common lisp库
 (require 'cl)
-(defun my-show-char-before()
-  "显示前面一个字符"
-  (interactive)
-  (format "%c" (char-before)))
 
 ;;辅助函数
+
+;;;;;;;;;;;;;;;;;;包/模块安装函数
+(defun my-require(requires)
+  "将所有需require的集中require。require：'(...)"
+  (dolist(module requires)
+    (require module)))
+
+(defun my-install-all-packages(pkgs)
+  "安装所有指定安装包。pkgs：：'...)"
+  (interactive)
+  (dolist (pkg pkgs)
+    (when (not (package-installed-p pkg))
+      (package-install pkg))))
+
+;;;;;;;;;;;;;;;;;buffer操作函数
 (defun my-get-region()
   "获取区域。如果选中文本，返回选中区域，否则为整个buffer。
 返回：'(start . end)"

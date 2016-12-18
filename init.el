@@ -1,16 +1,19 @@
-;;加载各个配置文件
-(add-to-list 'load-path "~/.emacs.d/lisp")
+;;加载各个配置文件 
+(add-to-list 'load-path "~/.emacs.d/lisp/init-prog/init-web/")
+(add-to-list 'load-path "~/.emacs.d/lisp/init-prog/")
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 (defvar *my-configs*
   '(
     init-util;;辅助函数
     init-package;;插件
-    init-mode
-    init-ui
     init-better-defaults
-    init-org
-    init-abbrev
-    init-beauty
+    init-edit-help
+    init-ui
+    init-mode
+    init-prog
     init-keybindings
+    init-beauty
+    init-abbrev
     )
   "所有需加载的配置文件")
 
