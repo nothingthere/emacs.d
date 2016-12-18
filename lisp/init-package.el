@@ -48,10 +48,6 @@
 					;设置保存文件的最大个数，默认为20
 (setq-default recentf-max-saved-items 100)
 
-;;hungry-delete
-;;(require 'hungry-delete)
-;;(global-hungry-delete-mode)
-
 ;;swiper提升搜索性能
 (ivy-mode 1)
 
