@@ -22,6 +22,7 @@
 		       session;;保存上次会话
 		       expand-region;;
 		       iedit
+		       emmet-mode
 		       )
   "所有自己需安装的包")
 
@@ -29,9 +30,10 @@
   "安装所有指定安装包"
   (interactive)
   (dolist (pkg *my-packges*)
-    (when (not (package-installed-p))
+    (when (not (package-installed-p pkg))
       (package-install pkg))))
 
+(my-install-all-packages)
 ;;;;;;;;;;;对各个包的设置
 ;;company全局打开company补全功能
 (global-company-mode t)
@@ -61,11 +63,11 @@
 (sp-local-pair '(emacs-lisp-mode common-lisp-mode) "(" nil :actions nil)
 ;;处在代码中时高亮两边的括号？？还没理解怎么用defadvice
 '(defadvice show-paren-function (around fix-show-paren-function)
-  "Highlight enclosing parens."
-  (cond ((looking-at-p "\\s(") (funcall #'show-paren-function))
-	(t (save-excursion
-	     (ignore-errors (backward-up-list))
-	     (funcall #'show-paren-function)))))
+   "Highlight enclosing parens."
+   (cond ((looking-at-p "\\s(") (funcall #'show-paren-function))
+	 (t (save-excursion
+	      (ignore-errors (backward-up-list))
+	      (funcall #'show-paren-function)))))
 '(ad-activate #'show-paren-function)
 
 ;;js2-mode
@@ -100,5 +102,8 @@
 ;;保存上次会话
 ;;(require 'session)
 ;;(add-hook 'after-init-hook 'session-initialize)
+
+;;emmet
+(require 'emmet-mode)
 ;;;;;;;;;;;
 (provide 'init-package)
