@@ -1,13 +1,9 @@
-;;;web编程语言相关配置
-(my-require
- '(
-   init-js
-   ))
-
+;;;web编程语言相关配置的通用配置
 ;;web-mode配置
 (my-install-all-packages
  '(
    web-mode
+   emmet-mode
    ))
 
 ;;web-mode设置
@@ -18,5 +14,6 @@
 		  web-mode-css-indent-offset 2
 		  web-mode-code-indent-offset 2)))
 
+;;;emmet
 ;;;
 (provide 'init-web)

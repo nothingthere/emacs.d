@@ -1,5 +1,4 @@
 ;;加载各个配置文件 
-(add-to-list 'load-path "~/.emacs.d/lisp/init-prog/init-web/")
 (add-to-list 'load-path "~/.emacs.d/lisp/init-prog/")
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (defvar *my-configs*

@@ -2,6 +2,7 @@
  '(
    init-elisp
    init-web
+   init-js
    init-markdown
    init-org
    ))
