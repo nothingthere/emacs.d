@@ -1,7 +1,7 @@
 (my-require
  '(
    init-elisp
-   init-web
+   init-html
    init-js
    init-markdown
    init-org

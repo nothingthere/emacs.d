@@ -3,3 +3,4 @@ elpa
 recentf
 .session
 abbrev_defs
+.mc-lists.el

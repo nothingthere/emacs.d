@@ -10,6 +10,7 @@
    popwin;;使光标跳转到帮助窗口
    expand-region;;
    iedit
+   multiple-cursors
    ))
 
 (my-require '
@@ -18,6 +19,7 @@
   popwin
   expand-region
   iedit
+  multiple-cursors
   ))
 
 ;;;;;;;;;;;对各个包的设置
