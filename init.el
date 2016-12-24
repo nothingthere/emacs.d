@@ -1,24 +1,36 @@
-;;加载各个配置文件 
-(add-to-list 'load-path "~/.emacs.d/lisp/init-prog/")
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-(defvar *my-configs*
-  '(
-    init-util;;辅助函数
-    init-package;;插件
-    init-better-defaults
-    init-edit-help
-    init-ui
-    init-mode
-    init-prog
-    init-keybindings
-    init-beauty
-    init-abbrev
-    )
-  "所有需加载的配置文件")
+;;; init.el --- 加载各个配置文件
+;;; Commentary:
+;;; Code:
 
-(dolist (config *my-configs*)
-  (require config))
+;; 添加文件加载路径
+(dolist (path '("~/.emacs.d/lisp/init-prog/"
+		"~/.emacs.d/lisp/"))
+  (add-to-list 'load-path path))
 
-;;;将customize文件重置位置
-;;(setq custom-file "custom.el" user-emacs-directory)
-;;;(global-auto-revert-mode 1)
+(defvar *my/init-files* nil "所有被加载的配置文件.")
+(defmacro my/require-init-files(&rest files)
+  "加载配置文件FILES:file1 file2 ..."
+  `(dolist (file ',files)
+     (require file)
+     (pushnew file *my/init-files*)))
+
+;; 将customize文件重置位置
+(setq custom-file "~/.emacs.d/custom.el")
+
+;;加载所有配置文件
+(my/require-init-files
+ init-util;;辅助函数
+ init-package;;插件
+ init-ui
+ init-restore
+ init-better-defaults
+ init-edit-help
+ init-prog
+ init-beauty
+ init-abbrev
+ init-misc
+ init-keybindings
+ ;; init-evil;;evil-mode初始化设置。可能禁用，所以放在最后
+ )
+
+;;; init.el ends here

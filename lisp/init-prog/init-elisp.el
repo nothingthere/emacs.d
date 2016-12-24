@@ -1,6 +1,6 @@
-;; elisp模式下输入单引号时只有一个但引号
+;; elisp
+;; macrostep -- 宏展开
+(my/use-package
+ (:pkg macrostep :require-p nil))
 
-(sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
-(sp-local-pair 'emacs-lisp-mode "(" nil :actions nil)
-;;
 (provide 'init-elisp)

@@ -1,25 +1,21 @@
 ;;;js和nodejs配置
-;;JS
-(my-install-all-packages
- '(
-   js2-mode;;jsIDE
-   js2-refactor;;
-   ))
-;;js2-mode
-;;(setq js2-external-variable '((t (:foreground "dark gray")))) ？？？？不能生效
 
-;;js2-refactor-mode
-;;(add-hook 'js2-mode 'js2-refactor-mode)
-;;(js2r-add-keybindings-with-prefix (kbd ""))
+;; js2-mode -- ???
+(my/use-package
+ (:pkg js2-mode)
+ (push '("\\.js\\'" . js2-mode) auto-mode-alist) ;.js文件自动使用js2-mode
+ )
 
-;;nodejs
-(my-install-all-packages
- '(
-   nodejs-repl;;在emacs中使用node执行js代码"
-   ))
+;; js2-refactor-mode -- ???
+(my/use-package
+ (:pkg js2-refactor :require-p nil)
+ )
 
-(require 'nodejs-repl)
+;;nodejs-repl -- 在emacs中使用node执行js代码
 ;;使用M-x nodejs-repl执行
 ;;M-x nodejs-repl-send-buffer执行当前文件中的js代码
-;;
+(my/use-package
+ (:pkg nodejs-repl)
+ )
+
 (provide 'init-js)

@@ -5,6 +5,5 @@
     ("me" "Claudio")
     ))
 
-
 ;;
 (provide 'init-abbrev)

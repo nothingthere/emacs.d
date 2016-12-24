@@ -1,6 +1,11 @@
 **\auto-save-list
-elpa
+**\elpa
+**\org
 recentf
 .session
 abbrev_defs
 .mc-lists.el
+.emacs.desktop
+.emacs.desktop.lock
+bookmarks
+history

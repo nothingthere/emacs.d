@@ -57,11 +57,4 @@
   (while (search-forward "\r" nil t)
     (replace-match "")))
 
-;;保存上次打开状态
-;;(require 'session)
-;;(add-hook 'after-init-hook 'session-initialize)
-;;(load "desktop")
-;;(desktop-load-default)
-;;(desktop-read) 
-;;
 (provide 'init-better-defaults)
