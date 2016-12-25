@@ -2,8 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 ;;加载common lisp库
-'(add-hook 'before-init-hook (lambda()
-			       (require 'cl)))
 ;; 如果只是简单使用(require 'cl)，会出现"cl package requred at run time"
 ;; 解决办法：
 ;; 1. http://stackoverflow.com/questions/5019724/in-emacs-what-does-this-error-mean-warning-cl-package-required-at-runtime
@@ -12,14 +10,6 @@
   (require 'cl))
 
 ;;辅助函数
-
-(defmacro my/sort-symbols(symbols)
-  "将所有的symbol按字符顺序排序"
-  `(sort ,symbols
-	 (lambda(x y)
-	   (let ((str-x (symbol-name x))
-		 (str-y (symbol-name y)))
-	     (not (string-lessp str-x str-y))))))
 
 ;;;;;;;;;;;;;;;;;;包/模块安装函数
 (defvar *my/requires* nil "所有的require.")
@@ -32,16 +22,17 @@ REQ默认与PKG同名，如果不同，使用(my/use-package :pkg PKG :req ANOTH
 2. 如果只需安装，不require，使用(my/use-package :pkg PKG :require-p nil)
 3. 如果只需require某种内置feature，使用(my/use-package :req REQ)
 !!!不清楚是否有变量捕获，是否应该使用gensym。"
+  ;;确保安装pkg
   `(progn
-     ;;确保安装pkg
-     (when ',pkg
-       (when (not (package-installed-p ',pkg))
-	 (package-install ',pkg))
-       (pushnew ',pkg *my/packages*))	;放在最后，以免包名错误还是写入
+     ,(when pkg
+	`(progn (when (not (package-installed-p ',pkg))
+		  (package-install ',pkg))
+		(pushnew ',pkg *my/packages*)))	;放在最后，以免包名错误还是写入
      ;;是否require
-     (when (and ',req ,require-p)
-       (require ',req)
-       (pushnew ',req *my/requires*))	;放在最后，以免feature不存在还是写入
+     ,(when (and req require-p)
+	`(progn
+	   (require ',req)
+	   (pushnew ',req *my/requires*)))	;放在最后，以免feature不存在还是写入
      ;;执行函数体
      ,@body))
 
@@ -135,23 +126,14 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
     (while (looking-back "[ \t]")
       (delete-char -1))))
 
-;;注释修改
-
-(defun my/comment()
-  "修改后的注释函数。
-1. 如果有选中区域，注释/去注释该区域
-2. 如果为空行，仅注释
-3. 如果在代码行末，注释并缩进
-
-缺点：不能通过快捷键去注释行末注释"
-  (interactive)
-  (cond ((my/current-line-empty-p) (comment-dwim nil)) ;如果在空行上。不能理解comment-dwim的参数该怎样设置
-	((my/at-end-of-line-p) (comment-indent))	;如果在行末，前面有内容
-	(t						;默认注释选中区域和本行
-	 (let* ((region (my/get-region-or-get-the-line-as-region))
-		(start (car region))
-		(end (cdr region)))
-	   (comment-or-uncomment-region start end)))))
+;; 链表及原子操作函数
+(defmacro my/sort-symbols(symbols)
+  "将所有的symbol按字符顺序排序"
+  `(sort ,symbols
+	 (lambda(x y)
+	   (let ((str-x (symbol-name x))
+		 (str-y (symbol-name y)))
+	     (not (string-lessp str-x str-y))))))
 
 (provide 'init-util)
 ;;; init-util.el ends here

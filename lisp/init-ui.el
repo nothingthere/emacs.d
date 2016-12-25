@@ -1,4 +1,6 @@
-;;主题theme配置
+;;; init-ui.el --- 主题theme配置
+;;; Commentary:
+;;; Code:
 ;;Solarized主题有点奇葩，一般加载主题使用的就是(load-theme 'xxx)，为啥会这样？
 ;;(require 'solarized)
 ;;(deftheme solarized-dark "The dark variant of the Solarized colour theme")
@@ -9,5 +11,5 @@
 (my/use-package
  (:pkg zenburn-theme)
  (load-theme 'zenburn t))
-;;;;;;
 (provide 'init-ui)
+;;; init-ui.el ends here

@@ -1,4 +1,6 @@
-;;;改善默认配置
+;;; init-better-defaults.el --- 改善默认配置
+;;; Commentary:
+;;; Code:
 ;;关闭菜单、工具和滚动条
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -58,3 +60,4 @@
     (replace-match "")))
 
 (provide 'init-better-defaults)
+;;; init-better-defaults.el ends here

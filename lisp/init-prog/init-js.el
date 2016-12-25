@@ -1,4 +1,6 @@
-;;;js和nodejs配置
+;;; init-js.el --- js和nodejs配置
+;;; Commentary:
+;;; Code:
 
 ;; js2-mode -- ???
 (my/use-package
@@ -19,3 +21,4 @@
  )
 
 (provide 'init-js)
+;;; init-js.el ends here

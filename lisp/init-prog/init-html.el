@@ -1,4 +1,6 @@
-;;;html文件编辑配置
+;;; init-html.el --- html文件编辑配置
+;;; Commentary:
+;;; Code:
 
 ;;web-mode -- html文件中高亮js和CSS代码，高亮CSS颜色等。
 ;;web-mode设置
@@ -37,5 +39,6 @@
  (add-hook 'web-mode-hook 'emmet-mode);使用web-mode时自动加载
  (add-hook 'css-mode-hook  'emmet-mode);;编写css时使用缩写
  )
-;;;
+
 (provide 'init-html)
+;;; init-html.el ends here

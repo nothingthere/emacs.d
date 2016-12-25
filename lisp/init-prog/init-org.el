@@ -1,4 +1,6 @@
-;;;org配置
+;;; init-org.el --- org配置
+;;; Commentary:
+;;; Code:
 ;;org-mode -- YES
 
 (my/use-package
@@ -27,5 +29,5 @@
  (setq org-pomodoro-format "剩余时间~%s") ;显示格式
  )
 
-;;
 (provide 'init-org)
+;;; init-org.el ends here

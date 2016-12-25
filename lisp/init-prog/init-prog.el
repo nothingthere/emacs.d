@@ -4,11 +4,12 @@
 
 (my/require-init-files
  init-elisp
- init-html
- init-js
- init-markdown
+ ;; init-html
+ ;; init-js
+ ;; init-markdown
  init-org
  init-check
+ init-comment
  )
 
 (provide 'init-prog)

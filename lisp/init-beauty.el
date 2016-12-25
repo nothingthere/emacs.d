@@ -1,7 +1,6 @@
-;;代码美化配置
-
-;;;;;
-
+;;; init-beauty.el --- 代码美化配置
+;;; Commentary:
+;;; Code:
 (defun beauty-delete-extra-whitespaces()
   "删除buffer多余空行，且同时删除行末多余空格。"
   (interactive)
@@ -43,5 +42,5 @@
 ;;    (beautify)
 ;;    )
 
-;;;
 (provide 'init-beauty)
+;;; init-beauty.el ends here

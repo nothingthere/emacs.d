@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: ifcomment:emacs 配置文件注释格式
+# key: ifcomment
+# --
+;;; $1.el --- $2
+;;; Commentary:
+;;; Code:
+$3
+(provide '$1)
+;;; $1.el ends here

@@ -75,6 +75,33 @@
  (:pkg yasnippet)
  (yas-reload-all)
  (add-hook 'prog-mode-hook 'yas-minor-mode)
+ ;; 1.组织:http://joaotavora.github.io/yasnippet/snippet-organization.html
+ ;; 为提高加载速度，不加载yasnipets安装包内的snippets内容
+ ;; ！！！不过需手动设置.emacs.d/snippets内容TODO
+ ;; (setf yas-snippet-dirs (concat user-emacs-directory "snippents"))
+ ;;除需要的mode外，在其他mode对应的文件夹下创建.yas-skip空文件，不加载该文件
+ ;; (defvar *my/yas-modes* '() "需要使用snippets的mode")
+ ;;编译文件TODO
+
+ ;; 2.扩张:http://joaotavora.github.io/yasnippet/snippet-organization.html
+ ;; 默认补全快捷键为<tab>，对应函数为yas-expand
+ ;;取消掉没有补全备选时的默认行为，
+ (setq yas-fallback-behavior nil)	;nil表示不做任何行为
+ ;; 查看当前mode下所有snippets的函数为： yas-insert-snippet
+ ;;使用hippie-expand备选
+ ;; (push 'yas-hippie-try-expand hippie-expand-try-functions-list)
+ ;; 使用不在当前没有的mode的snippets用法：
+ ;; (add-hook '当前的-minor-mode-hook
+ ;; 	   #'(lambda ()
+ ;; 	       (yas-activate-extra-mode '需要的-mode)))
+ 
+ )
+
+;; helm-c-yansnippet -- 在下拉菜单选取snippets
+(my/use-package
+ (:pkg helm-c-yasnippet)
+ (setq helm-yas-space-match-any-greedy t) ;贪婪匹配
+
  )
 
 (provide 'init-edit-help)

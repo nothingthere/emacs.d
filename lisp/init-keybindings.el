@@ -105,8 +105,9 @@
 		 (mwe:open-command-log-buffer)
 		 (current-buffer old-buffer)))))
   ;;注释行
-  ("M-;" my/comment)
-
+  ("M-;" my/comment-or-uncomment)
+  ;; helm-yas-complete 在下拉菜单选取snippets
+  ("C-c y" helm-yas-complete yas-minor-mode-map)
   ;; 保存前美化
   ("C-x C-s" (lambda()
 	       (interactive)
@@ -117,9 +118,6 @@
   ;;;;;;KEYS ENDS HERE
   ))
 
-;;yasnippet
-;; ("C-c y" yas-expand prog-mode-
-;; (define-key yas-minor-mode-map (kbd "C-c y") 'yas-expand)
 ;;修改company选中快捷键
 (with-eval-after-load 'company
   (define-key company-active-map (kbd "M-p") nil)
@@ -127,5 +125,10 @@
   (define-key company-active-map (kbd "C-p") #'company-select-previous)
   (define-key company-active-map (kbd "C-n") #'company-select-next))
 
+;; 去除yasnippet的默认快捷键配置
+(dolist (key '("<tab>" "TAB"))
+  (define-key yas-minor-mode-map (kbd key) nil))
+
+;;;
 (provide 'init-keybindings)
 ;;; init-keybindings ends here
