@@ -8,7 +8,7 @@
  ;; init-js
  ;; init-markdown
  init-org
- init-check
+ ;; init-check
  init-comment
  )
 

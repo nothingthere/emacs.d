@@ -42,5 +42,14 @@
 ;;    (beautify)
 ;;    )
 
+(my/set-keys
+ ("C-x C-s" (lambda()
+	      (interactive)
+	      (beautify)
+	      (save-buffer))
+  "保存文件前美化"
+  prog-mode-map org-mode-map)
+ )
+
 (provide 'init-beauty)
 ;;; init-beauty.el ends here

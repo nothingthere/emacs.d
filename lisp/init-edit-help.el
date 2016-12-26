@@ -4,10 +4,17 @@
 
 ;; company -- 自动补全插件
 (my/use-package
- (:pkg company :require-p nil)		;自动加载，所以不要require
+ (:pkg company
+       :require-p nil			;自动加载，所以不要require
+       :keys
+       (("M-p" nil "禁用M-p向上选择" company-active-map)
+	("M-n" nil "禁用M-n向下选择" company-active-map)
+	("C-p" company-select-previous "向上选择" company-active-map)
+	("C-n" company-select-next "向上选择" company-active-map)
+ 	))
  (global-company-mode t)
  (setq-default company-idle-delay 0.01	;等待时间"秒"
-	       company-minimum-prefix-length 1);输入多少个字符时激活
+	       company-minimum-prefix-length 3);输入多少个字符时激活
  )
 
 ;;recentf --启用保存最近打开文档，下次打开时可快速打开
@@ -19,7 +26,9 @@
 
 ;; swiper --- 3件套：swiper ivy counsel
 (my/use-package
- (:pkg swiper :require-p nil)
+ (:pkg swiper
+       :require-p nil
+       :keys (("C-s" swiper "搜索命令")))
  )
 (my/use-package
  (:pkg ivy :require-p nil)
@@ -28,7 +37,12 @@
  )
 
 (my/use-package
- (:pkg counsel :require-p nil)
+ (:pkg counsel
+       :require-p nil
+       :keys (("C-c g" counsel-git "获取处在git项目中的文件")
+	      ("M-s i" counsel-imenu "获取当前文档索引（函数定义...）")
+	      ))
+
  )
 
 ;; smartparens -- 自动补全括号
@@ -57,35 +71,39 @@
 
 ;; expand-region -- 方便选中文本
 (my/use-package
- (:pkg expand-region)
+ (:pkg expand-region
+       :keys (("C-c =" er/expand-region "方便选择文本")))
  )
 
 ;; multiple-cursors -- 多行编辑
 (my/use-package
- (:pkg multiple-cursors))
+ (:pkg multiple-cursors
+       :keys (("C-c ;" mc/mark-all-dwim "标记所有相同")
+	      ("C-c d" mc/mark-next-like-this "标记下一个")
+	      ("C-c D" mc/skip-to-next-like-this "跳过此处")))
+ )
 
 ;; helm-ag -- 项目内快速搜索
 (my/use-package
- (:pkg helm-ag :require-p nil)
+ (:pkg helm-ag
+       :require-p nil
+       :keys (("C-x f" helm-ag-project-root "在项目内全局查找")))
+
  (my/ensure-system-configed "ag" :pkg-name "helm-ag" :apt-name "silversearcher-ag")
  )
 
 ;; yasnippet -- snippets片段补全
 (my/use-package
- (:pkg yasnippet)
+ (:pkg yasnippet
+       :keys (("<tab>" nil "禁用yansnippets默认键" yas-minor-mode-map)
+	      ("TAB" nil "禁用yansnippets默认键" yas-minor-mode-map)
+	      ))
  (yas-reload-all)
+
  (add-hook 'prog-mode-hook 'yas-minor-mode)
  ;; 1.组织:http://joaotavora.github.io/yasnippet/snippet-organization.html
- ;; 为提高加载速度，不加载yasnipets安装包内的snippets内容
- ;; ！！！不过需手动设置.emacs.d/snippets内容TODO
- ;; (setf yas-snippet-dirs (concat user-emacs-directory "snippents"))
- ;;除需要的mode外，在其他mode对应的文件夹下创建.yas-skip空文件，不加载该文件
- ;; (defvar *my/yas-modes* '() "需要使用snippets的mode")
- ;;编译文件TODO
-
  ;; 2.扩张:http://joaotavora.github.io/yasnippet/snippet-organization.html
  ;; 默认补全快捷键为<tab>，对应函数为yas-expand
- ;;取消掉没有补全备选时的默认行为，
  (setq yas-fallback-behavior nil)	;nil表示不做任何行为
  ;; 查看当前mode下所有snippets的函数为： yas-insert-snippet
  ;;使用hippie-expand备选
@@ -95,14 +113,34 @@
  ;; 	   #'(lambda ()
  ;; 	       (yas-activate-extra-mode '需要的-mode)))
  
+ ;; helm-c-yansnippet -- 在下拉菜单选取snippets
+ (my/use-package
+  (:pkg helm-c-yasnippet
+	:keys (("C-c y" helm-yas-complete "helm-yas-complete使用下拉菜单选取snippets"
+		yas-minor-mode-map)))
+  (setq helm-yas-space-match-any-greedy t) ;贪婪匹配
+  )
+ ;; end helm-c-yasnippet
  )
 
-;; helm-c-yansnippet -- 在下拉菜单选取snippets
-(my/use-package
- (:pkg helm-c-yasnippet)
- (setq helm-yas-space-match-any-greedy t) ;贪婪匹配
-
- )
+(my/set-keys ("C-c TAB" hippie-expand "打开hippie-expand")
+	     ("M-s o" (lambda()()
+			(interactive)
+			(push (if(region-active-p)
+				  (buffer-substring-no-properties (region-beginning) (region-end))
+				(let((sym (thing-at-point 'symbol)))
+				  (if (stringp sym)
+				      (regexp-quote sym)
+				    sym)))
+			      regexp-history)
+			(call-interactively 'occur))
+	      "提升occur-mode性能，默认备选为选择/光标处单词")
+	     ("M-;" my/comment-or-uncomment "注释优化")
+	     ("<up>" windmove-up "移到上一个窗口")
+	     ("<down>" windmove-down "移到下一个窗口")
+	     ("<left>" windmove-left "移到左边窗口")
+	     ("<right>" windmove-right "移到右边")
+	     )
 
 (provide 'init-edit-help)
 ;;; init-edit-help.el ends here

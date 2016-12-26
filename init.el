@@ -27,10 +27,7 @@
  init-edit-help
  init-prog
  init-beauty
- ;; init-abbrev
  init-misc
- init-keybindings
- ;; init-evil;;evil-mode初始化设置。可能禁用，所以放在最后
  )
 
 ;;; init.el ends here

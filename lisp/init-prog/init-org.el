@@ -4,7 +4,17 @@
 ;;org-mode -- YES
 
 (my/use-package
- (:req org)
+ (:req org
+       :keys (("C-c t" (lambda()
+			 (interactive)
+			 (org-agenda nil "t"))
+	       "获取所有日程事项")
+	      ("C-c C-d" (lambda()
+			   (interactive)
+			   (org-capture nil "d"))
+	       "新建日常事项")
+	      
+	      ))
  (setq org-src-fontify-natively t)	;代码块语法高亮
  ;;设置org agenda的默认文件夹
  (setq
