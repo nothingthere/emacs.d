@@ -46,18 +46,5 @@
 ;;;;在方便在同时打开的两个dired中复制文件
 (setq dired-dwim-target t)
 
-;;隐藏和删除DOS换行符
-(defun hidden-dos-eol()
-  "不显示DOS换行符"
-  (interactive)
-  (setq buffer-display-table (make-display-table))
-  (aset buffer-display-table ?\^M []))
-(defun remove-dos-eof()
-  "替换DOS的换行符"
-  (interactive)
-  (goto-char (point-min))
-  (while (search-forward "\r" nil t)
-    (replace-match "")))
-
 (provide 'init-better-defaults)
 ;;; init-better-defaults.el ends here

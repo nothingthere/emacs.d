@@ -1,13 +1,18 @@
 ;;; init-elisp.el --- emacs 配置
 ;;; Commentary:
 ;;; Code:
-(my/use-package
- (:pkg macrostep
-       :require-p nil
-       :keys
-       (("C-c e" macrostep-expand  "宏扩展"  emacs-lisp-mode-map lisp-interaction-mode-map)
-	))
- )
+
+
+;; macrostep -- 宏扩展
+(use-package macrostep			
+  :ensure t
+  :bind (:map emacs-lisp-mode-map
+	      ("C-c e" . macrostep-expand)
+	      :map lisp-interaction-mode-map
+	      ("C-c e" . macrostep-expand)))
+
+
+
 
 (provide 'init-elisp)
 ;;; init-elisp.el ends here

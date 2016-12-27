@@ -7,9 +7,12 @@
 ;;(create-solarized-theme 'dark 'solarized-dark)
 ;;(provide-theme 'solarized-dark)
 ;;使用zenburn主题主要是为了兼容非图像界面使用问题
+
 ;; zenburn-them -- zenbutn主题
-(my/use-package
- (:pkg zenburn-theme)
- (load-theme 'zenburn t))
+(use-package zenburn-theme
+  :ensure t
+  :config
+  (load-theme 'zenburn t))
+
 (provide 'init-ui)
 ;;; init-ui.el ends here

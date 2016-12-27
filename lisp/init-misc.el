@@ -2,8 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 ;; 2048-game -- 2048游戏
-(my/use-package
- (:pkg 2048-game :require-p nil))
+(use-package 2048-game
+  :ensure nil)
 
 (provide 'init-misc)
 ;;; init-misc.el ends here

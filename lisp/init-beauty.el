@@ -36,20 +36,11 @@
       ;;对齐
       (indent-region (car region) (cdr region)))))
 
-;; 希望自在prog-mode下才生效，所以使用defadvice整体改变不佳
-;; (defadvice save-buffer(before beautify-buffer-before-save activate)
-;;    "保存buffer前先美化。"
-;;    (beautify)
-;;    )
-
-(my/set-keys
- ("C-x C-s" (lambda()
-	      (interactive)
-	      (beautify)
-	      (save-buffer))
-  "保存文件前美化"
-  prog-mode-map org-mode-map)
- )
+(defun beautify-before-save()
+  "保存前美化."
+  (interactive)
+  (beautify)
+  (save-buffer))
 
 (provide 'init-beauty)
 ;;; init-beauty.el ends here

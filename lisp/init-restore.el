@@ -12,7 +12,6 @@
  desktop-restore-frames t
  )
 
-;;;
 (savehist-mode 1) ;;退出前，保存minibuffer命令
 
 (provide 'init-restore)
