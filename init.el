@@ -11,8 +11,11 @@
 
 ;; 使用use-package管理插件
 (use-package use-package
-  :ensure t
   :config
+  (setq use-package-verbose t		;启动时在*Message*中显示加载时间
+	use-package-always-ensure t 	;所有包都需安装后才能使用
+	use-package-always-defer t	;所有包都延迟加载
+	)
   (eval-when-compile
     (require 'use-package))
   (require 'diminish) ;;使用:diminish关键字
@@ -27,11 +30,12 @@
   (add-to-list 'load-path path))
 
 (defvar *my/init-files* nil "所有被加载的配置文件.")
+
 (defmacro my/require-init-files(&rest files)
   "加载配置文件FILES:file1 file2 ..."
   `(dolist (file ',files)
      (require file)
-     (push file *my/init-files*)))
+     (add-to-list '*my/init-files* file t))) ;第三个参数使文件添加到链表最后
 
 ;; 将customize文件重置位置
 (setq custom-file "~/.emacs.d/custom.el")
@@ -41,14 +45,11 @@
  init-util;;辅助函数
  init-ui
  init-restore
-
  init-better-defaults
  init-edit-help
  init-beauty
  init-prog
-
-;;; init-misc
-
+ init-misc
  )
 
 ;;; init.el ends here

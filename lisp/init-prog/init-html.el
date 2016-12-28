@@ -7,7 +7,6 @@
 ;;使用说明页面：http://web-mode.org/
 ;;html文件自动使用web-mode
 (use-package web-mode
-  :ensure t
   :config
   ;;编辑纯html文件
   (add-to-list 'auto-mode-alist
@@ -34,7 +33,6 @@
 ;;C-M-left emmet-prev-edit-point
 ;;C-M-right emmet-next-edit-point
 (use-package emmet-mode
-  :ensure t
   :config
   ;;(setq emmet-move-cursor-between-quotes t)
   (add-hook 'web-mode-hook 'emmet-mode);使用web-mode时自动加载

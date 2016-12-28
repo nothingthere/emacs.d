@@ -7,11 +7,25 @@
  init-html
  init-js
  init-markdown
+ ;; init-golang
  init-org
  init-check
  )
 
-(bind-key "C-x C-s" 'beautify-before-save prog-mode-map)
+;; multi-term -- 方便打开命令行
+(use-package multi-term
+  :config
+  (setq multi-term-program "/bin/bash")
+  :bind (("M-!" . multi-term))
+  )
+
+;; magit -- github工具
+(use-package magit
+  :init
+  (my/ensure-system-configed "git" :pkg-name "magit")
+  :bind
+  (("C-x g" . magit-status))
+  )
 
 (provide 'init-prog)
 ;;; init-prog.el ends here

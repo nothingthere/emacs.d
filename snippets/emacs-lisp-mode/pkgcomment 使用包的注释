@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: pkgcomment 使用包的注释
+# key: pkgcomment
+# --
+;; $1 -- $2
+$3

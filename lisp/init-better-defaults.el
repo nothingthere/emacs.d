@@ -1,30 +1,9 @@
 ;;; init-better-defaults.el --- 改善默认配置
 ;;; Commentary:
 ;;; Code:
-;;关闭菜单、工具和滚动条
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
-(setq inhibit-splash-screen t)
-;;(global-linum-mode t)
-
-;;改变光标样式
-					;setq 和 setq-default 的区别：
-					;对于buffer.local的变量，使用setq只在当前buffer中有效
-(setq-default cursor-type 'bar)
 
 ;;禁用备份文件
 (setq make-backup-files nil)
-
-;;开启时全屏显示
-(setq
- initial-frame-alist '((fullscreen . maximized)))
-
-;;高亮匹配括号
-(add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
-
-;;高亮当前行
-(global-hl-line-mode t)
 
 ;;关闭移动到顶部/底部时的警告音
 (setq ring-bell-function 'ignore)
