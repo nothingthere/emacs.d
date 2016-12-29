@@ -4,12 +4,13 @@
 
 (my/require-init-files
  init-elisp
- init-html
- init-js
- init-markdown
+ ;; init-html
+ ;; init-js
+ ;; init-markdown
  ;; init-golang
+ ;; init-python
  init-org
- init-check
+ ;; init-check
  )
 
 ;; multi-term -- 方便打开命令行

@@ -50,12 +50,29 @@
 	  ;; 删除buffer末空行
 	  (beauty/delete-top/bottom-blanklines :bottom t))))
 
+(defun beauty/indent-buffer()
+  "调整整个buffer的缩进."
+  (interactive)
+  (save-restriction
+	(widen)
+	(indent-region (point-min) (point-max))))
+
 (defun beautify()
   "美化buffer并保存"
   (interactive)
   (beauty/delete-extra-spaces))
 
-(add-hook 'before-save-hook 'beautify)
+(defvar *my/beautify-mode-blacklist*
+  '(go-mode python-mode)
+  "所有不执行保存前自动美化的major mode.")
+
+(add-hook 'before-save-hook
+		  (lambda()
+			(beauty/indent-buffer)
+			(beautify)))
+
+;; (unless (find major-mode *my/beautify-mode-blacklist*)
+;;   (beautify))))
 
 (provide 'init-beauty)
 ;;; init-beauty.el ends here

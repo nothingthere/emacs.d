@@ -22,6 +22,11 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
 	    "为使用插件%s，请先在系统上执行安装:sudo apt install %s"
 	    pkg-name apt-name))))
 
+(cl-defmacro my/with-pkg-enabled(pkg &body body)
+  `(if (package-installed-p ',pkg)
+	   ,@body
+	 (error (format "需先安装%S" pkg))))
+
 ;;;;;;;;;;;;;;;;;buffer操作函数
 (defun my/get-region()
   "获取区域。如果选中文本，返回选中区域，否则为整个buffer。

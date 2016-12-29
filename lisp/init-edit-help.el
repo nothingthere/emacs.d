@@ -4,18 +4,27 @@
 
 ;; company -- 自动补全插件
 (use-package company
-  ;; :demand t
   :init
   (add-hook 'after-init-hook 'global-company-mode)
-  :config
-  (setq-default company-idle-delay 0.01;等待时间"秒"
-				company-minimum-prefix-length 3);输入多少个字符时激活
   :bind
   (:map company-active-map
 		("M-p" . nil)
 		("M-n" . nil)
 		("C-p" . company-select-previous)
 		("C-n" . company-select-next))
+  :config
+  (setq-default company-idle-delay 0.01;等待时间"秒"
+				company-minimum-prefix-length 1);输入多少个字符时激活
+
+  ;; !!! 在图像界面下才能使用
+  ;; company-quickhelp -- 代码提示功能
+  ;; (use-package company-quickhelp
+  ;; 	:demand 1
+  ;; 	:config
+  ;; 	(bind-key "M-h" 'company-quickhelp-manual-begin
+  ;; 			  company-active-map
+  ;; 			  (featurep 'company)))
+
   )
 
 ;; yasnippet -- snippets片段补全
@@ -68,6 +77,10 @@
   :config
   :bind (("C-c g" . counsel-git)
 		 ("M-s i" . counsel-imenu)
+		 ;; 与此快捷键的默认相比添加了^通配符
+		 ("C-h f" . counsel-describe-function)
+		 ("C-h v" . counsel-describe-variable)
+		 ("C-x C-f" . counsel-find-file)
 		 )
   )
 
@@ -123,6 +136,12 @@
   )
 ;; acs-pinyin -- ？？？？
 (use-package ace-pinyin)
+
+;; which-key -- 当按下快捷键忘记后面键位时，停留后显示提示
+(use-package which-key
+  :demand t
+  :config
+  (which-key-mode))
 
 ;;;;;;方便编辑的快捷键
 
