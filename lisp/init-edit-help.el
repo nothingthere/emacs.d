@@ -8,8 +8,8 @@
   (add-hook 'after-init-hook 'global-company-mode)
   :bind
   (:map company-active-map
-		("M-p" . nil)
-		("M-n" . nil)
+		;; ("M-p" . nil)
+		;; ("M-n" . nil)
 		("C-p" . company-select-previous)
 		("C-n" . company-select-next))
   :config
@@ -35,8 +35,10 @@
 			  ("TAB" . nil))
 
   :config
+  ;; (defvar *my/yas-mode-hooks* '(prog-mode-hook org-mode-hook) "使用yasnippets的所有Major mode.")
   (yas-reload-all)
   (add-hook 'prog-mode-hook 'yas-minor-mode)
+
   (setq yas-fallback-behavior nil)
 
   ;; 将yasnippets的内容添加到company的备选中
@@ -78,6 +80,7 @@
   :bind (("C-c g" . counsel-git)
 		 ("M-s i" . counsel-imenu)
 		 ;; 与此快捷键的默认相比添加了^通配符
+		 ("M-x" . counsel-M-x)
 		 ("C-h f" . counsel-describe-function)
 		 ("C-h v" . counsel-describe-variable)
 		 ("C-x C-f" . counsel-find-file)
@@ -88,7 +91,7 @@
 (use-package smartparens
   :demand t
   :config
-  (smartparens-global-strict-mode t)
+  ;; (smartparens-global-strict-mode t)
   ;; elisp 和 common-lisp 中不自动补全单引号、反引号和括号
   (dolist (X '("'" "`" "("))
     (sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) X nil :actions nil))
@@ -112,15 +115,15 @@
 
 ;; expand-region -- 方便选中文本
 (use-package expand-region
-  :bind
   :bind ("C-c =" . er/expand-region)
   )
 
 ;; multiple-cursors -- 多行编辑
 (use-package multiple-cursors
-  :bind (("C-c ;" . mc/mark-all-dwim)
-		 ("C-c d" . mc/mark-next-like-this)
-		 ("C-c D" . mc/skip-to-next-like-this))
+  :bind
+  (("C-c ;" . mc/mark-all-dwim)
+   ("C-c d" . mc/mark-next-like-this)
+   ("C-c D" . mc/skip-to-next-like-this))
   )
 
 ;; helm-ag -- 项目内快速搜索

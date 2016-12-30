@@ -11,27 +11,36 @@
    org-directory "~/.emacs.d/org/" ;;org的默认文件夹
    *my/org-agenda-directory* (concat org-directory "agenda/")
    org-agenda-files (list *my/org-agenda-directory*));;org agenda 的文件夹
-
+  ;; 打开自动换行
+  (add-hook 'org-mode-hook 'auto-fill-mode)
   ;;设置capture
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-capture-templates
-	'(("j" "生活安排(Journal)" entry (file+headline (concat *my/org-agenda-directory* "生活安排.org") "生活安排")
-	   "* TODO %? %T")
-	  ("d" "每日安排(Daily)" entry (file+headline (concat *my/org-agenda-directory* "每日安排.org") "每日安排")
-	   "* TODO %? %T")
-	  ("s" "学习安排(Study)" entry (file+headline (concat *my/org-agenda-directory* "学习安排.org") "学习安排")
-	   "* TODO %?\n %t \n %a")))
+		'(("j" "生活安排(Journal)" entry (file+headline (concat *my/org-agenda-directory* "生活安排.org") "生活安排")
+		   "* TODO %? %T")
+		  ("d" "每日安排(Daily)" entry (file+headline (concat *my/org-agenda-directory* "每日安排.org") "每日安排")
+		   "* TODO %? %T")
+		  ("s" "学习安排(Study)" entry (file+headline (concat *my/org-agenda-directory* "学习安排.org") "学习安排")
+		   "* TODO %?\n %t \n %a")))
+  ;; 自动补全
+  (add-hook 'org-mode-hook 'yas-minor-mode)
   ;; 使用:bind关键字时，不能使用匿名函数作为执行函数
   (bind-keys
    ("C-c t" . (lambda()
-		"打开所有未完成任务."
-		(interactive)
-		(org-agenda nil "t")))
+				"打开所有未完成任务."
+				(interactive)
+				(org-agenda nil "t")))
    ("C-c C-d" .  (lambda()
-		   "新建日常任务."
-		   (interactive)
-		   (org-capture nil "d")))
+				   "新建日常任务."
+				   (interactive)
+				   (org-capture nil "d")))
    )
+  :bind
+  (:map org-mode-map
+		;; ("C-c =" . nil)
+		("C-c =" . er/expand-region)
+		;; ("C-c ;" . nil)
+		("C-c ;" . mc/mark-all-dwim))
   )
 
 ;; org-pomodoro -- 番茄工作坊

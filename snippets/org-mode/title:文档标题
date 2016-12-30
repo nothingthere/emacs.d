@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: title:文档标题
+# key: title
+# --
+#TITLE: $1
+$2
