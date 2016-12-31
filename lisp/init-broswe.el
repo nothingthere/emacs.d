@@ -20,7 +20,7 @@
 (defmacro my/install-search-engin(search-engin-name search-engin-url search-engin-prompt)
   "定义一些不同浏览器的搜索函数.
 如果要使用"
-  `(defun ,(intern (format "%s" search-engin-name))()
+  `(defun ,(intern (format "@%s" search-engin-name))()
 	 ,(format "通过%s搜索" search-engin-name)
 	 (interactive)
 	 ;; 如果需使用google，要配合lantern一起使用
@@ -40,7 +40,7 @@
 (my/install-search-engin "github" "https://github.com/search?q=" "GitHub 搜索: ")
 (my/install-search-engin "google" "http://www.google.com/search?q=" "谷歌: ")
 (my/install-search-engin "melpa" "http://melpa.org/#/" "Melpa：")
-(my/install-search-engin "my-repo" "https://github.com/nothingthere/" "我的项目： ")
+(my/install-search-engin "repo" "https://github.com/nothingthere/" "我的项目： ")
 
 (provide 'init-broswe)
 ;;; init-broswe.el ends here

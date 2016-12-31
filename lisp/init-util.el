@@ -35,6 +35,14 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
 	`(error (format "需先安装%S插件" ',pkg))))
 
 ;;;;;;;;;;;;;;;;;buffer操作函数
+(cl-defmacro my/with-save-everything+widen(&body body)
+  "save-excursion + save-restriction + widen再执行BODY."
+  `(save-excursion
+	 (save-restriction
+	   (widen)
+	   ,@body))
+  )
+
 (defun my/get-region()
   "获取区域。如果选中文本，返回选中区域，否则为整个buffer。
 返回：'(start . end)"

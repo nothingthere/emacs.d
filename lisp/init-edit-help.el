@@ -44,7 +44,7 @@
 
   ;; 将yasnippets的内容添加到company的备选中
   ;; https://github.com/syl20bnr/spacemacs/pull/179
-  (my/with-pkg-enabled
+  (my/with-pkg-enabled					;当company启动后才使用
    company
    (defvar company-mode/enable-yas t
 	 "Enable yasnippet for all backends.")
@@ -95,6 +95,7 @@
   :demand t
   :config
   ;; (smartparens-global-strict-mode t)
+  (smartparens-global-mode t)
   ;; elisp 和 common-lisp 中不自动补全单引号、反引号和括号
   (dolist (X '("'" "`" "("))
     (sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) X nil :actions nil))
