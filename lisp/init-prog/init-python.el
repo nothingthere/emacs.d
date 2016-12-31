@@ -14,9 +14,11 @@
 (use-package company-anaconda
   :demand t
   :config
-  (add-hook 'company-mode-hook
-			(lambda()
-			  (add-to-list 'company-backends '(company-anaconda :with company-yasnippet))))
+  (my/with-pkg-enabled
+   company
+   (add-hook 'company-mode-hook
+			 (lambda()
+			   (add-to-list 'company-backends '(company-anaconda :with company-yasnippet)))))
   )
 
 (provide 'init-python)

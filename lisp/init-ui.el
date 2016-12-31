@@ -21,9 +21,6 @@
 
 ;;高亮当前行
 (global-hl-line-mode t)
-;; 设置当前行的颜色。使用zenburn主题后，高亮当前行的解决办法。
-;; 参考地址：http://stackoverflow.com/questions/2718189/emacshighlight-the-current-line-by-underline-it
-(set-face-attribute hl-line-face nil  :background "#000")
 
 ;;高亮匹配括号
 (show-paren-mode)
@@ -44,6 +41,9 @@
   :demand t				;马上需要
   :config
   (load-theme 'zenburn t)
+  ;; 设置当前行的颜色。使用zenburn主题后，高亮当前行的解决办法。
+  ;; 参考地址：http://stackoverflow.com/questions/2718189/emacshighlight-the-current-line-by-underline-it
+  (set-face-attribute hl-line-face nil  :background "#000")
   )
 
 (provide 'init-ui)

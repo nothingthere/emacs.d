@@ -23,7 +23,7 @@
 ;; magit -- github工具
 (use-package magit
   :init
-  (my/ensure-system-configed "git" :pkg-name "magit")
+  (my/with-system-enabled ("git" :pkg-name "magit"))
   :bind
   (("C-x g" . magit-status))
   )

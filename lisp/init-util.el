@@ -14,18 +14,25 @@
 
 ;;;;;;;;;;;;;;;;;;包/模块安装函数
 
-(cl-defun my/ensure-system-configed(app &key (pkg-name "XXX") (apt-name app))
+(defun my/shell-result-empty-p(cmd-string)
+  "使用shell-command-to-string执行CMD-STRING后的结果是否为空字符串."
+  (zerop
+   (length (shell-command-to-string cmd-string))))
+
+(cl-defmacro my/with-system-enabled((app &key (pkg-name "XXX") (apt-name app)) &body body)
   "确保系统安装了APP，如果APP有其他名字，需提供APT-NAME.
 cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Argument-Lists.html。"
-  (when (zerop (length (shell-command-to-string (format "which %s" app))))
-    (error (format
-	    "为使用插件%s，请先在系统上执行安装:sudo apt install %s"
-	    pkg-name apt-name))))
+  (if (my/shell-result-empty-p (format "which %s" app))
+	  `(error (format
+			   "为使用插件%s，请先在系统上执行安装:sudo apt install %s"
+			   ,pkg-name ,apt-name))
+	`(progn ,@body)))
 
 (cl-defmacro my/with-pkg-enabled(pkg &body body)
-  `(if (package-installed-p ',pkg)
-	   ,@body
-	 (error (format "需先安装%S" pkg))))
+  (if (package-installed-p pkg)
+	  `(progn
+		 ,@body)
+	`(error (format "需先安装%S插件" ',pkg))))
 
 ;;;;;;;;;;;;;;;;;buffer操作函数
 (defun my/get-region()
@@ -41,8 +48,8 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
 返回值为：'(start . end)"
   (interactive)
   (cond ((region-active-p);;将选中区
-	 (cons (region-beginning) (region-end)))
-	(t (cons (line-beginning-position) (line-end-position)))))
+		 (cons (region-beginning) (region-end)))
+		(t (cons (line-beginning-position) (line-end-position)))))
 
 (defun my/current-line-empty-p ()
   "判断当前行是否为空行.
@@ -62,8 +69,8 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
   "删除字符串STR末尾的空白字符.
 来源：https://www.emacswiki.org/emacs/ElispCookbook#toc6"
   (replace-regexp-in-string (rx (* (any " \t")) eos)
-			    ""
-			    str))
+							""
+							str))
 (defun my/line-trim-end()
   "删除当前行末尾的空白字符，保留换行符。
 经验：光标处在行末时，后面一个字符才是空白字符"
@@ -78,10 +85,10 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
 (defmacro my/sort-symbols(symbols)
   "将所有的symbol按字符顺序排序"
   `(sort ,symbols
-	 (lambda(x y)
-	   (let ((str-x (symbol-name x))
-		 (str-y (symbol-name y)))
-	     (not (string-lessp str-x str-y))))))
+		 (lambda(x y)
+		   (let ((str-x (symbol-name x))
+				 (str-y (symbol-name y)))
+			 (not (string-lessp str-x str-y))))))
 
 (provide 'init-util)
 ;;; init-util.el ends here

@@ -18,12 +18,13 @@
 
   ;; !!! 在图像界面下才能使用
   ;; company-quickhelp -- 代码提示功能
-  ;; (use-package company-quickhelp
-  ;; 	:demand 1
-  ;; 	:config
-  ;; 	(bind-key "M-h" 'company-quickhelp-manual-begin
-  ;; 			  company-active-map
-  ;; 			  (featurep 'company)))
+  (when (display-graphic-p)
+	(use-package company-quickhelp
+	  :demand 1
+	  :config
+	  (bind-key "M-h" 'company-quickhelp-manual-begin
+				company-active-map
+				(featurep 'company))))
 
   )
 
@@ -43,16 +44,18 @@
 
   ;; 将yasnippets的内容添加到company的备选中
   ;; https://github.com/syl20bnr/spacemacs/pull/179
-  (defvar company-mode/enable-yas t
-    "Enable yasnippet for all backends.")
+  (my/with-pkg-enabled
+   company
+   (defvar company-mode/enable-yas t
+	 "Enable yasnippet for all backends.")
 
-  (defun company-mode/backend-with-yas (backend)
-    "将yasnipets的补全添加到compny中."
-    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-		backend
-      (append (if (consp backend) backend (list backend))
-			  '(:with company-yasnippet))))
-  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+   (defun company-mode/backend-with-yas (backend)
+	 "将yasnipets的补全添加到compny中."
+	 (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+		 backend
+	   (append (if (consp backend) backend (list backend))
+			   '(:with company-yasnippet))))
+   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
   ;; end 将yasnippets备选添加到company中
 
   )
@@ -129,7 +132,7 @@
 ;; helm-ag -- 项目内快速搜索
 (use-package helm-ag
   :init
-  (my/ensure-system-configed "ag" :pkg-name "helm-ag" :apt-name "silversearcher-ag")
+  (my/with-system-enabled ("ag" :pkg-name "helm-ag" :apt-name "sulversearch-ag"))
   :bind ("C-x f" . helm-ag-project-root)
   )
 
