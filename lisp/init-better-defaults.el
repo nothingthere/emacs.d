@@ -5,6 +5,8 @@
 ;; 退出emacs前确认
 (setq confirm-kill-emacs 'yes-or-no-p)
 
+;; (setq Info-history-skip-intermediate-nodes nil)
+
 ;; 启用显示当前列数
 (column-number-mode)
 ;;禁用备份文件

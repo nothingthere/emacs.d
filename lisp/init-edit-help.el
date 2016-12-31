@@ -75,7 +75,7 @@
 (use-package ivy
   :config
   (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
+  (setq ivy-use-virtual-buffers t)		;使用recentf和bookmarks中的内容作为备选
   )
 
 (use-package counsel
