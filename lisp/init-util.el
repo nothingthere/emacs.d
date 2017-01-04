@@ -11,6 +11,13 @@
   (require 'cl))
 
 ;;辅助函数
+;;;;;;;;;;;;;;;;;;默认配置辅助函数
+
+;; (cl-defmacro my/set-default-variable(option &optional (config t))
+;;   "将默认变量OPTION为CONFIG，默认设置值为t。
+;; 如将scroll-error-top-bottom为t，可使用(my/enable scroll-error-top-bottom)。
+;; 好像没啥子卵用。"
+;;   `(setq ,option ',config))
 
 ;;;;;;;;;;;;;;;;;;包/模块安装函数
 

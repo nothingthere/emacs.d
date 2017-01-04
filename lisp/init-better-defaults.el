@@ -15,6 +15,15 @@
 ;;关闭移动到顶部/底部时的警告音
 (setq ring-bell-function 'ignore)
 
+;; 剪切只读文本时不发出警报声
+(setq kill-read-only-ok t)
+
+;; 来回翻页时保留光标位置
+(setq scroll-preserve-screen-position t)
+
+;; 不延迟register显示时间
+;; (setq register-preview-delay nil)
+
 ;;将yes-or-no别名为y-or-n
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -31,6 +40,9 @@
 (require 'dired-x);;默认快捷键C-x C-j
 ;;;;在方便在同时打开的两个dired中复制文件
 (setq dired-dwim-target t)
+
+;; 获取帮助搜索时显示更多结果
+(setq apropos-do-all t)
 
 (provide 'init-better-defaults)
 ;;; init-better-defaults.el ends here

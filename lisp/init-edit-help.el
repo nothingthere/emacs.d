@@ -188,13 +188,14 @@
  ("<right>" . windmove-right)
 
  ;; 将此行与下一行合并
- ("C-c j" . (lambda()
-			  "合并下一行"
-			  (interactive)
-			  (unless (eobp)
-				(goto-char (line-end-position))
-				(just-one-space -1)
-				(goto-char (line-end-position)))))
+ ;; 原来有合并行的命令 delete-indentation M-^
+ ;; ("C-c j" . (lambda()
+ ;; 			  "合并下一行"
+ ;; 			  (interactive)
+ ;; 			  (unless (eobp)
+ ;; 				(goto-char (line-end-position))
+ ;; 				(just-one-space -1)
+ ;; 				(goto-char (line-end-position)))))
 
  )
 
