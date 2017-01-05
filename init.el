@@ -38,7 +38,7 @@
      (add-to-list '*my/init-files* file t))) ;第三个参数使文件添加到链表最后
 
 ;; 将customize文件重置位置
-(setq custom-file "~/.emacs.d/custom.el")
+(setq custom-file (concat user-emacs-directory "custom.el"))
 
 ;;加载所有配置文件
 (my/require-init-files
@@ -50,6 +50,7 @@
  init-beauty
  init-prog
  init-broswe
+ init-disabled
  init-misc
  )
 
