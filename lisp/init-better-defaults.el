@@ -5,6 +5,14 @@
 ;; 退出emacs前确认
 (setq confirm-kill-emacs 'yes-or-no-p)
 
+;; 定制*scratch*页面显示信息
+;; 参考地址：http://stackoverflow.com/questions/1498258/how-do-i-change-the-scratch-message-in-emacs
+;; http://stackoverflow.com/questions/35278613/how-to-use-unix-login-user-names-in-emacs-lisp-config
+
+(setq initial-scratch-message
+	  (format "你好，%s！我是Emacs：\n%s\n"
+			  (capitalize user-login-name)
+			  "==========================="))
 ;; (setq Info-history-skip-intermediate-nodes nil)
 
 ;; 启用显示当前列数
