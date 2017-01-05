@@ -52,5 +52,18 @@
 ;; 获取帮助搜索时显示更多结果
 (setq apropos-do-all t)
 
+;; 开启禁用特性
+(cl-defmacro my/enable(&rest functions)
+  `(dolist (function ',functions)
+	 (put function 'disabled nil)))
+
+(my/enable
+ ;; 大小写转换
+ upcase-region							;C-x C-u
+ downcase-region						;C-x C-l
+ ;; narrow
+ narrow-to-region						;C-x C-n
+ )
+
 (provide 'init-better-defaults)
 ;;; init-better-defaults.el ends here
