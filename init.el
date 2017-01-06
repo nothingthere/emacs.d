@@ -50,6 +50,7 @@
  init-beauty
  init-prog
  init-broswe
+ init-move
  init-misc
  )
 

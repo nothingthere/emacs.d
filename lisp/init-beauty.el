@@ -61,5 +61,11 @@
 			(beauty/indent-buffer)
 			(beautify)))
 
+;; (use-package whitespace-cleanup-mode
+;;   :config
+;;   (global-whitespace-cleanup-mode)
+;;   (add-hook 'before-save-hook whitespace-cleanup)
+;;   )
+
 (provide 'init-beauty)
 ;;; init-beauty.el ends here

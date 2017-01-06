@@ -41,10 +41,14 @@
   :demand t				;马上需要
   :config
   (load-theme 'zenburn t)
-  ;; 设置当前行的颜色。使用zenburn主题后，高亮当前行的解决办法。
+  ;; 设置当前行的颜色。使用zenburn主题后，命令行环境下高亮当前行的解决办法。
   ;; 参考地址：http://stackoverflow.com/questions/2718189/emacshighlight-the-current-line-by-underline-it
   (set-face-attribute hl-line-face nil  :background "#000")
   )
+
+										; 改变样式 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(set-face-attribute font-lock-function-name-face nil :bold t :italic t)
 
 (provide 'init-ui)
 ;;; init-ui.el ends here

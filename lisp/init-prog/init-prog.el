@@ -9,6 +9,7 @@
  ;; init-markdown
  ;; init-golang
  ;; init-python
+ ;; init-clang
  init-org
  ;; init-check
  )

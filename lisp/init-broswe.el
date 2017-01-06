@@ -4,6 +4,10 @@
 ;; 估计@zilongshanren也是你参考的prelude配置
 ;;; Code:
 
+;; 更改eww的默认搜索引擎
+(setq eww-search-prefix "http://cn.bing.com/search?q=")
+
+;; 定制自己的搜索方式
 (defvar *my/search-engin-need-lantern* '("google" "youtube")
   "需要使用lantern翻墙的网站.")
 

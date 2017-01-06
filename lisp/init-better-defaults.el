@@ -1,7 +1,6 @@
 ;;; init-better-defaults.el --- 改善默认配置
 ;;; Commentary:
 ;;; Code:
-
 ;; 退出emacs前确认
 (setq confirm-kill-emacs 'yes-or-no-p)
 
@@ -10,9 +9,10 @@
 ;; http://stackoverflow.com/questions/35278613/how-to-use-unix-login-user-names-in-emacs-lisp-config
 
 (setq initial-scratch-message
-	  (format "你好，%s！我是Emacs：\n%s\n"
+	  (concat ";; 你好，"
 			  (capitalize user-login-name)
-			  "==========================="))
+			  "！Emacs ♥ 你：\n\n"))
+
 ;; (setq Info-history-skip-intermediate-nodes nil)
 
 ;; 启用显示当前列数

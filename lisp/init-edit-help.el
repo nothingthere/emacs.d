@@ -99,15 +99,6 @@
   ;; elisp 和 common-lisp 中不自动补全单引号、反引号和括号
   (dolist (X '("'" "`" "("))
     (sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) X nil :actions nil))
-
-  ;; 处在括号间时，自动高亮括号
-  '(defadvice show-paren-function(around fix-show-paren-function activate)
-     ;;处在代码中时高亮两边的括号？？还没理解怎么用defadvice
-     (cond ((looking-at-p "\\s(") ad-do-it)
-		   (t (save-excursion
-				(ignore-errors (backward-up-list))
-				ad-do-it)))
-     )
   )
 
 ;; popwin -- 使光标跳转到帮助窗口
@@ -148,7 +139,8 @@
 (use-package which-key
   :demand t
   :config
-  (which-key-mode))
+  (which-key-mode)
+  )
 
 ;;;;;;方便编辑的快捷键
 
@@ -182,10 +174,6 @@
 						  (start (car region))
 						  (end (cdr region)))
 					 (comment-or-uncomment-region start end))))))
- ("<up>" . windmove-up)
- ("<down>" . windmove-down)
- ("<left>" . windmove-left)
- ("<right>" . windmove-right)
 
  ;; 将此行与下一行合并
  ;; 原来有合并行的命令 delete-indentation M-^
