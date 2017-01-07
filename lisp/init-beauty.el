@@ -35,14 +35,20 @@
 (defun beauty/delete-extra-spaces()
   "删除buffer多余空行，且同时删除行末多余空格。"
   (my/with-save-everything+widen
+   ;; 删除buffer末空行
+   ;; (beauty/delete-top/bottom-blanklines :bottom t)
+   ;; 将变量delete-trailing-lines设置为non-nil后，
+   ;; 调用delete-trailing-whitespace命令就可删除buffer末所有空行。
    ;; 删除所有行末空白
+   (setq delete-trailing-lines t)
    (delete-trailing-whitespace)
+
    ;;删除顶部多余空行
    (beauty/delete-top/bottom-blanklines)
+
    ;;删除中间的多余空行
    (beauty/leave-1-empty-line)
-   ;; 删除buffer末空行
-   (beauty/delete-top/bottom-blanklines :bottom t)))
+   ))
 
 (defun beauty/indent-buffer()
   "调整整个buffer的缩进."

@@ -4,6 +4,16 @@
 
 										; 修改默认UI配置 ;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; 定制*scratch*页面显示信息
+;; 参考地址：http://stackoverflow.com/questions/1498258/how-do-i-change-the-scratch-message-in-emacs
+;; http://stackoverflow.com/questions/35278613/how-to-use-unix-login-user-names-in-emacs-lisp-config
+(setq initial-scratch-message
+	  (concat ";; 你好，"
+			  (capitalize user-login-name)
+			  "！Emacs ♥ 你：\n\n"))
+
+;; (setq Info-history-skip-intermediate-nodes nil)
+
 ;;关闭菜单、工具和滚动条
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -11,13 +21,24 @@
 (setq inhibit-splash-screen t)
 ;;(global-linum-mode t)
 
-;;改变光标样式，显示为单竖线。
-;; 只在图像界面中有作用，在命令行中时，默认与命令行的光标保持一致。
-(setq-default cursor-type 'bar)
+;; 状态栏显示修改
+;; 启用显示当前列数
+(column-number-mode)
+;; 显示时间
+(display-time-mode)
+;; 显示电池
+(display-battery-mode)
 
-;;开启时全屏显示
-(setq
- initial-frame-alist '((fullscreen . maximized)))
+;; 只在图像界面中有作用，在命令行中时，默认与命令行的光标保持一致。
+;;改变光标样式，显示为单竖线。
+(setq-default cursor-type 'bar)
+;; 光标一直闪烁
+(setq-default blink-cursor-blinks 0)
+
+;;开启时全屏显示，只有在图形界中才有效
+;; 命令行中由命令行本身控制。
+(when (display-graphic-p)
+  (setq initial-frame-alist '((fullscreen . maximized))))
 
 ;;高亮当前行
 (global-hl-line-mode t)

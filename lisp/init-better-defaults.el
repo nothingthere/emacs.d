@@ -4,19 +4,6 @@
 ;; 退出emacs前确认
 (setq confirm-kill-emacs 'yes-or-no-p)
 
-;; 定制*scratch*页面显示信息
-;; 参考地址：http://stackoverflow.com/questions/1498258/how-do-i-change-the-scratch-message-in-emacs
-;; http://stackoverflow.com/questions/35278613/how-to-use-unix-login-user-names-in-emacs-lisp-config
-
-(setq initial-scratch-message
-	  (concat ";; 你好，"
-			  (capitalize user-login-name)
-			  "！Emacs ♥ 你：\n\n"))
-
-;; (setq Info-history-skip-intermediate-nodes nil)
-
-;; 启用显示当前列数
-(column-number-mode)
 ;;禁用备份文件
 ;; (setq make-backup-files nil)
 
@@ -25,6 +12,7 @@
 
 ;; 剪切只读文本时不发出警报声
 (setq kill-read-only-ok t)
+;; (setq visible-bell t)
 
 ;; 来回翻页时保留光标位置
 (setq scroll-preserve-screen-position t)
