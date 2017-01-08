@@ -17,6 +17,9 @@
   ;; 打开自动换行
   (add-hook 'org-mode-hook 'auto-fill-mode)
 
+  ;; 拼写检查
+  (add-hook 'org-mode-hook 'flyspell-mode)
+
   ;; 为smartparen新增标记配对
   (my/with-pkg-enabled
    smartparens

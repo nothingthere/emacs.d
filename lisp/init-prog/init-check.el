@@ -1,6 +1,10 @@
 ;; init-check.el --- 编程语言语法检测
 ;;; Commentary:
 ;;; Code:
+
+;; 拼写检查
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
 ;; flycheck -- 语法检查
 (use-package flycheck
   :config
