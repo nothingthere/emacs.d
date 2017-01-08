@@ -8,11 +8,11 @@
 ;; (setq make-backup-files nil)
 
 ;;关闭移动到顶部/底部时的警告音
-(setq ring-bell-function 'ignore)
+;; (setq ring-bell-function 'ignore)
+;; (setq visible-bell t)
 
 ;; 剪切只读文本时不发出警报声
 (setq kill-read-only-ok t)
-;; (setq visible-bell t)
 
 ;; 来回翻页时保留光标位置
 (setq scroll-preserve-screen-position t)

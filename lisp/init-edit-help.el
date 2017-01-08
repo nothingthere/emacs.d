@@ -187,5 +187,8 @@
 
  )
 
+;; 默认使用拼写检查
+(flyspell-prog-mode)
+
 (provide 'init-edit-help)
 ;;; init-edit-help.el ends here

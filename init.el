@@ -51,6 +51,7 @@
  init-prog
  init-broswe
  init-move
+ ;; init-chinese
  init-misc
  )
 
