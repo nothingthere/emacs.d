@@ -3,7 +3,7 @@
 ;;; Code:
 ;;org-mode -- YES
 (use-package org
-  ;; :demand t								;如果不使用demand，只有打开过.org文件后才能使用快捷键
+  :demand t								;如果不使用demand，只有打开过.org文件后才能使用快捷键
   :config
   ;; 代码块语法高亮
   (setq org-src-fontify-natively t)
@@ -55,6 +55,13 @@
 				   (interactive)
 				   (org-capture nil "d")))
    )
+
+  ;; org-bullets -- show head with bullets
+  (use-package org-bullets
+	:demand t
+	:config
+	(add-hook 'org-mode-hook (lambda() (org-bullets-mode 1))))
+
   :bind
   (:map org-mode-map
 		;; ("C-c =" . nil)

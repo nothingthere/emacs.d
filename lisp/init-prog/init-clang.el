@@ -10,6 +10,7 @@
 
 ;; macrostep -- 原来此插件还可以支持C语言的宏扩展
 (use-package macrostep
+  :demand t
   :bind
   (:map c-mode-map
 		("C-c e" . macrostep-expand)))

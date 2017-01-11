@@ -12,7 +12,7 @@
 ;; 使用use-package管理插件
 (use-package use-package
   :config
-  (setq use-package-verbose t		;启动时在*Message*中显示加载时间
+  (setq use-package-verbose nil		;启动时在*Message*中显示加载时间
 		use-package-always-ensure t 	;所有包都需安装后才能使用
 		use-package-always-defer t	;所有包都延迟加载
 		)
@@ -51,7 +51,7 @@
  init-prog
  init-broswe
  init-move
- ;; init-chinese
+ init-chinese
  init-misc
  )
 

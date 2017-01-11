@@ -11,10 +11,6 @@
 (defvar *my/search-engin-need-lantern* '("google" "youtube")
   "需要使用lantern翻墙的网站.")
 
-(find "yout" *my/search-engin-need-lantern*
-	  :test (lambda(x y)
-			  (string-match-p (downcase x) (downcase y))))
-
 (defun my/search(query-url prompt)
   "通过PROMT提示输入搜索内容，通过QUERY-URL指定的地址在浏览器中打开。"
   (let((query-string (concat query-url
@@ -22,6 +18,7 @@
 							  (if mark-active
 								  (buffer-substring (region-beginning) (region-end))
 								(read-string prompt)))))
+
 	   )
 	(if (find query-url *my/search-engin-need-lantern*
 			  :test (lambda(url engin)	;如果需翻墙搜索，需使用chromium，以便翻墙

@@ -1,8 +1,22 @@
 ;;; init-chinese.el --- 中文输入法
 ;;; Commentary:
 ;;; Code:
+
+;;当在图形界面下时才配置字体
+(when (display-graphic-p)
+  ;; chinese-fonts-setup -- 中文字体问题
+  (use-package chinese-fonts-setup
+	;; :disabled t
+	:demand t
+	:config
+	(chinese-fonts-setup-enable)
+	(setq cfs-use-face-font-rescale t)
+	)
+  )
+;; chineas-pyim -- 中文输入
 (use-package chinese-pyim
-  :demand t
+  :disabled t
+  ;; :demand t
   :config
   ;; 使用basedict拼音词库
   (use-package chinese-pyim-basedict
