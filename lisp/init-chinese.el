@@ -2,17 +2,16 @@
 ;;; Commentary:
 ;;; Code:
 
-;;当在图形界面下时才配置字体
-(when (display-graphic-p)
-  ;; chinese-fonts-setup -- 中文字体问题
-  (use-package chinese-fonts-setup
-	;; :disabled t
-	:demand t
-	:config
-	(chinese-fonts-setup-enable)
-	(setq cfs-use-face-font-rescale t)
-	)
+;; chinese-fonts-setup -- 中文字体问题
+(use-package chinese-fonts-setup
+  ;; :disabled t
+  :if (window-system)
+  :demand t
+  :config
+  (chinese-fonts-setup-enable)
+  (setq cfs-use-face-font-rescale t)
   )
+
 ;; chineas-pyim -- 中文输入
 (use-package chinese-pyim
   :disabled t

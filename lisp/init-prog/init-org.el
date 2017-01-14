@@ -26,9 +26,9 @@
    (dolist (match '(("“" . "”")
 					("《" . "》")
 					("（" . "）")
-					("<" . ">")
-					("*" . "*")
-					("/" . "/")
+					;; ("<" . ">")
+					;; ("*" . "*")
+					;; ("/" . "/")
 					))
 	 (sp-local-pair 'org-mode (car match) (cdr match))))
 
@@ -58,7 +58,8 @@
 
   ;; org-bullets -- show head with bullets
   (use-package org-bullets
-	:demand t
+	;; :demand t
+	:disabled t
 	:config
 	(add-hook 'org-mode-hook (lambda() (org-bullets-mode 1))))
 

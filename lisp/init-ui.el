@@ -52,28 +52,28 @@
 
 										; 主题应用 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(if (display-graphic-p)
-	;;Solarized主题有点奇葩，一般加载主题使用的就是(load-theme 'xxx)，为啥会这样？
-	(use-package solarized-theme
-	  :demand t
-	  :config
-	  (deftheme solarized-dark "The dark variant of the Solarized colour theme")
-	  (create-solarized-theme 'dark 'solarized-dark)
-	  (provide-theme 'solarized-dark)
-	  )
-
-  ;;使用zenburn主题主要是为了兼容非图像界面使用问题
-  ;; zenburn-them -- zenbutn主题
-  (use-package zenburn-theme
-	:demand t				;马上需要
-	:config
-	(load-theme 'zenburn t)
-	;; 设置当前行的颜色。使用zenburn主题后，命令行环境下高亮当前行的解决办法。
-	;; 参考地址：http://stackoverflow.com/questions/2718189/emacshighlight-the-current-line-by-underline-it
-	(set-face-attribute hl-line-face nil  :background "#000")
-	)
-
+;;Solarized主题有点奇葩，一般加载主题使用的就是(load-theme 'xxx)，为啥会这样？
+(use-package solarized-theme
+  :if (display-graphic-p)
+  :demand t
+  :config
+  (deftheme solarized-dark "The dark variant of the Solarized colour theme")
+  (create-solarized-theme 'dark 'solarized-dark)
+  (provide-theme 'solarized-dark)
   )
+
+;;使用zenburn主题主要是为了兼容非图像界面使用问题
+;; zenburn-them -- zenbutn主题
+(use-package zenburn-theme
+  :if (not (display-graphic-p))
+  :demand t				;马上需要
+  :config
+  (load-theme 'zenburn t)
+  ;; 设置当前行的颜色。使用zenburn主题后，命令行环境下高亮当前行的解决办法。
+  ;; 参考地址：http://stackoverflow.com/questions/2718189/emacshighlight-the-current-line-by-underline-it
+  (set-face-attribute hl-line-face nil  :background "#000")
+  )
+
 (use-package monokai-theme
   :disabled t
   :demand t

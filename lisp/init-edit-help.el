@@ -13,7 +13,11 @@
 		("C-p" . company-select-previous)
 		("C-n" . company-select-next))
   :config
-  (setq-default company-idle-delay 0.01;等待时间"秒"
+  ;; 添加英语补全？？？好像没用
+  (setq company-backends (append company-backends
+								 '(company-ispell)))
+
+  (setq-default company-idle-delay 0.001;等待时间"秒"
 				company-minimum-prefix-length 1);输入多少个字符时激活
 
   ;; !!! 在图像界面下才能使用
@@ -46,15 +50,14 @@
   ;; https://github.com/syl20bnr/spacemacs/pull/179
   (my/with-pkg-enabled					;当company启动后才使用
    company
-   (defvar company-mode/enable-yas t
-	 "Enable yasnippet for all backends.")
 
    (defun company-mode/backend-with-yas (backend)
 	 "将yasnipets的补全添加到compny中."
-	 (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+	 (if  (and (listp backend) (member 'company-yasnippet backend))
 		 backend
 	   (append (if (consp backend) backend (list backend))
 			   '(:with company-yasnippet))))
+
    (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
   ;; end 将yasnippets备选添加到company中
 

@@ -1,4 +1,4 @@
-;;init-beauty.el--- 代码美化配置
+;;; init-beauty.el --- 代码美化配置
 ;;; Commentary:
 ;;; Code:
 
@@ -41,6 +41,7 @@
    ;; 调用delete-trailing-whitespace命令就可删除buffer末所有空行。
    ;; 删除所有行末空白
    (setq delete-trailing-lines t)
+
    (delete-trailing-whitespace)
 
    ;;删除顶部多余空行
@@ -50,28 +51,26 @@
    (beauty/leave-1-empty-line)
    ))
 
+(defvar *my/beauty-indent-blacklist*
+  '(makefile-gmake-mode snippet-mode)
+  "在黑名单中的模式美化时缩进.")
+
 (defun beauty/indent-buffer()
   "调整整个buffer的缩进."
   (interactive)
-  (save-restriction
-	(widen)
-	(indent-region (point-min) (point-max))))
+  (unless (find major-mode *my/beauty-indent-blacklist*)
+	(save-restriction
+	  (widen)
+	  (indent-region (point-min) (point-max)))))
 
 (defun beautify()
   "美化buffer并保存"
   (interactive)
-  (beauty/delete-extra-spaces))
+  (beauty/indent-buffer)
+  (beauty/delete-extra-spaces)
+  )
 
-(add-hook 'before-save-hook
-		  (lambda()
-			(beauty/indent-buffer)
-			(beautify)))
-
-;; (use-package whitespace-cleanup-mode
-;;   :config
-;;   (global-whitespace-cleanup-mode)
-;;   (add-hook 'before-save-hook whitespace-cleanup)
-;;   )
+(add-hook 'before-save-hook 'beautify)
 
 (provide 'init-beauty)
 ;;; init-beauty.el ends here

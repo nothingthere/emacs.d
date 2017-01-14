@@ -7,6 +7,7 @@
 
 ;; flycheck -- 语法检查
 (use-package flycheck
+  :demand t
   :config
   (global-flycheck-mode 1)
   ;; flycheck对elisp的错误检测好烦人，出现好多不合适的提示，禁用。
