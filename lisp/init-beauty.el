@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(cl-defmacro beauty/delete-top/bottom-blanklines(&key bottom)
+(cl-defmacro my/beauty/delete-top/bottom-blanklines(&key bottom)
   "删除buffer顶部/底部所有空行。默认为删除顶部空行，如果:BOTTOM为no-nil为删除底部空行.
 
 参考：https://www.emacswiki.org/emacs/DeletingWhitespace#toc4"
@@ -18,7 +18,7 @@
 						  `blank-lines
 						`(- blank-lines)))))))
 
-(defun beauty/leave-1-empty-line()
+(defun my/beauty/leave-1-empty-line()
   "将buffer中多个相邻的空行只留1个."
   (interactive)
   (my/with-save-everything+widen
@@ -32,11 +32,11 @@
 				(setq in-blank-lines-p t)))
 			 (t (setq in-blank-lines-p nil)))))))
 
-(defun beauty/delete-extra-spaces()
+(defun my/beauty/delete-extra-spaces()
   "删除buffer多余空行，且同时删除行末多余空格。"
   (my/with-save-everything+widen
    ;; 删除buffer末空行
-   ;; (beauty/delete-top/bottom-blanklines :bottom t)
+   ;; (my/beauty/delete-top/bottom-blanklines :bottom t)
    ;; 将变量delete-trailing-lines设置为non-nil后，
    ;; 调用delete-trailing-whitespace命令就可删除buffer末所有空行。
    ;; 删除所有行末空白
@@ -45,17 +45,17 @@
    (delete-trailing-whitespace)
 
    ;;删除顶部多余空行
-   (beauty/delete-top/bottom-blanklines)
+   (my/beauty/delete-top/bottom-blanklines)
 
    ;;删除中间的多余空行
-   (beauty/leave-1-empty-line)
+   (my/beauty/leave-1-empty-line)
    ))
 
 (defvar *my/beauty-indent-blacklist*
   '(makefile-gmake-mode snippet-mode)
   "在黑名单中的模式美化时缩进.")
 
-(defun beauty/indent-buffer()
+(defun my/beauty/indent-buffer()
   "调整整个buffer的缩进."
   (interactive)
   (unless (find major-mode *my/beauty-indent-blacklist*)
@@ -63,14 +63,14 @@
 	  (widen)
 	  (indent-region (point-min) (point-max)))))
 
-(defun beautify()
+(defun my/beautify()
   "美化buffer并保存"
   (interactive)
-  (beauty/indent-buffer)
-  (beauty/delete-extra-spaces)
+  (my/beauty/indent-buffer)
+  (my/beauty/delete-extra-spaces)
   )
 
-(add-hook 'before-save-hook 'beautify)
+(add-hook 'before-save-hook 'my/beautify)
 
 (provide 'init-beauty)
 ;;; init-beauty.el ends here
