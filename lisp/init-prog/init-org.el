@@ -73,6 +73,7 @@
 
 ;; org-pomodoro -- 番茄工作坊
 (use-package org-pomodoro
+  :disabled t
   :config
   (setq org-pomodoro-format "余时间~%s") ;显示格式
   (message "org-pomodoro on")
