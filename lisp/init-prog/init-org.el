@@ -61,7 +61,8 @@
 	;; :demand t
 	:disabled t
 	:config
-	(add-hook 'org-mode-hook (lambda() (org-bullets-mode 1))))
+	(add-hook 'org-mode-hook (lambda() (org-bullets-mode 1)))
+	)
 
   :bind
   (:map org-mode-map
