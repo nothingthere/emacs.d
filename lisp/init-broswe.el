@@ -57,6 +57,6 @@
 (my/install-search-engin "douban" "https://www.douban.com/search?q=" "豆瓣搜索： ")
 (my/install-search-engin "youtube" "https://www.youtube.com/results?search_query=" "Youtube搜索： ")
 (my/install-search-engin "bilibili" "http://search.bilibili.com/all?keyword=" "bilibili： ")
-
+(my/install-search-engin "youdao" "http://dict.youdao.com/w/" "有道翻译： ")
 (provide 'init-broswe)
 ;;; init-broswe.el ends here
