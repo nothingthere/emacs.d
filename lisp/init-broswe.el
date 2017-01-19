@@ -56,6 +56,7 @@
 (my/install-search-engin "repo" "https://github.com/nothingthere/" "我的项目： ")
 (my/install-search-engin "douban" "https://www.douban.com/search?q=" "豆瓣搜索： ")
 (my/install-search-engin "youtube" "https://www.youtube.com/results?search_query=" "Youtube搜索： ")
+(my/install-search-engin "bilibili" "http://search.bilibili.com/all?keyword=" "bilibili： ")
 
 (provide 'init-broswe)
 ;;; init-broswe.el ends here
