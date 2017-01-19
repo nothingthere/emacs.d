@@ -1,2 +1,1 @@
 * 我的Emacs配置
-  跟[[http://list.youku.com/albumlist/show/id_26962151.html?spm%3Da2h0j.8191423.Drama.5~5~H3~A][子龙山人]] 重新开始学习Emacs。
