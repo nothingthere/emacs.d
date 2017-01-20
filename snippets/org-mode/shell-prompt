@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: shell-prompt
+# key: shell
+# --
+me@ubuntu16.04:~$ $1
