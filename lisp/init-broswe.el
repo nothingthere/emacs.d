@@ -53,10 +53,12 @@
 (my/install-search-engin "github" "https://github.com/search?q=" "GitHub 搜索: ")
 (my/install-search-engin "google" "http://www.google.com/search?q=" "谷歌: ")
 (my/install-search-engin "melpa" "http://melpa.org/#/" "Melpa：")
-(my/install-search-engin "repo" "https://github.com/nothingthere/" "我的项目： ")
-(my/install-search-engin "douban" "https://www.douban.com/search?q=" "豆瓣搜索： ")
-(my/install-search-engin "youtube" "https://www.youtube.com/results?search_query=" "Youtube搜索： ")
-(my/install-search-engin "bilibili" "http://search.bilibili.com/all?keyword=" "bilibili： ")
-(my/install-search-engin "youdao" "http://dict.youdao.com/w/" "有道翻译： ")
+(my/install-search-engin "repo" "https://github.com/nothingthere/" "我的项目：")
+(my/install-search-engin "douban" "https://www.douban.com/search?q=" "豆瓣搜索：")
+(my/install-search-engin "youtube" "https://www.youtube.com/results?search_query=" "Youtube搜索：")
+(my/install-search-engin "bilibili" "http://search.bilibili.com/all?keyword=" "bilibili：")
+(my/install-search-engin "youdao" "http://dict.youdao.com/w/" "有道翻译：")
+(my/install-search-engin "wiki" "https://en.wikipedia.org/wiki/" "Wiki：")
+
 (provide 'init-broswe)
 ;;; init-broswe.el ends here
