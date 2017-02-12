@@ -39,7 +39,8 @@
 ;;开启时全屏显示，只有在图形界中才有效
 ;; 命令行中由命令行本身控制。
 (when (display-graphic-p)
-  (setq initial-frame-alist '((fullscreen . maximized))))
+  (setq initial-frame-alist
+		'((top . 0) (left . 0) (width . 100) (height . 20))))
 
 ;;高亮当前行
 (global-hl-line-mode t)
@@ -87,7 +88,8 @@
   :config
   (load-theme 'tao-yin t)
   )
-										; 改变样式 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; 改变样式
 
 (set-face-attribute font-lock-function-name-face nil :bold t :italic t)
 

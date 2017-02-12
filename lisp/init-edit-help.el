@@ -127,7 +127,7 @@
 ;; helm-ag -- 项目内快速搜索
 (use-package helm-ag
   :init
-  (my/with-system-enabled ("ag" :pkg-name "helm-ag" :apt-name "sulversearch-ag"))
+  (my/with-system-enabled ("ag" :pkg-name "helm-ag" :apt-name "silversearch-ag"))
   :bind ("C-x f" . helm-ag-project-root)
   )
 
