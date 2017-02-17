@@ -105,5 +105,15 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
 				 (str-y (symbol-name y)))
 			 (not (string-lessp str-x str-y))))))
 
+(defun my/reload-buffer()
+  "重新加载当前文件。并保留光标位置。
+主要作用为重新加载bash文件，使用shell-script-mode生效"
+  (interactive)
+  (let ((file buffer-file-name)
+		(pos (point)))
+	(kill-buffer (current-buffer))
+	(find-file file)
+	(goto-char pos)))
+
 (provide 'init-util)
 ;;; init-util.el ends here

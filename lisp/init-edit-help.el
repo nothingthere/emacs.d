@@ -135,8 +135,11 @@
 (use-package avy
   :bind("C-c :" . avy-goto-char-2)
   )
+
 ;; acs-pinyin -- ？？？？
-(use-package ace-pinyin)
+(use-package ace-pinyin
+  :disabled t
+  )
 
 ;; which-key -- 当按下快捷键忘记后面键位时，停留后显示提示
 (use-package which-key

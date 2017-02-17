@@ -11,7 +11,8 @@
  ;; init-python
  ;; init-clang
  init-org
- ;; init-check
+ ;; init-bash
+ init-check
  )
 
 ;; multi-term -- 方便打开命令行
