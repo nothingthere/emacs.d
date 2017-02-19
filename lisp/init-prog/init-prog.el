@@ -4,14 +4,14 @@
 
 (my/require-init-files
  init-elisp
- ;; init-html
+ init-html
  ;; init-js
  ;; init-markdown
  ;; init-golang
  ;; init-python
  ;; init-clang
  init-org
- ;; init-bash
+ init-bash
  init-check
  )
 

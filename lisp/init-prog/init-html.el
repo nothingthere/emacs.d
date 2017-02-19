@@ -10,7 +10,7 @@
   :config
   ;;编辑纯html文件
   (add-to-list 'auto-mode-alist
-	       '("\\.html?\\'" . web-mode))
+			   '("\\.html?\\'" . web-mode))
 ;;;功能设置
   (setq
    web-mode-enable-css-colorization t ;;高亮内嵌css颜色
@@ -21,10 +21,10 @@
    )
   ;;设置默认缩进
   (add-hook 'web-mode-hook
-	    (lambda ()
-	      (setq web-mode-markup-indent-offset 2
-		    web-mode-css-indent-offset 2
-		    web-mode-code-indent-offset 2)))
+			(lambda ()
+			  (setq web-mode-markup-indent-offset 2
+					web-mode-css-indent-offset 2
+					web-mode-code-indent-offset 2)))
   )
 
 ;;emmet -- 哈哈
@@ -37,6 +37,9 @@
   ;;(setq emmet-move-cursor-between-quotes t)
   (add-hook 'web-mode-hook 'emmet-mode);使用web-mode时自动加载
   (add-hook 'css-mode-hook  'emmet-mode);;编写css时使用缩写
+  :bind
+  ("C-j" . emmet-expand-line)
+
   )
 
 (provide 'init-html)

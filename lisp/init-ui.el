@@ -25,7 +25,7 @@
 ;; 启用显示当前列数
 (column-number-mode)
 ;; 显示时间
-(display-time-mode)
+;; (display-time-mode)
 
 ;; 显示电池
 ;; (display-battery-mode)
