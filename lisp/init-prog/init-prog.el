@@ -30,5 +30,17 @@
   (("C-x g" . magit-status))
   )
 
+(defun my/reload-script()
+  "重新加载当前文件。并保留光标位置。改变权限为775
+主要作用为重新加载bash文件，使用shell-script-mode生效"
+  (interactive)
+  (let ((file buffer-file-name)
+		(pos (point))
+		(perm 755))
+	(kill-buffer (current-buffer))
+	(find-file file)
+	(goto-char pos)
+	(shell-command (format "chmod %d %s" perm file))))
+
 (provide 'init-prog)
 ;;; init-prog.el ends here
