@@ -34,9 +34,10 @@
   "重新加载当前文件。并保留光标位置。改变权限为775
 主要作用为重新加载bash文件，使用shell-script-mode生效"
   (interactive)
-  (let ((file buffer-file-name)
-		(pos (point))
+  (let ((file buffer-file-name)			;buff对应的文件
+		(pos (point))					;当前位置
 		(perm 755))
+	(save-buffer)						;先保持文件
 	(kill-buffer (current-buffer))
 	(find-file file)
 	(goto-char pos)
