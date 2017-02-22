@@ -6,6 +6,7 @@
  init-elisp
  init-html
  ;; init-js
+ init-json
  ;; init-markdown
  ;; init-golang
  ;; init-python
