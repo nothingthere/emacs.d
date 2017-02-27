@@ -105,5 +105,12 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
 				 (str-y (symbol-name y)))
 			 (not (string-lessp str-x str-y))))))
 
+(defun my/reload-buffer()
+  "重新从磁盘读取文件."
+  (interactive)
+  (let ((file (buffer-file-name)))
+	(kill-buffer)
+	(find-file file)))
+
 (provide 'init-util)
 ;;; init-util.el ends here
