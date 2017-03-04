@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name : bang:shebang
+# key: bang
+# --
+#!/usr/bin/awk
