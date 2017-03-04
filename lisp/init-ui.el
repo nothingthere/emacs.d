@@ -52,7 +52,8 @@
 (setq-default tab-width 4)
 
 ;; 关闭警告声
-(setq visible-bell t)
+(setq visible-bell nil)
+(setq ring-bell-function 'ignore)
 
 										; 主题应用 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
