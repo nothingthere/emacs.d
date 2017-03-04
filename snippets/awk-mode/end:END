@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: end:END
+# key: end
+# --
+END { $1 }

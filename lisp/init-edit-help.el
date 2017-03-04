@@ -14,8 +14,8 @@
 		("C-n" . company-select-next))
   :config
   ;; 添加英语补全？？？好像没用
-  (setq company-backends (append company-backends
-								 '(company-ispell)))
+  ;; (setq company-backends (append company-backends
+  ;; 								 '(company-ispell)))
 
   (setq-default company-idle-delay 0.001;等待时间"秒"
 				company-minimum-prefix-length 1);输入多少个字符时激活
@@ -41,8 +41,9 @@
 
   :config
   ;; (defvar *my/yas-mode-hooks* '(prog-mode-hook org-mode-hook) "使用yasnippets的所有Major mode.")
-  (yas-reload-all)
-  (add-hook 'prog-mode-hook 'yas-minor-mode)
+  ;; (yas-reload-all)
+  ;; (add-hook 'prog-mode-hook 'yas-minor-mode)
+  (yas-global-mode 1)
 
   (setq yas-fallback-behavior nil)
 
@@ -55,8 +56,10 @@
 	 "将yasnipets的补全添加到compny中."
 	 (if  (and (listp backend) (member 'company-yasnippet backend))
 		 backend
-	   (append (if (consp backend) backend (list backend))
-			   '(:with company-yasnippet))))
+	   (append
+		(if (consp backend) backend (list backend))
+		'(:with company-yasnippet)
+		)))
 
    (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
   ;; end 将yasnippets备选添加到company中

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: case:case
+# key: case
+# --
+case $1 in
+	 $2\) $3
+	 ;;
+	 $4
+	 *\) $5
+	 ;;
+esac

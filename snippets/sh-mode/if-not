@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: if!:if-not
+# key: if!
+# --
+if [[ ! $1 ]]; then
+   $2
+fi

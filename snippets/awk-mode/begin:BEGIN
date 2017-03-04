@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: begin:BEGIN
+# key: begin
+# --
+BEGIN { $1 }
