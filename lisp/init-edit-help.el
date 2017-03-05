@@ -34,7 +34,7 @@
 
 ;; yasnippet -- snippets片段补全
 (use-package yasnippet
-  ;; :demand t
+  :demand t
   :bind (:map yas-minor-mode-map
 			  ("<tab>" . nil) ;禁用yansnippets默认键
 			  ("TAB" . nil))

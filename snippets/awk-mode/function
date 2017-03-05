@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : func:function
+# key: func
+# --
+function ${1:函数名}($2){
+		 $0
+}

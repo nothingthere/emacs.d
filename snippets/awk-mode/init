@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: init:脚本初始化
+# key: init
+# --
+awk '
+	${1:my/reload-script}
+' $*
