@@ -4,6 +4,7 @@
 
 ;; company -- 自动补全插件
 (use-package company
+  :demand t
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   :bind
@@ -49,18 +50,17 @@
 
   ;; 将yasnippets的内容添加到company的备选中
   ;; https://github.com/syl20bnr/spacemacs/pull/179
+  (defun company-mode/backend-with-yas (backend)
+	"将yasnipets的补全添加到compny中."
+	(if  (and (listp backend) (member 'company-yasnippet backend))
+		backend
+	  (append
+	   (if (consp backend) backend (list backend))
+	   '(:with company-yasnippet)
+	   )))
+
   (my/with-pkg-enabled					;当company启动后才使用
    company
-
-   (defun company-mode/backend-with-yas (backend)
-	 "将yasnipets的补全添加到compny中."
-	 (if  (and (listp backend) (member 'company-yasnippet backend))
-		 backend
-	   (append
-		(if (consp backend) backend (list backend))
-		'(:with company-yasnippet)
-		)))
-
    (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
   ;; end 将yasnippets备选添加到company中
 

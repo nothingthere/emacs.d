@@ -14,6 +14,12 @@
   ;; 还是自己对flycheck的checker配置不合适？？
   (with-eval-after-load 'flycheck
     (setq-default flycheck-disabled-checkers '(emacs-lisp)))
-  )
+  ;; 将检测python的版本更换到3.X
+  (my/with-system-enabled
+   ("pylint3")
+   (setq flycheck-python-pylint-executable (shell-command-to-string "which pylint3")))
+  ;; 还需添加下面这行才能生效
+  (setq flycheck-python-pycompile-executable "python3"))
+
 (provide 'init-check)
 ;;; init-check.el ends here
