@@ -26,12 +26,15 @@
   (zerop
    (length (shell-command-to-string cmd-string))))
 
-(cl-defmacro my/with-system-enabled((app &key (pkg-name "XXX") (apt-name app)) &body body)
+(cl-defmacro my/with-system-enabled((app &key (pkg-name "XXX")
+										 (apt-name app)
+										 (msg "为使用插件%s，请先在系统上执行安装:sudo apt install %s"))
+									&body body)
   "确保系统安装了APP，如果APP有其他名字，需提供APT-NAME.
 cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Argument-Lists.html。"
   (if (my/shell-result-empty-p (format "which %s" app))
 	  `(error (format
-			   "为使用插件%s，请先在系统上执行安装:sudo apt install %s"
+			   ,msg
 			   ,pkg-name ,apt-name))
 	`(progn ,@body)))
 
