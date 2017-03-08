@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-# name: script:脚本初始化
+# name: script
 # key: script
 # --
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 def main():
     pass

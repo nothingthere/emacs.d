@@ -9,7 +9,7 @@
  init-json
  ;; init-markdown
  ;; init-golang
- ;; init-python
+ init-python
  ;; init-clang
  init-org
  init-bash
