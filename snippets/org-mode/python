@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: python-script:python源码
+# key: python
+# --
+#+BEGIN_SRC python
+$1
+#+END_SRC
