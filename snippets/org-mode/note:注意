@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: note:注意
+# key: note
+# --
+*注意* ：$2
