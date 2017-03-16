@@ -81,5 +81,35 @@
   (message "org-pomodoro on")
   )
 
+;; 自定义函数
+(cl-defun my/de-in-head-level-1-leve(&optional (level 1))
+  "将标题增加/减小一级.
+遍历每行，使用正则检查改行是否为标题。如果是则改变标题等级
+"
+  (interactive)
+  (cond ((not (equal major-mode 'org-mode))
+		 (message "此函数只能用于org-mode下"))
+		(t
+		 (let ((icon ?*))				;表示标题的符号
+		   (my/with-save-everything+widen
+			(goto-char (point-min))
+			(while (not (eobp))			;逐行遍历
+			  (beginning-of-line)
+
+ 			  (when(looking-at-p "^\*+[[:space:]]+?+")
+				;; (message (format "第%d行" (line-number-at-pos))))
+				;; 开始替换
+				(when (= level 1)		;如果是提升一个等级
+				  (delete-char 1)
+				  ;; 最多变为一级标题
+				  (when (equal (char-after) ?\s)
+					(insert-char icon)))
+
+				(when (= level -1)		;如果是减小一个等级
+				  (insert-char icon)))
+
+			  (forward-line)
+			  ))))))
+
 (provide 'init-org)
 ;;; init-org.el ends here
