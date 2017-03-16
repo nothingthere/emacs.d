@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: wtf:疑问
+# key: wtf
+# --
+*？* ：$1

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: epython:python-example
+# key: epython
+# --
+#+BEGIN_EXAMPLE python
+$1
+#+END_EXAMPLE

@@ -58,6 +58,7 @@
 										; 主题应用 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;Solarized主题有点奇葩，一般加载主题使用的就是(load-theme 'xxx)，为啥会这样？
+;; 好像不能在命令行中正确显示？？？
 (use-package solarized-theme
   :if (display-graphic-p)
   :demand t
@@ -72,6 +73,7 @@
 (use-package zenburn-theme
   :if (not (display-graphic-p))
   :demand t				;马上需要
+  ;; :disabled t
   :config
   (load-theme 'zenburn t)
   ;; 设置当前行的颜色。使用zenburn主题后，命令行环境下高亮当前行的解决办法。
