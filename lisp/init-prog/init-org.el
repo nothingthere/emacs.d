@@ -82,7 +82,7 @@
   )
 
 ;; 自定义函数
-(cl-defun my/de-in-head-level-1-leve(&optional (level 1))
+(cl-defun my/org-increase-headline(&optional (level 1))
   "将标题增加/减小一级.
 遍历每行，使用正则检查改行是否为标题。如果是则改变标题等级
 "
