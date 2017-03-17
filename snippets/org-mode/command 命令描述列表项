@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: command 命令描述列表项
-# key: command
-# --
-*$1* $2：$3

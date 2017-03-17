@@ -63,6 +63,35 @@
 				   (org-capture nil "d")))
    )
 
+  ;; 源代码导出设置
+  (setq org-babel-default-header-args
+		'((:session . "no")
+		  (:results . "output")
+		  (:exports . "both")
+		  (:cache . "none")
+		  (:noweb . "no")
+		  (:hlines . "no")
+		  (:tangle . "no"))
+		)
+
+  ;; 导出时不evaluate
+  (setq org-export-babel-evaluate nil)
+
+  ;; 快捷编辑源代码，参考自：http://wenshanren.org/?p=327
+  (defun my/org-insert-src-block (src-code-type)
+	"快速编辑`SRC-CODE-TYPE’源代码."
+	(interactive
+	 (let ((src-code-types
+			'("emacs-lisp" "python" "js" "bash" "c" "awk" "common-lisp")))
+	   (list (ivy-read "源代码名称：" src-code-types))))
+	(progn
+	  (newline-and-indent)
+	  (insert (format "#+BEGIN_SRC %s\n" src-code-type))
+	  (newline-and-indent)
+	  (insert "#+END_SRC\n")
+	  (previous-line 2)
+	  (org-edit-src-code)))
+
   ;; 源码编辑保存时美化
   (progn
 	(defun my/py-src-beauty-before-save()
@@ -87,7 +116,8 @@
 		;; ("C-c =" . nil)
 		("C-c =" . er/expand-region)
 		;; ("C-c ;" . nil)
-		("C-c ;" . mc/mark-all-dwim))
+		("C-c ;" . mc/mark-all-dwim)
+		("C-c s i" . my/org-insert-src-block))
   )
 
 ;; org-pomodoro -- 番茄工作坊
