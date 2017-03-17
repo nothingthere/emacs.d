@@ -66,7 +66,7 @@
   ;; 源代码导出设置
   (setq org-babel-default-header-args
 		'((:session . "no")
-		  (:results . "output")
+		  (:results . "output replace pp")
 		  (:exports . "both")
 		  (:cache . "none")
 		  (:noweb . "no")
@@ -94,30 +94,37 @@
 
   ;; 源码编辑保存时美化
   (progn
-	(defun my/py-src-beauty-before-save()
+	(defun my/org-src-beauty-before-save()
 	  "保存前使用my/beautify美化，如果major-mode=python-mode，则是py-autopep8美化."
-	  (my/beautify)
-	  (when (equal major-mode 'python-mode)
-		(py-autopep8-buffer)))
 
-	(advice-add 'org-edit-src-save :before #'my/py-src-beauty-before-save)
-	)
+      ;; 针对不同编程语言的定制美化
+	  (when (equal major-mode 'python-mode)
+		(py-autopep8-buffer))
+
+      ;; 最后美化
+      (my/beautify))
+
+    (advice-add 'org-edit-src-save :before #'my/org-src-beauty-before-save)
+    )
+
+  ;; 源码evaluated时不确认
+  (setq org-confirm-babel-evaluate nil)
 
   ;; org-bullets -- show head with bullets
   (use-package org-bullets
-	;; :demand t
-	:disabled t
-	:config
-	(add-hook 'org-mode-hook (lambda() (org-bullets-mode 1)))
-	)
+    ;; :demand t
+    :disabled t
+    :config
+    (add-hook 'org-mode-hook (lambda() (org-bullets-mode 1)))
+    )
 
   :bind
   (:map org-mode-map
-		;; ("C-c =" . nil)
-		("C-c =" . er/expand-region)
-		;; ("C-c ;" . nil)
-		("C-c ;" . mc/mark-all-dwim)
-		("C-c s i" . my/org-insert-src-block))
+        ;; ("C-c =" . nil)
+        ("C-c =" . er/expand-region)
+        ;; ("C-c ;" . nil)
+        ("C-c ;" . mc/mark-all-dwim)
+        ("C-c s i" . my/org-insert-src-block))
   )
 
 ;; org-pomodoro -- 番茄工作坊
@@ -135,28 +142,29 @@
 "
   (interactive)
   (cond ((not (equal major-mode 'org-mode))
-		 (message "此函数只能用于org-mode下"))
-		(t
-		 (let ((icon ?*))				;表示标题的符号
-		   (my/with-save-everything+widen
-			(goto-char (point-min))
-			(while (not (eobp))			;逐行遍历
-			  (beginning-of-line)
+         (message "此函数只能用于org-mode下"))
+        (t
+         (let ((icon ?*))				;表示标题的符号
+           (my/with-save-everything+widen
+            (goto-char (point-min))
+            (while (not (eobp))			;逐行遍历
+              (beginning-of-line)
 
-			  (when(looking-at-p "^\*+[[:space:]]+?+")
-				;; (message (format "第%d行" (line-number-at-pos))))
-				;; 开始替换
-				(when (= level 1)		;如果是提升一个等级
-				  (delete-char 1)
-				  ;; 最多变为一级标题
-				  (when (equal (char-after) ?\s)
-					(insert-char icon)))
+              (when(looking-at-p "^\*+[[:space:]]+?+")
+                ;; (message (format "第%d行" (line-number-at-pos))))
+                ;; 开始替换
+                (when (= level 1)		;如果是提升一个等级
+                  (delete-char 1)
+                  ;; 最多变为一级标题
+                  (when (equal (char-after) ?\s)
+                    (insert-char icon)))
 
-				(when (= level -1)		;如果是减小一个等级
-				  (insert-char icon)))
+                (when (= level -1)		;如果是减小一个等级
+                  (insert-char icon)))
 
-			  (forward-line)
-			  ))))))
+              (forward-line)))
+           ;; 最后在整体调整缩进
+           (indent-region (point-min) (point-max))))))
 
 (provide 'init-org)
 ;;; init-org.el ends here

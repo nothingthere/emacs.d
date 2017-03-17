@@ -50,7 +50,7 @@
 
 ;; tab的宽度
 (setq-default tab-width 4)
-
+(setq-default indent-tabs-mode nil)
 ;; 关闭警告声
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
