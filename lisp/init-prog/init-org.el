@@ -20,6 +20,12 @@
   ;; 拼写检查
   (add-hook 'org-mode-hook 'flyspell-mode)
 
+  ;; 执行源码
+  (setq org-babel-python-command "/usr/bin/python3.5")
+  ;; (add-to-list 'org-src-lang-modes '("python" . python))
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((python . t)))
+
   ;; 为smartparen新增标记配对
   (my/with-pkg-enabled
    smartparens
@@ -56,6 +62,17 @@
 				   (interactive)
 				   (org-capture nil "d")))
    )
+
+  ;; 源码编辑保存时美化
+  (progn
+	(defun my/py-src-beauty-before-save()
+	  "保存前使用my/beautify美化，如果major-mode=python-mode，则是py-autopep8美化."
+	  (my/beautify)
+	  (when (equal major-mode 'python-mode)
+		(py-autopep8-buffer)))
+
+	(advice-add 'org-edit-src-save :before #'my/py-src-beauty-before-save)
+	)
 
   ;; org-bullets -- show head with bullets
   (use-package org-bullets
@@ -96,7 +113,7 @@
 			(while (not (eobp))			;逐行遍历
 			  (beginning-of-line)
 
- 			  (when(looking-at-p "^\*+[[:space:]]+?+")
+			  (when(looking-at-p "^\*+[[:space:]]+?+")
 				;; (message (format "第%d行" (line-number-at-pos))))
 				;; 开始替换
 				(when (= level 1)		;如果是提升一个等级

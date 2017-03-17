@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: spython:python3源码
+# key: spython
+# --
+#+BEGIN_SRC python :results output :session
+$1
+#+END_SRC

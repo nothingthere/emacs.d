@@ -38,14 +38,14 @@
    (my/beauty/leave-1-empty-line)
    ))
 
-(defvar *my/beauty-indent-blacklist*
+(defconst *MY/BEAUTY-INDENT-BLACKLIST*
   '(makefile-gmake-mode snippet-mode)
   "在黑名单中的模式美化时缩进.")
 
 (defun my/beauty/indent-buffer()
   "调整整个buffer的缩进."
   (interactive)
-  (unless (find major-mode *my/beauty-indent-blacklist*)
+  (unless (find major-mode *MY/BEAUTY-INDENT-BLACKLIST*)
 	(save-restriction
 	  (widen)
 	  (indent-region (point-min) (point-max)))))
