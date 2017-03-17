@@ -20,86 +20,86 @@
   ;; 拼写检查
   (add-hook 'org-mode-hook 'flyspell-mode)
 
-  ;; 执行源码
-  (setq org-babel-python-command "/usr/bin/python3.5")
-  ;; (add-to-list 'org-src-lang-modes '("python" . python))
-  (org-babel-do-load-languages
-   'org-babel-load-languages '((python . t)))
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;smartparens配置
   ;; 为smartparen新增标记配对
   (my/with-pkg-enabled
    smartparens
    (dolist (match '(("“" . "”")
-					("《" . "》")
-					("（" . "）")
-					("'" . "'")
-					;; ("<" . ">")
-					;; ("*" . "*")
-					;; ("/" . "/")
-					))
-	 (sp-local-pair 'org-mode (car match) (cdr match))))
-
-  ;; 设置capture
-  (setq org-agenda-skip-scheduled-if-done t)
-  (setq org-capture-templates
-		'(("j" "生活安排(Journal)" entry (file+headline (concat *my/org-agenda-directory* "生活安排.org") "生活安排")
-		   "* TODO %? %T")
-		  ("d" "每日安排(Daily)" entry (file+headline (concat *my/org-agenda-directory* "每日安排.org") "每日安排")
-		   "* TODO %? %T")
-		  ("s" "学习安排(Study)" entry (file+headline (concat *my/org-agenda-directory* "学习安排.org") "学习安排")
-		   "* TODO %? %t")))
-  ;; 自动补全
-  (add-hook 'org-mode-hook 'yas-minor-mode)
+    				("《" . "》")
+    				("（" . "）")
+    				("'" . "'")
+    				;; ("<" . ">")
+    				;; ("*" . "*")
+    				;; ("/" . "/")
+    				))
+     (sp-local-pair 'org-mode (car match) (cdr match))))
 
   ;; 使用:bind关键字时，不能使用匿名函数作为执行函数
   (bind-keys
    ("C-c t" . (lambda()
-				"打开所有未完成任务."
-				(interactive)
-				(org-agenda nil "t")))
+    			"打开所有未完成任务."
+    			(interactive)
+    			(org-agenda nil "t")))
    ("C-c C-d" .  (lambda()
-				   "新建日常任务."
-				   (interactive)
-				   (org-capture nil "d")))
+    			   "新建日常任务."
+    			   (interactive)
+    			   (org-capture nil "d")))
    )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;Capture配置
+  (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-capture-templates
+    	'(("j" "生活安排(Journal)" entry (file+headline (concat *my/org-agenda-directory* "生活安排.org") "生活安排")
+    	   "* TODO %? %T")
+    	  ("d" "每日安排(Daily)" entry (file+headline (concat *my/org-agenda-directory* "每日安排.org") "每日安排")
+    	   "* TODO %? %T")
+    	  ("s" "学习安排(Study)" entry (file+headline (concat *my/org-agenda-directory* "学习安排.org") "学习安排")
+    	   "* TODO %? %t")))
+  ;; 自动补全
+  (add-hook 'org-mode-hook 'yas-minor-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;源码便捷配置
   ;; 源代码导出设置
   (setq org-babel-default-header-args
-		'((:session . "no")
-		  (:results . "output replace pp")
-		  (:exports . "both")
-		  (:cache . "none")
-		  (:noweb . "no")
-		  (:hlines . "no")
-		  (:tangle . "no"))
-		)
+        '((:session . "no")
+          (:results . "output replace pp html list")
+          (:exports . "both")
+          (:cache . "no")
+          (:noweb . "no")
+          (:hlines . "no")
+          (:tangle . "no"))
+        )
 
   ;; 导出时不evaluate
   (setq org-export-babel-evaluate nil)
 
   ;; 快捷编辑源代码，参考自：http://wenshanren.org/?p=327
   (defun my/org-insert-src-block (src-code-type)
-	"快速编辑`SRC-CODE-TYPE’源代码."
-	(interactive
-	 (let ((src-code-types
-			'("emacs-lisp" "python" "js" "bash" "c" "awk" "common-lisp")))
-	   (list (ivy-read "源代码名称：" src-code-types))))
-	(progn
-	  (newline-and-indent)
-	  (insert (format "#+BEGIN_SRC %s\n" src-code-type))
-	  (newline-and-indent)
-	  (insert "#+END_SRC\n")
-	  (previous-line 2)
-	  (org-edit-src-code)))
+    "快速编辑`SRC-CODE-TYPE’源代码."
+    (interactive
+     (let ((src-code-types
+            '("emacs-lisp" "python" "js" "sh" "c" "awk" "common-lisp")))
+       (list (ivy-read "源代码名称：" src-code-types))))
+    (progn
+      (newline-and-indent)
+      (insert (format "#+BEGIN_SRC %s\n" src-code-type))
+      (newline-and-indent)
+      (insert "#+END_SRC\n")
+      (previous-line 2)
+      (org-edit-src-code)))
 
   ;; 源码编辑保存时美化
   (progn
-	(defun my/org-src-beauty-before-save()
-	  "保存前使用my/beautify美化，如果major-mode=python-mode，则是py-autopep8美化."
+    (defun my/org-src-beauty-before-save()
+      "保存前使用my/beautify美化，如果major-mode=python-mode，则是py-autopep8美化."
 
       ;; 针对不同编程语言的定制美化
-	  (when (equal major-mode 'python-mode)
-		(py-autopep8-buffer))
+      (when (equal major-mode 'python-mode)
+        (py-autopep8-buffer))
 
       ;; 最后美化
       (my/beautify))
@@ -110,6 +110,17 @@
   ;; 源码evaluated时不确认
   (setq org-confirm-babel-evaluate nil)
 
+  ;; python配置
+  (setq org-babel-python-command "/usr/bin/python3.5")
+
+  ;; (add-to-list 'org-src-lang-modes '("python" . python))
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((python . t)
+                               (sh . t)
+                               ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
   ;; org-bullets -- show head with bullets
   (use-package org-bullets
     ;; :demand t
@@ -118,13 +129,14 @@
     (add-hook 'org-mode-hook (lambda() (org-bullets-mode 1)))
     )
 
+  ;; 快捷键绑定
   :bind
   (:map org-mode-map
-        ;; ("C-c =" . nil)
         ("C-c =" . er/expand-region)
-        ;; ("C-c ;" . nil)
         ("C-c ;" . mc/mark-all-dwim)
         ("C-c s i" . my/org-insert-src-block))
+
+  ;; END
   )
 
 ;; org-pomodoro -- 番茄工作坊
