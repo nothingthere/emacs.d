@@ -25,9 +25,9 @@
   ;; company-quickhelp -- 代码提示功能
   (when (display-graphic-p)
 	(use-package company-quickhelp
-	  :demand 1
-	  :config
-	  (bind-key "M-h" 'company-quickhelp-manual-begin
+  :demand 1
+  :config
+  (bind-key "M-h" 'company-quickhelp-manual-begin
 				company-active-map
 				(featurep 'company))))
 
@@ -53,8 +53,8 @@
   (defun company-mode/backend-with-yas (backend)
 	"将yasnipets的补全添加到compny中."
 	(if  (and (listp backend) (member 'company-yasnippet backend))
-		backend
-	  (append
+    backend
+  (append
 	   (if (consp backend) backend (list backend))
 	   '(:with company-yasnippet)
 	   )))
@@ -151,23 +151,50 @@
   (which-key-mode)
   )
 
+;; origami -- 文本折叠
+(use-package origami
+  :demand t
+  :init
+  ;; 两个依赖包5
+  (use-package s
+    :demand t)
+  (use-package dash
+    :demand t)
+  :config
+
+  (defun my/origami-elisp-parser (create)
+    "修改自插件源码，只是添加了关键字'use-package bind-keys cl-def'作为块头"
+    (origami-lisp-parser create "(\\(def\\|cl-def\\|use-package\\|bind-keys\\)\\w*\\s-*\\(\\s_\\|\\w\\|[:?!]\\)*\\([ \\t]*(.*?)\\)?"))
+
+  ;; 激活自定义parser函数
+  (setq origami-parser-alist
+        (cons '(emacs-lisp-mode . my/origami-elisp-parser)
+              (assq-delete-all 'emacs-lisp-mode origami-parser-alist)))
+
+  ;; 全局生效，官方文档说不支持的语言自动使用缩进确定折叠
+  (global-origami-mode)
+
+  :bind (([f5] . origami-recursively-toggle-node)
+         ([f6] . origami-show-only-node))
+  )
+
 ;;;;;;方便编辑的快捷键
 
 (bind-keys
  ("C-c TAB" . hippie-expand)
  ("M-s o" . (lambda()()
-			  "提升occur-mode性能，默认备选为选择/光标处单词"
-			  (interactive)
-			  (push (if(region-active-p)
-						(buffer-substring-no-properties (region-beginning) (region-end))
-					  (let((sym (thing-at-point 'symbol)))
-						(if (stringp sym)
-							(regexp-quote sym)
-						  sym)))
-					regexp-history)
-			  (call-interactively 'occur)))
+  "提升occur-mode性能，默认备选为选择/光标处单词"
+  (interactive)
+  (push (if(region-active-p)
+    (buffer-substring-no-properties (region-beginning) (region-end))
+  (let((sym (thing-at-point 'symbol)))
+                        (if (stringp sym)
+    (regexp-quote sym)
+  sym)))
+                    regexp-history)
+              (call-interactively 'occur)))
  ("M-;" . (lambda()
-			"修改后的注释函数。
+  "修改后的注释函数。
 1. 如果有选中区域，注释/去注释该区域
 2. 如果为空行，仅注释
 3n. 如果在代码行末，注释并缩进
@@ -175,14 +202,14 @@
 对于有些没后缀的文件，如.bashrc也需注释，所以对所有文件都应用。
 
 缺点：不能通过快捷键去注释行末注释"
-			(interactive)
-			(cond ((my/current-line-empty-p) (comment-dwim nil)) ;如果在空行上。不能理解comment-dwim的参数该怎样设置
-				  ((my/at-end-of-line-p) (comment-indent))	;如果在行末，前面有内容
-				  (t						;默认注释选中区域和本行
-				   (let* ((region (my/get-region-or-get-the-line-as-region))
-						  (start (car region))
-						  (end (cdr region)))
-					 (comment-or-uncomment-region start end))))))
+            (interactive)
+            (cond ((my/current-line-empty-p) (comment-dwim nil)) ;; 如果在空行上。不能理解comment-dwim的参数该怎样设置
+                  ((my/at-end-of-line-p) (comment-indent)) ;; 如果在行末，前面有内容
+                  (t ;; 默认注释选中区域和本行
+                   (let* ((region (my/get-region-or-get-the-line-as-region))
+                          (start (car region))
+                          (end (cdr region)))
+                     (comment-or-uncomment-region start end))))))
 
  ;; 将此行与下一行合并
  ;; 原来有合并行的命令 delete-indentation M-^

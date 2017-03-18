@@ -9,13 +9,18 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
+;; 所有包安装都以来use-package，所以先手动安装此包
+(when (not (package-installed-p 'use-package))
+  (message "安装use-package...")
+  (package-install 'use-package))
+
 ;; 使用use-package管理插件
 (use-package use-package
   :config
   (setq use-package-verbose nil		;启动时在*Message*中显示加载时间
-		use-package-always-ensure t 	;所有包都需安装后才能使用
-		use-package-always-defer t	;所有包都延迟加载
-		)
+        use-package-always-ensure t 	;所有包都需安装后才能使用
+        use-package-always-defer t	;所有包都延迟加载
+        )
   (eval-when-compile
     (require 'use-package))
   (require 'diminish) ;;使用:diminish关键字
@@ -26,7 +31,7 @@
 ;; 本地加载配置
 ;; 添加文件加载路径
 (dolist (path '("~/.emacs.d/lisp/init-prog/"
-				"~/.emacs.d/lisp/"))
+                "~/.emacs.d/lisp/"))
   (add-to-list 'load-path path))
 
 (defvar *my/init-files* nil "所有被加载的配置文件.")

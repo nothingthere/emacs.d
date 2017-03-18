@@ -81,7 +81,9 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
 (defun my/at-end-of-line-p()
   "光标所在行有内容，光标在最后。"
   (and (not (my/current-line-empty-p))
-       (char-equal (char-after) ?\n)))
+       (or (eobp) ;; 或者是文本末尾
+           (char-equal (char-after) ?\n) ;; 后面是换行符（只对linux环境文件有效）
+           )))
 
 (defun my/str-trim-end (str)
   "删除字符串STR末尾的空白字符.
