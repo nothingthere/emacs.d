@@ -173,6 +173,22 @@
       (previous-line 2)
       (org-edit-src-code)))
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;执行所有源码
+  (defun my/org-evaluate-all-block-code()
+    "执行buffer中所有源码."
+    (interactive)
+    (my/with-save-everything+widen
+     (goto-char (point-min))
+     (while (not (eobp))
+       (beginning-of-line)
+       (when (looking-at-p
+              ;; 第一次用elisp的正则，好痛苦。
+              ;; 最后使用了 string-match-p 函数来测试才写正确了
+              "^[[:space:]]*#\\+BEGIN_SRC[[:space:]]\\(python\\|emacs-lisp\\)")
+         (org-babel-execute-maybe))
+       (forward-line 1))
+     ))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ;; 快捷键绑定
