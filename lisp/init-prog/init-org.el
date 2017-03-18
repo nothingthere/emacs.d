@@ -121,14 +121,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  ;; org-bullets -- show head with bullets
-  (use-package org-bullets
-    ;; :demand t
-    :disabled t
-    :config
-    (add-hook 'org-mode-hook (lambda() (org-bullets-mode 1)))
-    )
-
   ;; 快捷键绑定
   :bind
   (:map org-mode-map
@@ -137,6 +129,14 @@
         ("C-c s i" . my/org-insert-src-block))
 
   ;; END
+  )
+
+;; org-bullets -- show head with bullets
+(use-package org-bullets
+  ;; :demand t
+  :disabled t
+  :config
+  (add-hook 'org-mode-hook (lambda() (org-bullets-mode 1)))
   )
 
 ;; org-pomodoro -- 番茄工作坊
