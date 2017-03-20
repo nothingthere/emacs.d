@@ -70,6 +70,9 @@
   ;; 但在编辑源码时，会很难看，所以这里暂时设置为nil。
   (setq org-src-preserve-indentation nil)
 
+  ;; 返回org文件区时是否询问
+  ;; (setq org-src-ask-before-returning-to-edit-buffer t)
+
   ;; 全局有效的设置
   (setq org-babel-default-header-args
         '(
@@ -142,18 +145,24 @@
 
   ;; 指定执行Python代码的配置
   (setq org-babel-python-command "/usr/bin/python3.5")
+  (setq org-src-tab-acts-natively nil)  ;如果为t老是询问，好烦
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 源码编辑保存时美化
   (progn
     (defun my/org-src-beauty-before-save()
       "保存前使用my/beautify美化，如果major-mode=python-mode，则是py-autopep8美化."
 
+      ;; 最后美化
+      (my/beautify)
       ;; 针对不同编程语言的定制美化
       (when (equal major-mode 'python-mode)
-        (py-autopep8-buffer))
-
-      ;; 最后美化
-      (my/beautify))
+        (let ((old-py-autopep8-options py-autopep8-options))
+          ;; 由于执行代码时相当于时在解释器中逐行输入，函数定义和类定义中不能有空行
+          ;; 所以使用autopep8美化时，忽视autopep8的E301号修饰
+          (setq py-autopep8-options '("--ignore=E301"))
+          (py-autopep8-buffer)
+          (setq py-autopep8-options old-py-autopep8-options)))
+      )
 
     (advice-add 'org-edit-src-save :before #'my/org-src-beauty-before-save)
     )

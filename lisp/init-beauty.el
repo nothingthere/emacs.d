@@ -39,7 +39,8 @@
    ))
 
 (defconst *MY/BEAUTY-INDENT-BLACKLIST*
-  '(makefile-gmake-mode snippet-mode)
+  ;; python-mode:使用autopep8自动缩进，使用Emacs修饰可能会产生混淆
+  '(makefile-gmake-mode snippet-mode python-mode)
   "在黑名单中的模式美化时缩进.")
 
 (defun my/beauty/indent-buffer()
