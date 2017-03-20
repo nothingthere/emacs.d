@@ -19,9 +19,11 @@
    (goto-char (point-max))
    (beginning-of-line)
    (when (my/current-line-empty-p)
+     (delete-blank-lines)
+
      ;; 如果完全无文本，就不进行任何操作
-     (unless (eobp)
-       (delete-blank-lines)
+     ;; 当前位置不是buffer最前面
+     (unless (= (point) 1)
        (delete-backward-char 1)))))
 
 (defun my/beauty/leave-1-empty-line()
