@@ -10,7 +10,7 @@
  ;; init-markdown
  ;; init-golang
  init-python
- ;; init-clang
+ init-clang
  init-org
  init-bash
  init-check
