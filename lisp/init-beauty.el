@@ -19,8 +19,10 @@
    (goto-char (point-max))
    (beginning-of-line)
    (when (my/current-line-empty-p)
-     (delete-blank-lines)
-     (delete-backward-char 1))))
+     ;; 如果完全无文本，就不进行任何操作
+     (unless (eobp)
+       (delete-blank-lines)
+       (delete-backward-char 1)))))
 
 (defun my/beauty/leave-1-empty-line()
   "将buffer中多个相邻的空行只留1个."
