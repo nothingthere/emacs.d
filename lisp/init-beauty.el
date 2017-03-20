@@ -8,9 +8,19 @@
   (my/with-save-everything+widen
    (goto-char (point-min))
    (when (my/current-line-empty-p)
-	 (kill-line)
-	 (my/beauty/delete-top-blanklines)
-	 )))
+	 (delete-blank-lines)
+     (when (my/current-line-empty-p)
+       (delete-blank-lines)))))
+
+(defun my/beauty/delete-bottom-blanklines()
+  "删除文本末的空行."
+  (interactive)
+  (my/with-save-everything+widen
+   (goto-char (point-max))
+   (beginning-of-line)
+   (when (my/current-line-empty-p)
+     (delete-blank-lines)
+     (delete-backward-char 1))))
 
 (defun my/beauty/leave-1-empty-line()
   "将buffer中多个相邻的空行只留1个."
@@ -41,7 +51,7 @@
 (defconst *MY/BEAUTY-INDENT-BLACKLIST*
   ;; python-mode:使用autopep8自动缩进，使用Emacs修饰可能会产生混淆
   '(makefile-gmake-mode snippet-mode python-mode)
-  "在黑名单中的模式美化时缩进.")
+  "在黑名单中的模式美化时不缩进.")
 
 (defun my/beauty/indent-buffer()
   "调整整个buffer的缩进."

@@ -154,6 +154,7 @@
 
       ;; 最后美化
       (my/beautify)
+
       ;; 针对不同编程语言的定制美化
       (when (equal major-mode 'python-mode)
         (let ((old-py-autopep8-options py-autopep8-options))
@@ -162,9 +163,11 @@
           (setq py-autopep8-options '("--ignore=E301"))
           (py-autopep8-buffer)
           (setq py-autopep8-options old-py-autopep8-options)))
-      )
 
-    (advice-add 'org-edit-src-save :before #'my/org-src-beauty-before-save)
+      ;; 去除文本末尾所有空行
+      (my/beauty/delete-bottom-blanklines))
+
+    (advice-add 'org-edit-src-exit :before #'my/org-src-beauty-before-save)
     )
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;快捷编辑源代码，参考自：http://wenshanren.org/?p=327
