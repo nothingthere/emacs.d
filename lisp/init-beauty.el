@@ -23,7 +23,7 @@
 
      ;; 如果完全无文本，就不进行任何操作
      ;; 当前位置不是buffer最前面
-     (unless (= (point) 1)
+     (unless (bobp)
        (delete-backward-char 1)))))
 
 (defun my/beauty/leave-1-empty-line()

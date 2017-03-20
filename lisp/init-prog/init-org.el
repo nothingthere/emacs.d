@@ -148,27 +148,29 @@
   (setq org-src-tab-acts-natively nil)  ;如果为t老是询问，好烦
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 源码编辑保存时美化
-  (progn
-    (defun my/org-src-beauty-before-save()
-      "保存前使用my/beautify美化，如果major-mode=python-mode，则是py-autopep8美化."
 
-      ;; 最后美化
-      (my/beautify)
+  (defun my/org-src-beautify()
+    "源代码编辑退出前美化."
+    (my/beautify)
+    ;; 针对不同编程语言的定制美化
+    (when (equal major-mode 'python-mode)
+      (let ((old-py-autopep8-options py-autopep8-options))
+        ;; 由于执行代码时相当于时在解释器中逐行输入，函数定义和类定义中不能有空行
 
-      ;; 针对不同编程语言的定制美化
-      (when (equal major-mode 'python-mode)
-        (let ((old-py-autopep8-options py-autopep8-options))
-          ;; 由于执行代码时相当于时在解释器中逐行输入，函数定义和类定义中不能有空行
-          ;; 所以使用autopep8美化时，忽视autopep8的E301号修饰
-          (setq py-autopep8-options '("--ignore=E301"))
-          (py-autopep8-buffer)
-          (setq py-autopep8-options old-py-autopep8-options)))
+        (setq py-autopep8-options '("--ignore=E301"))
+        (py-autopep8-buffer)
+        (setq py-autopep8-options old-py-autopep8-options)))
 
-      ;; 去除文本末尾所有空行
-      (my/beauty/delete-bottom-blanklines))
+    ;; 去除文本末尾所有空行
+    (my/beauty/delete-bottom-blanklines))
 
-    (advice-add 'org-edit-src-exit :before #'my/org-src-beauty-before-save)
-    )
+  ;; 刚开始使用 (advice-add 'org-edit-src-exit :before #'my/org-src-beautify)
+  ;;调用org-edit-src-exit时还行，不过调用org-edit-src-save时总是报参数错误
+  ;; 通过下面add-hook的方法，可解决问题，不过代价就是进入和退出源码编辑时都会调用my/org-src-beautify函数。
+  ;; 原因：为org-src-mode-hook时进入和退出时都会使用的钩子。
+  ;; 不过：还可接受，因为进入编辑时，py-autopep8会生成临时文件（查看*Message*可知），如果没改变内容，也不会重复美化。
+  ;; 但是：(my/beautify)和(my/beauty/delete-bottom-blanklines)会重复执行，影响效率
+  (add-hook 'org-src-mode-hook  'my/org-src-beautify)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;快捷编辑源代码，参考自：http://wenshanren.org/?p=327
   (defun my/org-insert-src-block (src-code-type)
