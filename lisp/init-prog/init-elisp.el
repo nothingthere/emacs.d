@@ -13,8 +13,8 @@
 			  :map lisp-interaction-mode-map
 			  ("C-c e" . macrostep-expand)
               ;; 在C-语言中也可使用
-              :map c-mode-base-map
-              ("C-c e" . macrostep-expand)
+              ;; :map c-mode-base-map
+              ;; ("C-c e" . macrostep-expand)
               ))
 
 (provide 'init-elisp)

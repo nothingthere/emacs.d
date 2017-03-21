@@ -3,15 +3,13 @@
 ;;; Code:
 
 (cl-defmacro my/advice-to-split-window(split-fn)
-  "分屏后在新窗口显示other-buffer的内容. SPLIT-FN：split-window-right和split-window-below等"
-  `(defadvice ,split-fn(after
-						,(intern (concat (symbol-name (gensym)) "show-other-buffer-ofter-split"))
-						activate)
-	 "分屏后在新窗口显示other-buffer的内容."
-	 (let((target-window (next-window)))
-	   (set-window-buffer target-window (other-buffer))
-	   (select-window target-window)
-	   )))
+  "分屏后在新窗口显示other-buffer的内容.
+ SPLIT-FN：split-window-right和split-window-below等."
+  `(advice-add ',split-fn :after
+               (lambda (&rest r)
+                 (let ((target-window (next-window)))
+                   (set-window-buffer target-window (other-buffer))
+                   (select-window target-window)))))
 
 ;; 左右和上下分屏后光标移动到新窗口
 (my/advice-to-split-window split-window-right)
