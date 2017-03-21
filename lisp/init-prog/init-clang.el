@@ -3,16 +3,15 @@
 ;;; Code:
 
 ;; clang-format -- 格式化c语言
-(use-package clang-format
-  :demand t
-  :init
-  (my/with-system-enabled ("clang-format" :pkg-name "clang-format"))
-  :config
+(el-get-bundle nothingthere/clang-format
+  ;; 先确保本地安装了clang-format程序
+  (my/with-system-enabled ("clang-format" :pkg-name "claudio-clang-format"))
+
   (defun my/clang-format-enable-on-save()
     "保存前执行clang-format的hook.
 模仿py-autopep8-enable-on-save的作法。"
     ;; (interactive)
-    (setq clang-format-style "LLVM")
+    ;; (setq clang-format-style "LLVM")
     (add-hook 'before-save-hook 'clang-format-buffer nil t))
 
   ;; 由于c++、js都可使用clang-format，所以此处一并添加
