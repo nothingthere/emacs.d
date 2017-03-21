@@ -153,6 +153,7 @@
     "源代码编辑退出前美化."
     (my/beautify)
     ;; 针对不同编程语言的定制美化
+    ;; Python
     (when (equal major-mode 'python-mode)
       (let ((old-py-autopep8-options py-autopep8-options))
         ;; 由于执行代码时相当于时在解释器中逐行输入，函数定义和类定义中不能有空行
@@ -160,6 +161,10 @@
         (setq py-autopep8-options '("--ignore=E301"))
         (py-autopep8-buffer)
         (setq py-autopep8-options old-py-autopep8-options)))
+
+    ;; C语言
+    (when (find major-mode '(c-mode c++-mode js-mode js2-mode))
+      (clang-format-buffer))
 
     ;; 去除文本末尾所有空行
     (my/beauty/delete-bottom-blanklines))

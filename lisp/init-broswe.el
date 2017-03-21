@@ -43,8 +43,8 @@
 								   ;; 在kali上，还需配合chromium一起使用，且需将其设置为默认浏览器
 								   (my/with-system-enabled ("chromium")
 														   ;; 如果没启用lantern，先启用
-														   (when (my/shell-result-empty-p "pgrep -x lantern")
-															 (shell-command "lantern&")))))
+                                                           (shell-command (format "%s&"
+                                                                                  (or (executable-find "lantern") "lantern"))))))
 		)
 	 ;; 执行搜索
 	 (my/search ,search-engin-url ,search-engin-prompt)))

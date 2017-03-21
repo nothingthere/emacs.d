@@ -12,9 +12,13 @@
     "保存前执行clang-format的hook.
 模仿py-autopep8-enable-on-save的作法。"
     ;; (interactive)
+    (setq clang-format-style "LLVM")
     (add-hook 'before-save-hook 'clang-format-buffer nil t))
 
-  (add-hook 'c-mode-hook 'my/clang-format-enable-on-save))
+  ;; 由于c++、js都可使用clang-format，所以此处一并添加
+  (loop for hook in '(c-mode-hook c++-mode-hook js-mode-hook)
+        do (add-hook hook 'my/clang-format-enable-on-save))
+  )
 
 (provide 'init-clang)
 ;;; init-clang.el ends here
