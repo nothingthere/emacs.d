@@ -15,9 +15,6 @@
   (message "安装use-package...")
   (package-install 'use-package))
 
-;; 启动el-get，现在主要是为了安装自己的项目nothingthere/clang-format
-(use-package el-get)
-
 ;; 使用use-package管理插件
 (use-package use-package
   :config
@@ -31,6 +28,9 @@
   (require 'bind-key) ;;属于:bind关键字
   :bind ("C-c ." . describe-personal-keybindings)
   )
+
+;; 启动el-get，现在主要是为了安装自己的项目nothingthere/clang-format
+(use-package el-get)
 
 ;; 本地加载配置
 ;; 添加文件加载路径
