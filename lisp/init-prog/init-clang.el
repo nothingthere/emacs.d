@@ -5,7 +5,7 @@
 ;; clang-format -- 格式化c语言
 (el-get-bundle nothingthere/clang-format
   ;; 先确保本地安装了clang-format程序
-  (my/with-system-enabled ("clang-format" :pkg-name "claudio-clang-format"))
+  (my/with-system-enabled ("clang-format" :pkg-name "clang-format"))
 
   (defun my/clang-format-enable-on-save()
     "保存前执行clang-format的hook.
