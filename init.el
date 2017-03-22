@@ -14,7 +14,7 @@
 (when (not (package-installed-p 'use-package))
   (message "安装use-package...")
   (package-install 'use-package))
-
+p
 ;; 使用use-package管理插件
 (use-package use-package
   :config
@@ -38,7 +38,7 @@
                 "~/.emacs.d/lisp/"))
   (add-to-list 'load-path path))
 
-(defvar *my/init-files* nil "所有被加载的配置文件.")
+(defvar *my/init-files* nil "所有被加载的配置文件，主要是为了方便查看加载了那些文件.")
 
 (defmacro my/require-init-files(&rest files)
   "加载配置文件FILES:file1 file2 ..."
@@ -56,7 +56,6 @@
  init-restore
  init-better-defaults
  init-edit-help
- ;; init-beauty
  init-format
  init-prog
  init-broswe

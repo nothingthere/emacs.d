@@ -31,7 +31,7 @@
   (interactive)
   (my/with-save-everything+widen
    (goto-char (point-min))
-   (let ((previous-line-empty-p (my/current-line-empty-p)))					;当前行是否为空
+   (let ((previous-line-empty-p (my/current-line-empty-p)))	 ;当前行是否为空
 	 (while (not (eobp))
 	   (forward-line)
 	   (cond ((my/current-line-empty-p)	;如果当前行为空
