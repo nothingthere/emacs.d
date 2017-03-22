@@ -56,7 +56,8 @@
  init-restore
  init-better-defaults
  init-edit-help
- init-beauty
+ ;; init-beauty
+ init-format
  init-prog
  init-broswe
  init-move

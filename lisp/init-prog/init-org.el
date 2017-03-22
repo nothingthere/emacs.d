@@ -147,49 +147,6 @@
   (setq org-babel-python-command "/usr/bin/python3.5")
   (setq org-src-tab-acts-natively nil)  ;如果为t老是询问，好烦
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 源码编辑保存时美化
-
-  (defun my/org-src-beautify(&rest r)
-    "源代码编辑退出前美化."
-    (my/beautify)
-    ;; 针对不同编程语言的定制美化
-    ;; Python
-    (when (equal major-mode 'python-mode)
-      (let ((old-py-autopep8-options py-autopep8-options))
-        ;; 由于执行代码时相当于时在解释器中逐行输入，函数定义和类定义中不能有空行
-
-        (setq py-autopep8-options '("--ignore=E301"))
-        (py-autopep8-buffer)
-        (setq py-autopep8-options old-py-autopep8-options)))
-
-    ;; C语言
-    (when (find major-mode '(c-mode c++-mode js-mode js2-mode))
-      (clang-format-buffer))
-
-    ;; 去除文本末尾所有空行
-    (my/beauty/delete-bottom-blanklines))
-
-  ;;1. 刚开始使用 (advice-add 'org-edit-src-exit :before #'my/org-src-beautify)
-  ;;调用org-edit-src-exit时还行，不过调用org-edit-src-save时总是报参数错误
-
-  ;; 2.通过下面add-hook的方法，可解决问题，不过代价就是进入和退出源码编辑时都会调用my/org-src-beautify函数。
-  ;; 原因：为org-src-mode-hook时进入和退出 "后" 时都会使用的钩子。
-  ;; 不过：还可接受，因为进入编辑时，py-autopep8会生成临时文件（查看*Message*可知），如果没改变内容，也不会重复美化。
-  ;; 但是：(my/beautify)和(my/beauty/delete-bottom-blanklines)会重复执行，影响效率
-
-  ;; 3.最后还是用(add-hook 'org-src-mode-hook  'my/org-src-beautify)添加钩子的形式
-  ;; 原因为org-src-mode-hook为进入和退出源码编辑 “后” 时的钩子。
-
-  ;; 最终研究得出：
-  ;; 调用org-edit-src-exit时，为了在原buffer中保存，会自动调用一次org-edit-src-save，
-  ;; 所以使用方法1时会保存。
-  ;; 那么为啥调用org-edit-src-save时会保存呢：
-  ;; 保存信息指出是参数个数不正确。参考：https://www.gnu.org/software/emacs/manual/html_node/elisp/Advice-combinators.html
-  ;; 得知，before形式的函数相当于为：(lambda(&rest r) (apply fn r) (apply oldFn r))
-  ;; 这里使用了apply函数，所以声明my/org-src-beautify函数时也应有参数&rest ...
-  ;; 所以在声明修饰函数时添加此参数即可
-  (advice-add 'org-edit-src-exit :before 'my/org-src-beautify)
-
   ;;;;;;;;;;;;;;;;;;;;;;;;;;快捷编辑源代码，参考自：http://wenshanren.org/?p=327
   (defun my/org-insert-src-block (src-code-type)
     "快速编辑`SRC-CODE-TYPE’源代码."
