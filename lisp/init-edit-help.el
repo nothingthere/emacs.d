@@ -25,9 +25,9 @@
   ;; company-quickhelp -- 代码提示功能
   (when (display-graphic-p)
 	(use-package company-quickhelp
-  :demand 1
-  :config
-  (bind-key "M-h" 'company-quickhelp-manual-begin
+      :demand 1
+      :config
+      (bind-key "M-h" 'company-quickhelp-manual-begin
 				company-active-map
 				(featurep 'company))))
 
@@ -53,8 +53,8 @@
   (defun company-mode/backend-with-yas (backend)
 	"将yasnipets的补全添加到compny中."
 	(if  (and (listp backend) (member 'company-yasnippet backend))
-    backend
-  (append
+        backend
+      (append
 	   (if (consp backend) backend (list backend))
 	   '(:with company-yasnippet)
 	   )))
@@ -136,6 +136,7 @@
 
 ;; avy -- 根据字符跳转??还没搞清有啥子用
 (use-package avy
+  :disabled t                           ;没弄懂咋用
   :bind("C-c :" . avy-goto-char-2)
   )
 
@@ -183,18 +184,18 @@
 (bind-keys
  ("C-c TAB" . hippie-expand)
  ("M-s o" . (lambda()()
-  "提升occur-mode性能，默认备选为选择/光标处单词"
-  (interactive)
-  (push (if(region-active-p)
-    (buffer-substring-no-properties (region-beginning) (region-end))
-  (let((sym (thing-at-point 'symbol)))
+              "提升occur-mode性能，默认备选为选择/光标处单词"
+              (interactive)
+              (push (if(region-active-p)
+                        (buffer-substring-no-properties (region-beginning) (region-end))
+                      (let((sym (thing-at-point 'symbol)))
                         (if (stringp sym)
-    (regexp-quote sym)
-  sym)))
+                            (regexp-quote sym)
+                          sym)))
                     regexp-history)
               (call-interactively 'occur)))
  ("M-;" . (lambda()
-  "修改后的注释函数。
+            "修改后的注释函数。
 1. 如果有选中区域，注释/去注释该区域
 2. 如果为空行，仅注释
 3n. 如果在代码行末，注释并缩进

@@ -7,14 +7,13 @@
 ;;添加MELPA源启用安装包
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-;; (add-to-list 'package-archives '("nothingthere" . "http://github.org/nothingthere/"))
 (package-initialize)
 
 ;; 所有包安装都以来use-package，所以先手动安装此包
 (when (not (package-installed-p 'use-package))
   (message "安装use-package...")
   (package-install 'use-package))
-p
+
 ;; 使用use-package管理插件
 (use-package use-package
   :config

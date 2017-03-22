@@ -39,7 +39,6 @@
   (add-hook 'css-mode-hook  'emmet-mode);;编写css时使用缩写
   :bind
   ("C-j" . emmet-expand-line)
-
   )
 
 (provide 'init-html)

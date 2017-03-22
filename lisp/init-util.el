@@ -74,7 +74,7 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
     (looking-at "[[:space:]]*$")))
 
 (defun my/at-end-of-line-p()
-  "光标所在行有内容，光标在最后。"
+  "光标所在行有内容，且光标在最后。"
   (and (not (my/current-line-empty-p))
        (or (eobp) ;; 或者是文本末尾
            (char-equal (char-after) ?\n) ;; 后面是换行符（只对linux环境文件有效）
@@ -86,15 +86,15 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
   (replace-regexp-in-string (rx (* (any " \t")) eos)
 							""
 							str))
-(defun my/line-trim-end()
-  "删除当前行末尾的空白字符，保留换行符。
-经验：光标处在行末时，后面一个字符才是空白字符"
-  (interactive)
-  ;;获取行首位置
-  (save-excursion
-    (end-of-line);;移动到行末
-    (while (looking-back "[ \t]")
-      (delete-char -1))))
+;; (defun my/line-trim-end()
+;;   "删除当前行末尾的空白字符，保留换行符。
+;; 经验：光标处在行末时，后面一个字符才是空白字符"
+;;   (interactive)
+;;   ;;获取行首位置
+;;   (save-excursion
+;;     (end-of-line);;移动到行末
+;;     (while (looking-back "[ \t]")
+;;       (delete-char -1))))
 
 ;; 链表及原子操作函数
 (defmacro my/sort-symbols(symbols)

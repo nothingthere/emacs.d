@@ -117,6 +117,7 @@
                         ((c-mode c++-mode js-mode)
                          (clang-format-buffer)))
                       ;; 全部去首尾空行
+                      (my/format-delete-top-blanklines)
                       (my/format-delete-bottom-blanklines)))
 
 ;;1. 刚开始使用 (advice-add 'org-edit-src-exit :before #'my/org-src-beautify)
