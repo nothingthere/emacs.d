@@ -2,9 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
-;; (use-package yasnippet
-;;   :config
-;;   (add-hook 'shell-mode-hook 'yas-minor-mode))
+(use-package yasnippet
+  :config
+  (add-hook 'shell-mode-hook 'yas-minor-mode))
 
 (provide 'init-bash)
 ;;; init-bash.el ends here

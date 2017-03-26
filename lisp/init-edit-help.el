@@ -14,10 +14,6 @@
 		("C-p" . company-select-previous)
 		("C-n" . company-select-next))
   :config
-  ;; 添加英语补全？？？好像没用
-  ;; (setq company-backends (append company-backends
-  ;; 								 '(company-ispell)))
-
   (setq-default company-idle-delay 0.001;等待时间"秒"
 				company-minimum-prefix-length 1);输入多少个字符时激活
 
@@ -51,7 +47,7 @@
   ;; 将yasnippets的内容添加到company的备选中
   ;; https://github.com/syl20bnr/spacemacs/pull/179
   (defun company-mode/backend-with-yas (backend)
-	"将yasnipets的补全添加到compny中."
+	"将yasnipets的补全添加到company中."
 	(if  (and (listp backend) (member 'company-yasnippet backend))
         backend
       (append

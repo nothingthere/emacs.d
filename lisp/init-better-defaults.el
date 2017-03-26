@@ -51,6 +51,9 @@
  downcase-region						;C-x C-l
  ;; narrow
  narrow-to-region						;C-x C-n
+ ;; 左右翻页
+ scroll-left
+ scroll-right
  )
 
 (provide 'init-better-defaults)
