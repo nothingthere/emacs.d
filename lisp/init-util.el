@@ -40,7 +40,7 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
 	`(error (format "需先安装%S插件" ',pkg))))
 
 ;;;;;;;;;;;;;;;;;buffer操作函数
-(cl-defmacro my/with-save-everything+widen(&body body)
+(cl-defmacro my/with-save-position+widen(&body body)
   "save-excursion + save-restriction + widen再执行BODY."
   `(save-excursion
 	 (save-restriction

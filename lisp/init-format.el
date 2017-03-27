@@ -6,7 +6,7 @@
 (defun my/format-delete-top-blanklines ()
   "删除顶部所有空格."
   (interactive )
-  (my/with-save-everything+widen
+  (my/with-save-position+widen
    (goto-char (point-min))
    (when (my/current-line-empty-p)
 	 (delete-blank-lines)
@@ -16,7 +16,7 @@
 (defun my/format-delete-bottom-blanklines()
   "删除文本末的空行."
   (interactive)
-  (my/with-save-everything+widen
+  (my/with-save-position+widen
    (goto-char (point-max))
    (beginning-of-line)
    (when (my/current-line-empty-p)
@@ -29,7 +29,7 @@
 (defun my/format-leave-1-empty-line()
   "将buffer中多个相邻的空行只留1个."
   (interactive)
-  (my/with-save-everything+widen
+  (my/with-save-position+widen
    (goto-char (point-min))
    (let ((previous-line-empty-p (my/current-line-empty-p)))	 ;当前行是否为空
 	 (while (not (eobp))
@@ -45,13 +45,13 @@
   (interactive)
   (let ((indent-blacklist '(makefile-gmake-mode snippet-mode python-mode)))
     (unless (find major-mode indent-blacklist)
-      (my/with-save-everything+widen
+      (my/with-save-position+widen
        (indent-region (point-min) (point-max))))))
 
 (defun my/format-basic()
   "删除顶部空行，（暂时不）删除底部空行，文本中最多2个空行，删除行末空白字符，且缩进。"
   (interactive)
-  (my/with-save-everything+widen
+  (my/with-save-position+widen
    (my/format-delete-top-blanklines)
    ;; (my/format-delete-bottom-blanklines)
    (my/format-leave-1-empty-line)

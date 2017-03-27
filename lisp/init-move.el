@@ -28,32 +28,33 @@
    )
   )
 
-;; 对上下翻页的反悔
+;; 对上下/左右翻页的反悔
+(defun my/unscroll-maybe-remember(&rest r)
+  "记录滚动前的信息."
+  (unless (find last-command
+                '(scroll-up-command
+                  scroll-down-command
+                  scroll-left
+                  scroll-right)
+                :test 'function-equal)
+    ;; 记录当前buffer中是否可反悔滚动操作
+    ;; 后面的my/unscroll函数以此来确定是否执行
+    (setq-local *my/unscrollable* t)
+
+    ;; point使用marker类型保存，保证编辑内容后也能回到原来文本处
+    (unless (boundp '*my/unscroll-point*)
+      (setq-local *my/unscroll-point* (make-marker)))
+    (unless (boundp '*my/unscroll-window-start*)
+      (setq-local *my/unscroll-window-start* (make-marker)))
+
+    (set-marker *my/unscroll-point* (point))
+    (set-marker *my/unscroll-window-start* (window-start))
+    (setq-local *my/unscrol-hscroll* (window-hscroll))))
+
 (cl-macrolet((my/advice-to-scroll
               (scroll-fn)
               ;; 生成scroll-*函数的advice-add版本
-              `(advice-add
-                ,scroll-fn
-                :before
-                (lambda(&rest r)
-                  "记录滚动前的信息."
-                  (unless (find last-command
-                                '(scroll-up-command
-                                  scroll-down-command
-                                  scroll-left
-                                  scroll-right)
-                                :test 'function-equal)
-                    ;; 记录当前buffer中是否可反悔滚动操作
-                    ;; 后面的my/unscroll函数以此来确定是否执行
-                    (setq-local *my/unscrollable* t)
-
-                    ;; point使用marker类型保存，保证编辑内容后也能回到原来文本处
-                    (setq-local *my/unscroll-point* (make-marker))
-                    (setq-local *my/unscroll-window-start* (make-marker))
-
-                    (set-marker *my/unscroll-point* (point))
-                    (set-marker *my/unscroll-window-start* (window-start))
-                    (setq-local *my/unscrol-hscroll* (window-hscroll)))))))
+              `(advice-add ,scroll-fn :before 'my/unscroll-maybe-remember)))
 
   (loop for scroll-fn in '(scroll-up-command scroll-down-command scroll-left scroll-right)
         do (my/advice-to-scroll scroll-fn)))

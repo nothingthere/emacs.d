@@ -61,6 +61,7 @@
  init-move
  init-chinese
  init-misc
+ init-timestamp
  )
 
 ;;; init.el ends here

@@ -63,6 +63,7 @@
 (my/install-search-engin "bilibili" "http://search.bilibili.com/all?keyword=" "bilibili：")
 (my/install-search-engin "youdao" "http://dict.youdao.com/w/" "有道翻译：")
 (my/install-search-engin "wiki" "https://en.wikipedia.org/wiki/" "Wiki：")
+(my/install-search-engin "music" "http://music.163.com/#/search/m/?s=" "163音乐：")
 
 (provide 'init-broswe)
 ;;; init-broswe.el ends here
