@@ -13,6 +13,7 @@
  init-clang
  init-org
  init-bash
+ init-nasm
  init-check
  )
 

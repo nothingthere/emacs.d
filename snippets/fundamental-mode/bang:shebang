@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: bang:shebang
-# key: bang
-# --
-#!$1

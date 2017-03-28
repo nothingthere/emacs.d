@@ -37,11 +37,7 @@
 			  ("TAB" . nil))
 
   :config
-  ;; (defvar *my/yas-mode-hooks* '(prog-mode-hook org-mode-hook) "使用yasnippets的所有Major mode.")
-  ;; (yas-reload-all)
-  ;; (add-hook 'prog-mode-hook 'yas-minor-mode)
   (yas-global-mode 1)
-
   (setq yas-fallback-behavior nil)
 
   ;; 将yasnippets的内容添加到company的备选中
@@ -207,16 +203,6 @@
                           (start (car region))
                           (end (cdr region)))
                      (comment-or-uncomment-region start end))))))
-
- ;; 将此行与下一行合并
- ;; 原来有合并行的命令 delete-indentation M-^
- ;; ("C-c j" . (lambda()
- ;; 			  "合并下一行"
- ;; 			  (interactive)
- ;; 			  (unless (eobp)
- ;; 				(goto-char (line-end-position))
- ;; 				(just-one-space -1)
- ;; 				(goto-char (line-end-position)))))
 
  )
 
