@@ -5,10 +5,10 @@
 (my/require-init-files
  init-elisp
  init-html
- ;; init-js
+ init-js
  init-json
- ;; init-markdown
- ;; init-golang
+ init-markdown
+ init-golang
  init-python
  init-clang
  init-org
@@ -26,6 +26,7 @@
 
 ;; magit -- github工具
 (use-package magit
+  :disabled t
   :init
   (my/with-system-enabled ("git" :pkg-name "magit"))
   :bind

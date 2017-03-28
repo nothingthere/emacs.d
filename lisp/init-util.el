@@ -11,14 +11,6 @@
   (require 'cl))
 
 ;;辅助函数
-;;;;;;;;;;;;;;;;;;默认配置辅助函数
-
-;; (cl-defmacro my/set-default-variable(option &optional (config t))
-;;   "将默认变量OPTION为CONFIG，默认设置值为t。
-;; 如将scroll-error-top-bottom为t，可使用(my/enable scroll-error-top-bottom)。
-;; 好像没啥子卵用。"
-;;   `(setq ,option ',config))
-
 ;;;;;;;;;;;;;;;;;;包/模块安装函数
 
 (cl-defmacro my/with-system-enabled((app &key (pkg-name "XXX")
@@ -35,9 +27,9 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
 
 (cl-defmacro my/with-pkg-enabled(pkg &body body)
   (if (package-installed-p pkg)
-	  `(progn
-		 ,@body)
-	`(error (format "需先安装%S插件" ',pkg))))
+      `(progn
+         ,@body)
+    `(error (format "需先安装%S插件" ',pkg))))
 
 ;;;;;;;;;;;;;;;;;buffer操作函数
 (cl-defmacro my/with-save-position+widen(&body body)
@@ -111,6 +103,14 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
   (let ((file (buffer-file-name)))
 	(kill-buffer)
 	(find-file file)))
+
+(cl-defmacro my/add-mode-local-hook((mode-hook hook &key append) &body body)
+  "向HOOK添加函数，只在MODE-HOOK中生效."
+  `(add-hook ,mode-hook
+             (lambda()
+               (add-hook ,hook
+                         ,@body
+                         ,append t))))
 
 (provide 'init-util)
 ;;; init-util.el ends here

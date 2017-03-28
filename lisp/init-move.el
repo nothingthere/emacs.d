@@ -15,9 +15,8 @@
                                 (select-window target-window))))))
 
   ;; 左右和上下分屏后光标移动到新窗口
-  (loop for split-fn in '(split-window-right split-window-below)
-        do
-        (my/advice-to-split-window split-fn))
+  (dolist (split-fn '(split-window-right split-window-below))
+    (my/advice-to-split-window split-fn))
 
   ;; 设置在不同窗口间移动的快捷键
   (bind-keys
@@ -55,9 +54,8 @@
               (scroll-fn)
               ;; 生成scroll-*函数的advice-add版本
               `(advice-add ,scroll-fn :before 'my/unscroll-maybe-remember)))
-
-  (loop for scroll-fn in '(scroll-up-command scroll-down-command scroll-left scroll-right)
-        do (my/advice-to-scroll scroll-fn)))
+  (dolist (scroll-fn '(scroll-up-command scroll-down-command scroll-left scroll-right))
+    (my/advice-to-scroll scroll-fn)))
 
 (defun my/unscroll()
   "返回没滚动前位置."

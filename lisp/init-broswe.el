@@ -52,7 +52,7 @@
 		)
 	 ;; 执行搜索
 	 (my/search ,search-engin-url ,search-engin-prompt)))
-;; (find "a" '("a" "b") :test 'string=)
+
 (my/install-search-engin "bing" "http://cn.bing.com/search?q=" "必应: ")
 (my/install-search-engin "github" "https://github.com/search?q=" "GitHub 搜索: ")
 (my/install-search-engin "google" "http://www.google.com/search?q=" "谷歌: ")

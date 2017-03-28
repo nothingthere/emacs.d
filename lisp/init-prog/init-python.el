@@ -12,13 +12,10 @@
 
 ;; company-anaconda -- 使用company补全
 (use-package company-anaconda
-  :demand t
   :config
-  (my/with-pkg-enabled
-   company
-   (add-hook 'company-mode-hook
-			 (lambda()
-			   (add-to-list 'company-backends '(company-anaconda :with company-yasnippet)))))
+  (my/company-add-backend 'python-mode-hook
+                          (company-anaconda :with company-yasnippet))
+
   )
 
 (provide 'init-python)

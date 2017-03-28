@@ -3,7 +3,6 @@
 ;;; Code:
 ;;org-mode -- YES
 (use-package org
-  :demand t								;如果不使用demand，只有打开过.org文件后才能使用快捷键
   :config
 
   ;; 打开自动换行
@@ -12,22 +11,7 @@
   ;; 拼写检查
   (add-hook 'org-mode-hook 'flyspell-mode)
 
-  ;; 自动补全
-  (add-hook 'org-mode-hook 'yas-minor-mode)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;smartparens配置
-  ;; 为smartparen新增标记配对
-  (my/with-pkg-enabled
-   smartparens
-   (dolist (match '(("“" . "”")
-    				("《" . "》")
-    				("（" . "）")
-    				("'" . "'")
-    				;; ("<" . ">")
-    				;; ("*" . "*")
-    				;; ("/" . "/")
-    				))
-     (sp-local-pair 'org-mode (car match) (cdr match))))
 
   ;; 使用:bind关键字时，不能使用匿名函数作为执行函数
   (bind-keys
@@ -192,7 +176,6 @@
 
 ;; org-bullets -- show head with bullets
 (use-package org-bullets
-  ;; :demand t
   :disabled t
   :config
   (add-hook 'org-mode-hook (lambda() (org-bullets-mode 1)))

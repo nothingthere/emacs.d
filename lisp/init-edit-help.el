@@ -4,58 +4,52 @@
 
 ;; company -- 自动补全插件
 (use-package company
-  :demand t
-  :init
-  (add-hook 'after-init-hook 'global-company-mode)
-  :bind
-  (:map company-active-map
-		;; ("M-p" . nil)
-		;; ("M-n" . nil)
-		("C-p" . company-select-previous)
-		("C-n" . company-select-next))
   :config
+  (add-hook 'after-init-hook 'global-company-mode)
   (setq-default company-idle-delay 0.001;等待时间"秒"
 				company-minimum-prefix-length 1);输入多少个字符时激活
+
+  (cl-defmacro my/company-add-backend(mode-hook backend &key append delete)
+    "在MODE-HOOK中添加或删除company的backend."
+    `(add-hook
+      ,mode-hook
+      (lambda()
+        ,(if delete
+             `(set (make-local-variable 'company-backends)
+                   (remove ',backend company-backends))
+           `(set (make-local-variable 'company-backends)
+                 (add-to-list 'company-backends ',backend ,append))))))
+
+  (setq company-backends
+        (cons '(company-capf :with company-yasnippet)
+              (remove 'company-capf company-backends)))
+
+  ;; yasnippet -- snippets片段补全
+  (use-package yasnippet
+    :bind (:map yas-minor-mode-map
+                ("<tab>" . nil) ;禁用yansnippets默认键
+                ("TAB" . nil))
+
+    :config
+    (yas-global-mode 1)
+    (setq yas-fallback-behavior nil)
+    )
 
   ;; !!! 在图像界面下才能使用
   ;; company-quickhelp -- 代码提示功能
   (when (display-graphic-p)
-	(use-package company-quickhelp
-      :demand 1
+    (use-package company-quickhelp
       :config
       (bind-key "M-h" 'company-quickhelp-manual-begin
-				company-active-map
-				(featurep 'company))))
+                company-active-map
+                (featurep 'company))))
 
-  )
-
-;; yasnippet -- snippets片段补全
-(use-package yasnippet
-  :demand t
-  :bind (:map yas-minor-mode-map
-			  ("<tab>" . nil) ;禁用yansnippets默认键
-			  ("TAB" . nil))
-
-  :config
-  (yas-global-mode 1)
-  (setq yas-fallback-behavior nil)
-
-  ;; 将yasnippets的内容添加到company的备选中
-  ;; https://github.com/syl20bnr/spacemacs/pull/179
-  (defun company-mode/backend-with-yas (backend)
-	"将yasnipets的补全添加到company中."
-	(if  (and (listp backend) (member 'company-yasnippet backend))
-        backend
-      (append
-	   (if (consp backend) backend (list backend))
-	   '(:with company-yasnippet)
-	   )))
-
-  (my/with-pkg-enabled					;当company启动后才使用
-   company
-   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
-  ;; end 将yasnippets备选添加到company中
-
+  :bind
+  (:map company-active-map
+        ("M-p" . nil)
+        ("M-n" . nil)
+        ("C-p" . company-select-previous)
+        ("C-n" . company-select-next))
   )
 
 ;;recentf --启用保存最近打开文档，下次打开时可快速打开
@@ -90,18 +84,28 @@
 
 ;; smartparens -- 自动补全括号
 (use-package smartparens
-  :demand t
   :config
   ;; (smartparens-global-strict-mode t)
   (smartparens-global-mode t)
+
   ;; elisp 和 common-lisp 中不自动补全单引号、反引号和括号
   (dolist (X '("'" "`" "("))
     (sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) X nil :actions nil))
+
+  ;; org文件中新增配对
+  (dolist (match '(("“" . "”")
+                   ("《" . "》")
+                   ("（" . "）")
+                   ("'" . "'")
+                   ;; ("<" . ">")
+                   ;; ("*" . "*")
+                   ;; ("/" . "/")
+                   ))
+    (sp-local-pair 'org-mode (car match) (cdr match)))
   )
 
 ;; popwin -- 使光标跳转到帮助窗口
 (use-package popwin
-  :demand t				;启动时就执行
   :config
   (popwin-mode 1)
   )
@@ -139,22 +143,18 @@
 
 ;; which-key -- 当按下快捷键忘记后面键位时，停留后显示提示
 (use-package which-key
-  :demand t
   :config
   (which-key-mode)
   )
 
 ;; origami -- 文本折叠
 (use-package origami
-  :demand t
   :init
   ;; 两个依赖包5
-  (use-package s
-    :demand t)
-  (use-package dash
-    :demand t)
-  :config
+  (use-package s)
+  (use-package dash)
 
+  :config
   (defun my/origami-elisp-parser (create)
     "修改自插件源码，只是添加了关键字'use-package bind-keys cl-def'作为块头"
     (origami-lisp-parser create "(\\(def\\|cl-def\\|use-package\\|bind-keys\\)\\w*\\s-*\\(\\s_\\|\\w\\|[:?!]\\)*\\([ \\t]*(.*?)\\)?"))

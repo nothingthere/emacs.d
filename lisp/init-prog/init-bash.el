@@ -2,9 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package yasnippet
+(use-package company-shell
   :config
-  (add-hook 'shell-mode-hook 'yas-minor-mode))
+  (my/company-add-backend 'sh-mode-hook
+                          (company-shell :with company-yasnippet)
+                          )
+  )
 
 (provide 'init-bash)
 ;;; init-bash.el ends here

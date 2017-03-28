@@ -7,7 +7,7 @@
 
 ;; flycheck -- 语法检查
 (use-package flycheck
-  :demand t
+
   :config
   (global-flycheck-mode 1)
 
@@ -20,7 +20,8 @@
   ;; 将检测python的版本更换到3.X
   (my/with-system-enabled
    ("pylint3")
-   (setq flycheck-python-pylint-executable (executable-find "pylint3"));;(shell-command-to-string "which pylint3")))
+   (setq flycheck-python-pylint-executable
+         (or (executable-find "pylint3") "pylint3"))
    ;; 还需添加下面这行才能生效
    (setq flycheck-python-pycompile-executable "python3"))
   )

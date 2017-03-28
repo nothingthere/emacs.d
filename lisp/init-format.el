@@ -63,49 +63,49 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;各种语言的独立配置
 ;; elisp和common lisp
-(loop for hook in '(emacs-lisp-mode-hook lisp-mode-hook)
-      do (add-hook hook
-                   (lambda()
-                     (add-hook 'before-save-hook
-                               (lambda() "lisp基础格式化" (my/format-basic))
-                               nil t))))
+(dolist (hook '(emacs-lisp-mode-hook lisp-mode-hook))
+  (my/add-mode-local-hook
+   (hook 'before-save-hook)
+   'my/format-basic))
 
 ;; python
 (use-package py-autopep8
-  :demand t
   :init
   (my/with-system-enabled
    ("autopep8"
     :msg "为使用%s，先确保安装pip，再执行sudo pip install %s"))
-
   :config
   (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
   )
 
 ;; clang家族语言：c c++ js
-(el-get-bundle nothingthere/clang-format
-  ;; 确保本地安装了clang-format程序
-  (my/with-system-enabled ("clang-format" :pkg-name "clang-format"))
-  ;; 保存前执行clang-format，参考py-autopep8的作法
-  (loop for hook in '(c-mode-hook c++-mode-hook js-mode-hook)
-        do
-        (add-hook hook
-                  (lambda()
-                    (add-hook 'before-save-hook 'clang-format-buffer nil t))))
-  )
+;; 确保本地安装了clang-format程序
+(my/with-system-enabled
+ ("clang-format" :pkg-name "clang-format")
+ (el-get-bundle nothingthere/clang-format
+   ;; 保存前执行clang-format，参考py-autopep8的作法
+   (dolist (hook '(c-mode-hook c++-mode-hook js-mode-hook))
+     (my/add-mode-local-hook
+      (hook 'before-save-hook)
+      'clang-format-buffer)))
+ )
+
+;; sh
+(my/add-mode-local-hook
+ ('sh-mode-hook 'before-save-hook)
+ (lambda() "shell基础格式化." (my/format-basic)))
 
 ;; org
-(add-hook 'org-mode-hook
-          (lambda()
-            (add-hook 'before-save-hook
-                      (lambda() "org基础格式化" (my/format-basic))
-                      nil t)))
+(my/add-mode-local-hook
+ ('org-mode-hook 'before-save-hook)
+ (lambda() "org基础格式化" (my/format-basic)))
+
 ;; 源码
 (advice-add 'org-edit-src-exit
             :before (lambda(&rest r)
                       "格式化源码."
                       (cl-case major-mode
-                        ((emacs-lisp-mode lisp-mode org-mode)
+                        ((emacs-lisp-mode lisp-mode org-mode sh-mode)
                          (my/format-basic))
                         (python-mode
                          (let ((old-py-autopep8-options py-autopep8-options))

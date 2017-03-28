@@ -4,9 +4,7 @@
 
 ;; chinese-fonts-setup -- 中文字体问题
 (use-package chinese-fonts-setup
-  ;; :disabled t
   :if (window-system)
-  :demand t
   :config
   (chinese-fonts-setup-enable)
   (setq cfs-use-face-font-rescale t)
@@ -15,11 +13,9 @@
 ;; chineas-pyim -- 中文输入
 (use-package chinese-pyim
   :disabled t
-  ;; :demand t
   :config
   ;; 使用basedict拼音词库
   (use-package chinese-pyim-basedict
-	:demand t
 	:config
 	(chinese-pyim-basedict-enable)
 

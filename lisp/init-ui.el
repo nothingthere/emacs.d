@@ -61,7 +61,6 @@
 ;; 好像不能在命令行中正确显示？？？
 (use-package solarized-theme
   :if (display-graphic-p)
-  :demand t
   :config
   (deftheme solarized-dark "The dark variant of the Solarized colour theme")
   (create-solarized-theme 'dark 'solarized-dark)
@@ -72,7 +71,6 @@
 ;; zenburn-them -- zenbutn主题
 (use-package zenburn-theme
   :if (not (display-graphic-p))
-  :demand t				;马上需要
   ;; :disabled t
   :config
   (load-theme 'zenburn t)
@@ -83,14 +81,12 @@
 
 (use-package monokai-theme
   :disabled t
-  :demand t
   :config
   (load-theme 'monokai t)
   )
 
 (use-package tao-theme
   :disabled t
-  :demand t
   :config
   (load-theme 'tao-yin t)
   )
