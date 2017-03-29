@@ -6,7 +6,7 @@
 (use-package company
   :config
   (add-hook 'after-init-hook 'global-company-mode)
-  (setq-default company-idle-delay 0.001;等待时间"秒"
+  (setq-default company-idle-delay 0.1;等待时间"秒"
 				company-minimum-prefix-length 1);输入多少个字符时激活
 
   (setq company-backends
