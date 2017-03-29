@@ -9,20 +9,38 @@
   (setq-default company-idle-delay 0.001;等待时间"秒"
 				company-minimum-prefix-length 1);输入多少个字符时激活
 
-  (cl-defmacro my/company-add-backend(mode-hook backend &key append delete)
+  (setq company-backends
+        (mapcar
+
+         (lambda(backend)
+           "将':with company-yansnippet'添加到company-backends中的BACKEND中."
+           (if  (and (listp backend) (member 'company-yasnippet backend))
+               backend
+             (append
+              (if (consp backend) backend (list backend))
+              '(:with company-yasnippet)
+              )))
+
+         company-backends))
+
+  (defmacro my/company-add-backend(mode-hook backend)
     "在MODE-HOOK中添加或删除company的backend."
     `(add-hook
       ,mode-hook
       (lambda()
-        ,(if delete
-             `(set (make-local-variable 'company-backends)
-                   (remove ',backend company-backends))
-           `(set (make-local-variable 'company-backends)
-                 (add-to-list 'company-backends ',backend ,append))))))
-
-  (setq company-backends
-        (cons '(company-capf :with company-yasnippet)
-              (remove 'company-capf company-backends)))
+        (set (make-local-variable 'company-backends)
+             (cons ',backend
+                   (remove-if
+                    (lambda(elem)
+                      ,(if (listp backend)
+                           `(if (listp elem)
+                                (equal ',(car backend) (car elem))
+                              (equal ',(car backend) elem))
+                         `(if (listp elem)
+                              (equal ',backend (car elem))
+                            (equal ',backend elem))))
+                    company-backends)
+                   )))))
 
   ;; yasnippet -- snippets片段补全
   (use-package yasnippet
@@ -73,13 +91,13 @@
 (use-package counsel
   :config
   :bind (("C-c g" . counsel-git)
-		 ("M-s i" . counsel-imenu)
-		 ;; 与此快捷键的默认相比添加了^通配符
-		 ("M-x" . counsel-M-x)
-		 ("C-h f" . counsel-describe-function)
-		 ("C-h v" . counsel-describe-variable)
-		 ("C-x C-f" . counsel-find-file)
-		 )
+         ("M-s i" . counsel-imenu)
+         ;; 与此快捷键的默认相比添加了^通配符
+         ("M-x" . counsel-M-x)
+         ("C-h f" . counsel-describe-function)
+         ("C-h v" . counsel-describe-variable)
+         ("C-x C-f" . counsel-find-file)
+         )
   )
 
 ;; smartparens -- 自动补全括号

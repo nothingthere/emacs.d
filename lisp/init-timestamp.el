@@ -4,6 +4,7 @@
 (defvar *my/timestamp-insert-time-format* "%H:%M:%S"
   "* \\[my/timestamp-insert-time]的打印格式 (c.f. format-time-string')."
   )
+
 (defvar *my/timestamp-insert-date-format* "%F"
   "* \\[my/timestamp-insert-date]的打印格式 (c.f. format-time-string')."
   )
@@ -16,10 +17,9 @@
   "* \\[my/timestamp-insert-timestamp]的打印格式 (c.f. format-time-string')."
   )
 
-(defvar *my/timestamp-prefix* "@[["
-  "*时间戳的前缀.")
-(defvar *my/timestamp-suffix* "]]"
-  "*时间戳后缀.")
+(defvar *my/timestamp-prefix* "@[[" "*时间戳的前缀.")
+
+(defvar *my/timestamp-suffix* "]]" "*时间戳后缀.")
 
 (defun my/timestamp-instert-time(&optional type)
   "根据变量*my/timestamp-insert-time-format*插入当前时间."
