@@ -27,10 +27,15 @@
 (setq dired-recursive-copies 'always ;;递归复制目录
       dired-recursive-deletes 'always;;递归删除目录
       )
+
+;; 设置默认行宽
+(setq-default fill-column 70)
+
 ;;避免使用dire-mode时生成多余文件？？没懂
 (put 'dired-find-alternate-file 'disabled nil)
 (with-eval-after-load 'dired;;当使用时才加载
-  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
+  (define-key dired-mode-map (kbd "RET")
+    'dired-find-alternate-file))
 
 ;;;;打开当前文件所在文件夹的dired
 (require 'dired-x);;默认快捷键C-x C-j

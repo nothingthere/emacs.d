@@ -4,18 +4,24 @@
 ;; anaconda-mode -- 需先安装setuptools
 ;; ：https://pypi.python.org/pypi/setuptools
 
+;; 不让emacs猜测缩进宽度
+(setq-default
+ python-indent-offset 4
+ python-indent-guess-indent-offset nil
+ )
+
 (use-package anaconda-mode
   :config
-  (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-  )
-
-;; company-anaconda -- 使用company补全
-(use-package company-anaconda
-  :config
-  (my/company-add-backend 'python-mode-hook
-                          (company-anaconda :with company-yasnippet))
-
+  ;; company-anaconda -- 使用company补全，依赖于anaconda-mode的服务端
+  (use-package company-anaconda
+    :config
+    (add-hook 'python-mode-hook
+              (lambda()
+                (anaconda-mode)
+                (anaconda-eldoc-mode)
+                (my/company-push-local-backend
+                 '(company-anaconda :with company-yasnippet))))
+    )
   )
 
 (provide 'init-python)

@@ -4,9 +4,11 @@
 
 (use-package company-shell
   :config
-  (my/company-add-backend 'sh-mode-hook
-                          (company-shell :with company-yasnippet)
-                          )
+  (add-hook 'sh-mode-hook
+            (lambda()
+              (my/company-push-local-backend
+               '(company-shell company-files :with company-yasnippet))))
+
   )
 
 (provide 'init-bash)

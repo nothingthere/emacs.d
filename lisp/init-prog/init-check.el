@@ -2,9 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-;; 拼写检查
-(add-hook 'prog-mode-hook 'flyspell-prog-mode)
-
 ;; flycheck -- 语法检查
 (use-package flycheck
 

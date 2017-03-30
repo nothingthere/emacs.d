@@ -5,11 +5,12 @@
 (use-package org
   :config
 
-  ;; 打开自动换行
-  (add-hook 'org-mode-hook 'auto-fill-mode)
-
-  ;; 拼写检查
-  (add-hook 'org-mode-hook 'flyspell-mode)
+  (add-hook 'org-mode-hook
+            (lambda()
+              ;; 打开自动换行
+              (auto-fill-mode)
+              ;; 拼写检查
+              (flyspell-mode-on)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;smartparens配置
 
@@ -117,8 +118,9 @@
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;代码执行配置
   ;; 源码evaluated时不确认
   (setq org-confirm-babel-evaluate nil)
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;代码执行配置
+  ;; 修改执行结果中显示的关键字
+  ;; 修改后造成不能显示和隐藏，还不能缩略显示HASH
+  ;; (setq org-babel-results-keyword "结果")
   ;; 指定可执行的语言
   (org-babel-do-load-languages
    'org-babel-load-languages '((emacs-lisp . t)

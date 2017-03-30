@@ -5,42 +5,11 @@
 ;; company -- 自动补全插件
 (use-package company
   :config
+  (diminish 'company-mode "CMP")
+
   (add-hook 'after-init-hook 'global-company-mode)
   (setq-default company-idle-delay 0.1;等待时间"秒"
 				company-minimum-prefix-length 1);输入多少个字符时激活
-
-  (setq company-backends
-        (mapcar
-
-         (lambda(backend)
-           "将':with company-yansnippet'添加到company-backends中的BACKEND中."
-           (if  (and (listp backend) (member 'company-yasnippet backend))
-               backend
-             (append
-              (if (consp backend) backend (list backend))
-              '(:with company-yasnippet)
-              )))
-
-         company-backends))
-
-  (defmacro my/company-add-backend(mode-hook backend)
-    "在MODE-HOOK中添加或删除company的backend."
-    `(add-hook
-      ,mode-hook
-      (lambda()
-        (set (make-local-variable 'company-backends)
-             (cons ',backend
-                   (remove-if
-                    (lambda(elem)
-                      ,(if (listp backend)
-                           `(if (listp elem)
-                                (equal ',(car backend) (car elem))
-                              (equal ',(car backend) elem))
-                         `(if (listp elem)
-                              (equal ',backend (car elem))
-                            (equal ',backend elem))))
-                    company-backends)
-                   )))))
 
   ;; yasnippet -- snippets片段补全
   (use-package yasnippet
@@ -51,6 +20,19 @@
     :config
     (yas-global-mode 1)
     (setq yas-fallback-behavior nil)
+
+    ;; 实在不想折腾company完美补全，差不都照抄了purcell的配置
+    ;; https://github.com/nothingthere/emacs.d-1/blob/master/lisp/init-company.el
+    (setq-default company-backends '((company-capf company-dabbrev-code :with company-yasnippet)
+                                     (company-dabbrev :with company-yasnippet)
+                                     )
+                  ;; 只在相同major-mode下搜索
+                  company-dabbrev-other-buffers t)
+
+    (defun my/company-push-local-backend(backend)
+      "将BACKEND添加到buffer-local的company-backends中."
+      (set (make-local-variable 'company-backends)
+           (append (list backend) company-backends)))
     )
 
   ;; !!! 在图像界面下才能使用
@@ -189,8 +171,9 @@
          ([f6] . origami-show-only-node))
   )
 
+;; unfill -- ？？？
+(use-package unfill)
 ;;;;;;方便编辑的快捷键
-
 (bind-keys
  ("C-c TAB" . hippie-expand)
  ("M-s o" . (lambda()()
