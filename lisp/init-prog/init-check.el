@@ -15,7 +15,7 @@
 
   ;; python
   ;; 将检测python的版本更换到3.X
-  (my/with-system-enabled
+  (claudio/with-system-enabled
    ("pylint3")
    (setq flycheck-python-pylint-executable
          (or (executable-find "pylint3") "pylint3"))

@@ -29,7 +29,7 @@
                   ;; 只在相同major-mode下搜索
                   company-dabbrev-other-buffers t)
 
-    (defun my/company-push-local-backend(backend)
+    (defun claudio/company-push-local-backend(backend)
       "将BACKEND添加到buffer-local的company-backends中."
       (set (make-local-variable 'company-backends)
            (append (list backend) company-backends)))
@@ -117,16 +117,22 @@
 
 ;; multiple-cursors -- 多行编辑
 (use-package multiple-cursors
+  :disabled t
   :bind
   (("C-c ;" . mc/mark-all-dwim)
    ("C-c d" . mc/mark-next-like-this)
    ("C-c D" . mc/skip-to-next-like-this))
   )
 
+;; iedit -- 多行编辑
+(use-package iedit
+  :bind (("C-c ;" . iedit-mode))
+  )
+
 ;; helm-ag -- 项目内快速搜索
 (use-package helm-ag
   :init
-  (my/with-system-enabled ("ag" :pkg-name "helm-ag" :apt-name "silversearch-ag"))
+  (claudio/with-system-enabled ("ag" :pkg-name "helm-ag" :apt-name "silversearch-ag"))
   :bind ("C-x f" . helm-ag-project-root)
   )
 
@@ -155,13 +161,13 @@
   (use-package dash)
 
   :config
-  (defun my/origami-elisp-parser (create)
+  (defun claudio/origami-elisp-parser (create)
     "修改自插件源码，只是添加了关键字'use-package bind-keys cl-def'作为块头"
     (origami-lisp-parser create "(\\(def\\|cl-def\\|use-package\\|bind-keys\\)\\w*\\s-*\\(\\s_\\|\\w\\|[:?!]\\)*\\([ \\t]*(.*?)\\)?"))
 
   ;; 激活自定义parser函数
   (setq origami-parser-alist
-        (cons '(emacs-lisp-mode . my/origami-elisp-parser)
+        (cons '(emacs-lisp-mode . claudio/origami-elisp-parser)
               (assq-delete-all 'emacs-lisp-mode origami-parser-alist)))
 
   ;; 全局生效，官方文档说不支持的语言自动使用缩进确定折叠
@@ -197,10 +203,10 @@
 
 缺点：不能通过快捷键去注释行末注释"
             (interactive)
-            (cond ((my/current-line-empty-p) (comment-dwim nil)) ;; 如果在空行上。不能理解comment-dwim的参数该怎样设置
-                  ((my/at-end-of-line-p) (comment-indent)) ;; 如果在行末，前面有内容
+            (cond ((claudio/current-line-empty-p) (comment-dwim nil)) ;; 如果在空行上。不能理解comment-dwim的参数该怎样设置
+                  ((claudio/at-end-of-line-p) (comment-indent)) ;; 如果在行末，前面有内容
                   (t ;; 默认注释选中区域和本行
-                   (let* ((region (my/get-region-or-get-the-line-as-region))
+                   (let* ((region (claudio/get-region-or-get-the-line-as-region))
                           (start (car region))
                           (end (cdr region)))
                      (comment-or-uncomment-region start end))))))

@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(my/require-init-files
+(claudio/require-init-files
  init-elisp
  init-html
  init-js
@@ -28,12 +28,12 @@
 (use-package magit
   :disabled t
   :init
-  (my/with-system-enabled ("git" :pkg-name "magit"))
+  (claudio/with-system-enabled ("git" :pkg-name "magit"))
   :bind
   (("C-x g" . magit-status))
   )
 
-(defun my/reload-script()
+(defun claudio/reload-script()
   "重新加载当前文件。并保留光标位置。改变权限为775
 主要作用为重新加载bash文件，使用shell-script-mode生效"
   (interactive)

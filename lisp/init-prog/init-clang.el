@@ -4,7 +4,7 @@
 
 (add-hook 'c-mode-hook
           (lambda()
-            (my/company-push-local-backend
+            (claudio/company-push-local-backend
              '(company-clang  :with company-yasnippet)))
           )
 (provide 'init-clang)

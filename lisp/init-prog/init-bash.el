@@ -6,7 +6,7 @@
   :config
   (add-hook 'sh-mode-hook
             (lambda()
-              (my/company-push-local-backend
+              (claudio/company-push-local-backend
                '(company-shell company-files :with company-yasnippet))))
 
   )

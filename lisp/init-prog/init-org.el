@@ -32,16 +32,16 @@
   ;; 设置org agenda的默认文件夹
   (setq
    org-directory "~/.emacs.d/org/" ;;org的默认文件夹
-   *my/org-agenda-directory* (concat org-directory "agenda/")
-   org-agenda-files (list *my/org-agenda-directory*));;org agenda 的文件夹
+   *claudio/org-agenda-directory* (concat org-directory "agenda/")
+   org-agenda-files (list *claudio/org-agenda-directory*));;org agenda 的文件夹
 
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-capture-templates
-    	'(("j" "生活安排(Journal)" entry (file+headline (concat *my/org-agenda-directory* "生活安排.org") "生活安排")
+    	'(("j" "生活安排(Journal)" entry (file+headline (concat *claudio/org-agenda-directory* "生活安排.org") "生活安排")
     	   "* TODO %? %T")
-    	  ("d" "每日安排(Daily)" entry (file+headline (concat *my/org-agenda-directory* "每日安排.org") "每日安排")
+    	  ("d" "每日安排(Daily)" entry (file+headline (concat *claudio/org-agenda-directory* "每日安排.org") "每日安排")
     	   "* TODO %? %T")
-    	  ("s" "学习安排(Study)" entry (file+headline (concat *my/org-agenda-directory* "学习安排.org") "学习安排")
+    	  ("s" "学习安排(Study)" entry (file+headline (concat *claudio/org-agenda-directory* "学习安排.org") "学习安排")
     	   "* TODO %? %t")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -66,7 +66,7 @@
           ;; 当不为任何值时，所有源程序语言相同的代码块公用一个进程。
           ;; 这里公用一个进程是指，可公用声明的函数和变量名。
           ;; 我希望同一种语言共享一个session，这里直接设置为none，
-          ;; 使用my/org-insert-src-block生成不跟任何进程名的模板。
+          ;; 使用claudio/org-insert-src-block生成不跟任何进程名的模板。
           (:session . "none")
 
           ;; 控制输出那些值的参数：
@@ -134,7 +134,7 @@
   (setq org-src-tab-acts-natively nil)  ;如果为t老是询问，好烦
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;快捷编辑源代码，参考自：http://wenshanren.org/?p=327
-  (defun my/org-insert-src-block (src-code-type)
+  (defun claudio/org-insert-src-block (src-code-type)
     "快速编辑`SRC-CODE-TYPE’源代码."
     (interactive
      (let ((src-code-types
@@ -149,10 +149,10 @@
       (org-edit-src-code)))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;执行所有源码
-  (defun my/org-evaluate-all-block-code()
+  (defun claudio/org-evaluate-all-block-code()
     "执行buffer中所有源码."
     (interactive)
-    (my/with-save-position+widen
+    (claudio/with-save-position+widen
      (goto-char (point-min))
      (while (not (eobp))
        (beginning-of-line)
@@ -171,7 +171,7 @@
   (:map org-mode-map
         ("C-c =" . er/expand-region)
         ("C-c ;" . mc/mark-all-dwim)
-        ("C-c s i" . my/org-insert-src-block))
+        ("C-c s i" . claudio/org-insert-src-block))
 
   ;; END
   )
@@ -192,7 +192,7 @@
   )
 
 ;; 自定义函数
-(cl-defun my/org-increase-headline(&optional (level 1))
+(cl-defun claudio/org-increase-headline(&optional (level 1))
   "将标题增加/减小一级.
 遍历每行，使用正则检查改行是否为标题。如果是则改变标题等级
 "
@@ -204,7 +204,7 @@
          (message "此函数只能用于org-mode下"))
         (t
          (let ((icon ?*))				;表示标题的符号
-           (my/with-save-position+widen
+           (claudio/with-save-position+widen
             (goto-char (point-min))
             (while (not (eobp))			;逐行遍历
               (beginning-of-line)

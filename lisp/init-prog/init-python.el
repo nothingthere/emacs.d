@@ -19,7 +19,7 @@
               (lambda()
                 (anaconda-mode)
                 (anaconda-eldoc-mode)
-                (my/company-push-local-backend
+                (claudio/company-push-local-backend
                  '(company-anaconda :with company-yasnippet))))
     )
   )

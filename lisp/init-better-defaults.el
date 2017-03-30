@@ -46,11 +46,11 @@
 (setq apropos-do-all t)
 
 ;; 开启禁用特性
-(cl-defmacro my/enable(&rest functions)
+(cl-defmacro claudio/enable(&rest functions)
   `(dolist (function ',functions)
 	 (put function 'disabled nil)))
 
-(my/enable
+(claudio/enable
  ;; 大小写转换
  upcase-region							;C-x C-u
  downcase-region						;C-x C-l

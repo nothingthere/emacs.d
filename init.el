@@ -38,19 +38,19 @@
                 "~/.emacs.d/lisp/"))
   (add-to-list 'load-path path))
 
-(defvar *my/init-files* nil "所有被加载的配置文件，主要是为了方便查看加载了那些文件.")
+(defvar *claudio/init-files* nil "所有被加载的配置文件，主要是为了方便查看加载了那些文件.")
 
-(defmacro my/require-init-files(&rest files)
+(defmacro claudio/require-init-files(&rest files)
   "加载配置文件FILES:file1 file2 ..."
   `(dolist (file ',files)
      (require file)
-     (add-to-list '*my/init-files* file t))) ;第三个参数使文件添加到链表最后
+     (add-to-list '*claudio/init-files* file t))) ;第三个参数使文件添加到链表最后
 
 ;; 将customize文件重置位置
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
 ;;加载所有配置文件
-(my/require-init-files
+(claudio/require-init-files
  init-util;;辅助函数
  init-ui
  init-restore
