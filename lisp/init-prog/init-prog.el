@@ -19,19 +19,14 @@
 
 ;; multi-term -- 方便打开命令行
 (use-package multi-term
-  :config
-  (setq multi-term-program "/bin/bash")
-  :bind (("M-!" . multi-term))
-  )
+  :config (setq multi-term-program "/bin/bash")
+  :bind (("M-!" . multi-term)))
 
 ;; magit -- github工具
 (use-package magit
   :disabled t
-  :init
-  (claudio/with-system-enabled ("git" :pkg-name "magit"))
-  :bind
-  (("C-x g" . magit-status))
-  )
+  :init (claudio/with-system-enabled ("git" :pkg-name "magit"))
+  :bind (("C-x g" . magit-status)))
 
 (defun claudio/reload-script()
   "重新加载当前文件。并保留光标位置。改变权限为775
@@ -39,12 +34,12 @@
   (interactive)
   (let ((file buffer-file-name)			;buff对应的文件
 		(pos (point))					;当前位置
-		(perm 755))
-	(save-buffer)						;先保持文件
+		(perm 755))                     ;权限
+    (save-buffer)						;先保持文件
 	(kill-buffer (current-buffer))
-	(find-file file)
-	(goto-char pos)
-	(shell-command (format "chmod %d %s" perm file))))
+    (find-file file)
+    (goto-char pos)
+    (shell-command (format "chmod %d %s" perm file))))
 
 (provide 'init-prog)
 ;;; init-prog.el ends here

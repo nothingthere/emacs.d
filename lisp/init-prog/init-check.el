@@ -4,7 +4,6 @@
 
 ;; flycheck -- 语法检查
 (use-package flycheck
-
   :config
   (diminish 'flycheck-mode "FlyC")
   (global-flycheck-mode 1)

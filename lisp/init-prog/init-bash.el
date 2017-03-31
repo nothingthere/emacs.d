@@ -7,9 +7,7 @@
   (add-hook 'sh-mode-hook
             (lambda()
               (claudio/company-push-local-backend
-               '(company-shell company-files :with company-yasnippet))))
-
-  )
+               '(company-shell company-files :with company-yasnippet)))))
 
 (provide 'init-bash)
 ;;; init-bash.el ends here

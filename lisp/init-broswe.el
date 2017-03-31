@@ -13,30 +13,34 @@
 
 (defun claudio/search(query-url prompt)
   "通过PROMPT提示输入搜索内容，通过QUERY-URL指定的地址在浏览器中打开。"
-  (let((query-string (concat query-url
-							 (url-hexify-string
-							  (if mark-active
-								  (buffer-substring (region-beginning) (region-end))
-								(read-string prompt)))))
-
-	   )
-	(if (find query-url *claudio/search-engin-need-lantern*
-			  :test (lambda(url engin)	;如果需翻墙搜索，需使用chromium，以便翻墙
-					  (string-match-p (downcase engin) (downcase url))))
-		(browse-url-chromium query-string) ;否则使用firefox
+  (let((query-string (concat query-url (url-hexify-string
+                                        (if mark-active
+                                            (buffer-substring
+                                             (region-beginning)
+                                             (region-end))
+                                          (read-string prompt))))))
+    (if (find query-url *claudio/search-engin-need-lantern*
+              :test (lambda(url engin)
+                      "如果需翻墙搜索，需使用chromium，以便翻墙"
+                      (string-match-p (downcase engin)
+                                      (downcase url))))
+        (browse-url-chromium query-string)
+      ;; 否则使用firefox
 	  (browse-url-firefox query-string))
 	;; 输出提示消息
 	(message "搜索：%s" query-string)))
 
 (defmacro claudio/install-search-engin(search-engin-name search-engin-url search-engin-prompt)
   "定义一些不同浏览器的搜索函数."
-  `(defun ,(intern (format "@%s" search-engin-name))()
-	 ,(format "通过%s搜索" search-engin-name)
-	 (interactive)
+  `(defun ,(intern (format "@%s" search-engin-name))
+       ()
+     ,(format "通过%s搜索" search-engin-name)
+     (interactive)
 	 ;; 如果需使用翻墙，要配合lantern一起使用
 	 ,(if (find search-engin-name *claudio/search-engin-need-lantern*
                 :test (lambda(name need-lantern)
-                        (string= (downcase name) (downcase need-lantern))))
+                        (string= (downcase name)
+                                 (downcase need-lantern))))
           `(progn
              (claudio/with-system-enabled
               ("lantern")
@@ -44,15 +48,12 @@
               (claudio/with-system-enabled
                ("chromium")
                ;; 如果没启用lantern，先启用
-               ;; 在命令行中执行ps ax | grep lantern | wc -l时，如果没开启lantern则返回1
-               ;; 但使用shell-command-to-string执行时会多一条：自身执行的返回：
-               ;; "/bin/bash -c ps ax | grep lantern"，所以<=2才表示没开启
                (unless (claudio/system-running-p "lantern")
-                 (shell-command (format "%s&" (or (executable-find "lantern") "lantern"))))
-               ;; 执行搜索
-               (claudio/search ,search-engin-url ,search-engin-prompt))))
-        ;; 执行搜索
-        `(claudio/search ,search-engin-url ,search-engin-prompt))))
+                 (shell-command (format "%s&"
+                                        (or (executable-find "lantern") "lantern"))))))))
+
+     ;; 执行搜索
+     (claudio/search ,search-engin-url ,search-engin-prompt)))
 
 (claudio/install-search-engin "bing" "http://cn.bing.com/search?q=" "必应: ")
 (claudio/install-search-engin "github" "https://github.com/search?q=" "GitHub 搜索: ")

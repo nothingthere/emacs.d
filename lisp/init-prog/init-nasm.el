@@ -3,8 +3,7 @@
 ;;; Code:
 
 (use-package nasm-mode
-  :mode "\\.asm\\'"
-  )
+  :mode "\\.asm\\'")
 
 (provide 'init-nasm)
 ;;; init-nasm.el ends here

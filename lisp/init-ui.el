@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-										; 修改默认UI配置 ;;;;;;;;;;;;;;;;;;;;;;;;
+;; 修改默认UI配置 ;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; 定制*scratch*页面显示信息
 ;; 参考地址：http://stackoverflow.com/questions/1498258/how-do-i-change-the-scratch-message-in-emacs
@@ -51,11 +51,12 @@
 ;; tab的宽度
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
+
 ;; 关闭警告声
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
 
-										; 主题应用 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 主题应用 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;Solarized主题有点奇葩，一般加载主题使用的就是(load-theme 'xxx)，为啥会这样？
 ;; 好像不能在命令行中正确显示？？？
@@ -92,7 +93,6 @@
   )
 
 ;; 改变样式
-
 (set-face-attribute font-lock-function-name-face nil :bold t :italic t)
 
 (provide 'init-ui)
