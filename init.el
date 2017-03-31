@@ -51,13 +51,24 @@
 
 ;; 本地加载配置
 ;; 添加文件加载路径
-(dolist (path '("~/.emacs.d/lisp/init-prog/" "~/.emacs.d/lisp/"))
+(dolist (path '(
+                "~/.emacs.d/lisp/"
+                ;; 编程语言相关配置
+                "~/.emacs.d/lisp/init-prog/"
+                ;; 模式文件路径
+                ;; 副模式
+                "~/.emacs.d/lisp/init-modes/"
+                "~/.emacs.d/lisp/init-modes/init-minor-modes/"
+                "~/.emacs.d/lisp/init-modes/init-minor-modes/claudio-fill/"
+                ;; 主模式
+                "~/.emacs.d/lisp/init-modes/init-major-modes/"
+                ))
   (add-to-list 'load-path path))
 
 (defvar *claudio/init-files* nil
   "所有被加载的配置文件，主要是为了方便查看加载了那些文件.")
 
-(defmacro claudio/require-init-files(&rest files)
+(cl-defmacro claudio/require-init-files(&body files)
   "加载配置文件FILES:file1 file2 ..."
   `(dolist (file ',files)
      (require file)
@@ -81,6 +92,7 @@
  init-chinese
  init-misc
  init-timestamp
+ init-modes
  )
 
 ;;; init.el ends here
