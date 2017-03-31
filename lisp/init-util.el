@@ -104,13 +104,25 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
 	(kill-buffer)
 	(find-file file)))
 
-(cl-defmacro claudio/add-mode-local-hook((mode-hook hook &key append) &body body)
-  "向HOOK添加函数，只在MODE-HOOK中生效."
+(cl-defmacro claudio/add-local-before-save-hook
+    (mode-hook &body body)
+  "在为MODE-HOOK的before-save-hook添加函数."
   `(add-hook ,mode-hook
              (lambda()
-               (add-hook ,hook
+               (add-hook 'before-save-hook
                          ,@body
-                         ,append t))))
+                         nil t))))
+
+(defun claudio/system-running-p(pname)
+  "判断系统上是否有满足PNAME的进程开启.
+参考自：https://gist.github.com/tkhoa2711/f3d9c1cb04597f03ee76
+"
+  (dolist (pid (list-system-processes))
+    (let ((attrs (process-attributes pid)))
+      (when (string= pname (cdr (assoc 'comm attrs)))
+        (return t)))))
+
+;; (claudio/system-running-p "lantern")
 
 (provide 'init-util)
 ;;; init-util.el ends here

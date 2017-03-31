@@ -6,6 +6,7 @@
 (use-package flycheck
 
   :config
+  (diminish 'flycheck-mode "FlyC")
   (global-flycheck-mode 1)
 
   ;; elisp

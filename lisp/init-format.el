@@ -64,9 +64,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;各种语言的独立配置
 ;; elisp和common lisp
 (dolist (hook '(emacs-lisp-mode-hook lisp-mode-hook))
-  (claudio/add-mode-local-hook
-   (hook 'before-save-hook)
-   'claudio/format-basic))
+  (claudio/add-local-before-save-hook hook 'claudio/format-basic))
 
 ;; python
 (use-package py-autopep8
@@ -75,8 +73,7 @@
    ("autopep8"
     :msg "为使用%s，先确保安装pip，再执行sudo pip install %s"))
   :config
-  (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
-  )
+  (add-hook 'python-mode-hook 'py-autopep8-enable-on-save))
 
 ;; clang家族语言：c c++ js
 ;; 确保本地安装了clang-format程序
@@ -84,21 +81,16 @@
  ("clang-format" :pkg-name "clang-format")
  (el-get-bundle nothingthere/clang-format
    ;; 保存前执行clang-format，参考py-autopep8的作法
-   (dolist (hook '(c-mode-hook c++-mode-hook js-mode-hook))
-     (claudio/add-mode-local-hook
-      (hook 'before-save-hook)
-      'clang-format-buffer)))
- )
+   (dolist (hook '(c-mode-hook c++-mode-hook))
+     (claudio/add-local-before-save-hook hook 'clang-format-buffer))))
 
 ;; sh
-(claudio/add-mode-local-hook
- ('sh-mode-hook 'before-save-hook)
+(claudio/add-local-before-save-hook
+ 'sh-mode-hook
  (lambda() "shell基础格式化." (claudio/format-basic)))
 
 ;; org
-(claudio/add-mode-local-hook
- ('org-mode-hook 'before-save-hook)
- (lambda() "org基础格式化" (claudio/format-basic)))
+(claudio/add-local-before-save-hook 'org-mode-hook 'claudio/format-basic)
 
 ;; 源码
 (advice-add 'org-edit-src-exit
