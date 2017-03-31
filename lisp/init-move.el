@@ -29,8 +29,8 @@
              ("<right>" . windmove-right)))
 
 ;; 对上下/左右翻页的反悔
-(defun claudio/unscroll-maybe-remember (&rest r)
-  "记录滚动前的信息.R为无用参数."
+(defun claudio/unscroll-maybe-remember (&rest _r)
+  "记录滚动前的信息.   R 为无用参数."
   (unless (find last-command '(scroll-up-command scroll-down-command scroll-left scroll-right)
                 :test 'function-equal)
     ;; 记录当前buffer中是否可反悔滚动操作

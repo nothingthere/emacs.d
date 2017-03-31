@@ -85,7 +85,7 @@
 ;; 源码
 (advice-add 'org-edit-src-exit
             :before
-            (lambda (&rest r)
+            (lambda (&rest _r)
               "格式化源码."
               (cl-case
                   major-mode

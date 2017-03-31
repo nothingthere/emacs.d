@@ -51,11 +51,6 @@
 (setq apropos-do-all t)
 
 ;; 开启禁用特性
-(defmacro claudio/enable (&rest functions)
-  "解除禁用功能,FUNCTIONS为禁用函数名."
-  `(dolist (function ',functions)
-     (put function 'disabled nil)))
-
 (dolist (fn '(upcase-region
               downcase-region
               narrow-to-region

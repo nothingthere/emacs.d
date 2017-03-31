@@ -68,7 +68,7 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
   (interactive)
   (save-excursion
     (beginning-of-line)
-    (looking-at-p "[[:space:]]*$")))
+    (looking-at-p "^[[:space:]]*$")))
 
 (defun claudio/at-end-of-line-p()
   "光标所在行有内容，且光标在最后。"
@@ -121,8 +121,25 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
     (let ((attrs (process-attributes pid)))
       (when (string= pname (cdr (assoc 'comm attrs)))
         (return t)))))
-
 ;; (claudio/system-running-p "lantern")
+
+(cl-defmacro claudio/simple-save-excursion(&body body)
+  "简化版的save-excursion,只记录当前光标.
+参考《Writing GNU Emacs Extensions》的作法，只保留光标位置.
+原来函数会记录当前buffer，marker和光标。造成性能低下."
+  (let ((original-point-symbol (cl-gensym)))
+    `(let ((,original-point-symbol (point-marker)))
+       (unwind-protect
+           (progn ,@body)
+         (goto-char ,original-point-symbol)
+         (set-marker ,original-point-symbol nil))))
+  )
+
+;; (claudio/simple-save-excursion
+;;  (mark-whole-buffer)
+;;  (goto-char (point-min))
+;;  (message (format "%d" (point)))
+;;  )
 
 (provide 'init-util)
 ;;; init-util.el ends here
