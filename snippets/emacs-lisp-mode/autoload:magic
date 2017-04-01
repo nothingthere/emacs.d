@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: autoload:magic
+# key: autoload
+# --
+;;;###autoload
+$1

@@ -1,4 +1,6 @@
 ;;; claudio-fill.el --- 自动行折叠插件
+;; Author:Claudio <m15982038632@gmial.com>
+;; Created: 2017
 ;;; Commentary:
 ;; 参考自《Writing GNU Emacs Extensions》例题
 ;; 感觉完全不适用，比如使用delete-indentation命令后，再反悔会出现各种混乱.

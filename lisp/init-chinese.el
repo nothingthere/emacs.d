@@ -1,4 +1,6 @@
 ;;; init-chinese.el --- 中文输入法
+;; Author:Claudio <m15982038632@gmial.com>
+;; Created: 2017
 ;;; Commentary:
 ;;; Code:
 

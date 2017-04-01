@@ -1,4 +1,6 @@
 ;;; init-util.el -- 辅助函数
+;; Author:Claudio <m15982038632@gmial.com>
+;; Created: 2017
 ;;; Commentary:
 ;;; Code:
 ;;加载common lisp库

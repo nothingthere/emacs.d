@@ -1,4 +1,6 @@
 ;;; init-html.el --- html文件编辑配置
+;; Author:Claudio <m15982038632@gmial.com>
+;; Created: 2017
 ;;; Commentary:
 ;;; Code:
 

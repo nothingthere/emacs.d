@@ -1,4 +1,6 @@
 ;;; init-misc.el --- 其他杂项配置
+;; Author:Claudio <m15982038632@gmial.com>
+;; Created: 2017
 ;;; Commentary:
 ;;; Code:
 ;; 2048-game -- 2048游戏

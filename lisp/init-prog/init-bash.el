@@ -1,4 +1,6 @@
 ;;; init-bash.el --- bash脚本配置文件
+;; Author:Claudio <m15982038632@gmial.com>
+;; Created: 2017
 ;;; Commentary:
 ;;; Code:
 

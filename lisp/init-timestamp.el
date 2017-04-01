@@ -1,4 +1,6 @@
 ;;; init-timestamp.el --- 时间戳插入配置
+;; Author:Claudio <m15982038632@gmial.com>
+;; Created: 2017
 ;;; Commentary:
 ;;; Code:
 (defvar *claudio/timestamp-insert-time-format* "%H:%M:%S"

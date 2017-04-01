@@ -3,6 +3,8 @@
 # key: ifcomment
 # --
 ;;; $1.el --- $2
+;; Author: Claudio <m15982038632@gmail.com>
+;; Created: `(format-time-string "%F %H:%M:%S" (current-time))`
 ;;; Commentary:
 ;;; Code:
 $3

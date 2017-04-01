@@ -1,4 +1,6 @@
 ;;; init.el --- 加载各个配置文件
+;; Author:Claudio <m15982038632@gmial.com>
+;; Created: 2017
 ;;; Commentary:
 ;;; Code:
 
@@ -62,6 +64,7 @@
                 "~/.emacs.d/lisp/init-modes/init-minor-modes/claudio-fill/"
                 ;; 主模式
                 "~/.emacs.d/lisp/init-modes/init-major-modes/"
+                "~/.emacs.d/lisp/init-modes/init-major-modes/claudio-wpdl-mode/"
                 ))
   (add-to-list 'load-path path))
 

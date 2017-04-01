@@ -1,4 +1,6 @@
 ;;; init-better-defaults.el --- 改善默认配置
+;; Author:Claudio <m15982038632@gmial.com>
+;; Created: 2017
 ;;; Commentary:
 ;;; Code:
 ;; 退出emacs前确认

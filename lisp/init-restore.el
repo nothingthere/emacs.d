@@ -1,4 +1,6 @@
 ;;; init-session.el --- 重新加载上次会话状态...
+;; Author:Claudio <m15982038632@gmial.com>
+;; Created: 2017
 ;;; Commentary:
 ;; 1.buffer
 ;; 2.split windows
