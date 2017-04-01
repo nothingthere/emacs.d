@@ -4,7 +4,7 @@
 (message "加载自定义的minor modes...")
 
 (claudio/require-init-files
- claudio-fill
+ ;; claudio-fill
  )
 
 (provide 'init-minor-modes)

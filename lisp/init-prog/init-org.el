@@ -3,26 +3,28 @@
 ;;; Code:
 ;;org-mode -- YES
 (use-package org
-  :config (add-hook 'org-mode-hook
-                    (lambda()
-                      ;; 打开自动换行
-                      (auto-fill-mode)
-                      ;; 拼写检查
-                      (flyspell-mode))
-                    nil t)
+  :config
+  (add-hook 'org-mode-hook
+            (lambda()
+              ;; 打开自动换行
+              (auto-fill-mode)
+              ;; 拼写检查
+              (flyspell-mode))
+            ;; 如果不append到最后，会使org-babel-hide-all-hashes
+            ;; 有时不能正常使用，显示完整的hash值
+            t nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;smartparens配置
 
   ;; 使用:bind关键字时，不能使用匿名函数作为执行函数
-  (bind-keys
-   ("C-c t" . (lambda()
-                "打开所有未完成任务."
-                (interactive)
-                (org-agenda nil "t")))
-   ("C-c C-d" . (lambda()
-                  "新建日常任务."
-                  (interactive)
-                  (org-capture nil "d"))))
+  (bind-keys ("C-c t" . (lambda()
+                          "打开所有未完成任务."
+                          (interactive)
+                          (org-agenda nil "t")))
+             ("C-c C-d" . (lambda()
+                            "新建日常任务."
+                            (interactive)
+                            (org-capture nil "d"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

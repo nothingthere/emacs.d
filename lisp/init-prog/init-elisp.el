@@ -11,7 +11,7 @@
   (set-face-attribute 'fl-mismatched-face nil
                       :weight 'bold
                       :underline t
-                      :foreground "#fc0")
+                      :foreground "green")
   (dolist (hook '(emacs-lisp-mode-hook lisp-mode-hook))
     (add-hook hook 'flylisp-mode)))
 

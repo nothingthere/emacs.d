@@ -8,7 +8,7 @@
 (setq eww-search-prefix "http://cn.bing.com/search?q=")
 
 ;; 定制自己的搜索方式
-(defvar *claudio/search-engin-need-lantern* '("google" "youtube")
+(defvar *claudio/search-engin-need-lantern* '("google" "youtube" "emacs")
   "需要使用lantern翻墙的网站.")
 
 (defun claudio/search(query-url prompt)
@@ -58,6 +58,7 @@
 (claudio/install-search-engin "bing" "http://cn.bing.com/search?q=" "必应: ")
 (claudio/install-search-engin "github" "https://github.com/search?q=" "GitHub 搜索: ")
 (claudio/install-search-engin "google" "http://www.google.com/search?q=" "谷歌: ")
+(claudio/install-search-engin "emacs" "http://www.google.com/search?q=emacs+" "emacs: ")
 (claudio/install-search-engin "melpa" "http://melpa.org/#/" "Melpa：")
 (claudio/install-search-engin "repo" "https://github.com/nothingthere/" "我的项目：")
 (claudio/install-search-engin "douban" "https://www.douban.com/search?q=" "豆瓣搜索：")
