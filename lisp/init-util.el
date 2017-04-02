@@ -140,8 +140,8 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
 ;; (claudio/simple-save-excursion
 ;;  (mark-whole-buffer)
 ;;  (goto-char (point-min))
-;;  (message (format "%d" (point)))
-;;  )
+;;  (message "%d" (point))
+;; )
 
 (provide 'init-util)
 ;;; init-util.el ends here

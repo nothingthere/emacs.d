@@ -69,8 +69,9 @@
   ;; 不进行语法检查配置
   (add-hook 'org-src-mode-hook
             (lambda()
-              (set (make-local-variable 'flycheck-disabled-checkers) '(emacs-lisp-checkdoc))
-              nil t))
+              (set (make-local-variable 'flycheck-disabled-checkers)
+                   (add-to-list 'flycheck-disabled-checkers 'emacs-lisp-checkdoc))
+              ))
 
   ;; 代码块语法高亮
   (setq org-src-fontify-natively t)
