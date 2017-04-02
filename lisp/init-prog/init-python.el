@@ -19,12 +19,13 @@
   ;; company-anaconda -- 使用company补全，依赖于anaconda-mode的服务端
   (use-package
     company-anaconda
-    :config (add-hook 'python-mode-hook
-                      (lambda()
-                        (anaconda-mode)
-                        (anaconda-eldoc-mode)
-                        (claudio/company-push-local-backend
-                         '(company-anaconda :with company-yasnippet))))))
+    :config
+    (add-hook 'python-mode-hook
+              (lambda()
+                (anaconda-mode)
+                (anaconda-eldoc-mode)
+                (claudio/company-push-local-backend
+                 '(company-anaconda :with company-yasnippet))))))
 
 (provide 'init-python)
 ;;; init-python.el ends here

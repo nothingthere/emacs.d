@@ -14,6 +14,9 @@
                       :weight 'bold
                       :underline t
                       :foreground "green")
+  ;; 有时会出现混乱，干脆不用颜色标记
+  (set-face-attribute 'fl-inconsistent-face nil
+                      :foreground 'unspecified)
   (dolist (hook '(emacs-lisp-mode-hook lisp-mode-hook))
     (add-hook hook 'flylisp-mode)))
 

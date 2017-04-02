@@ -95,7 +95,7 @@
  init-chinese
  init-misc
  init-timestamp
- init-modes
+ ;; init-modes
  )
 
 ;;; init.el ends here

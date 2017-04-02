@@ -9,15 +9,24 @@
 (desktop-save-mode 1)
 
 (setq-default
+ desktop-save t
  ;;desktop文件存放文件夹.emacs.d
  desktop-path (list user-emacs-directory)
+
  ;;自动保存间隔秒数
- desktop-auto-save-timeout (* 5 60)
- ;; 如果开启多窗口，是否恢复多窗口状态
- desktop-save t desktop-restore-frames t)
+ desktop-auto-save-timeout 30
+ ;; 是否恢复多窗口状态
+ desktop-restore-frames t
+ desktop-restore-eager 10
+ )
 
 ;;退出前，保存minibuffer命令
 (savehist-mode 1)
+
+;; restart-emacs -- 在emacs中重启emacs
+(use-package restart-emacs
+  :bind ([f5] . restart-emacs)
+  )
 
 (provide 'init-restore)
 ;;; init-restore ends here

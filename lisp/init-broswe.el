@@ -70,5 +70,10 @@
 (claudio/install-search-engin "wiki" "https://en.wikipedia.org/wiki/" "Wiki：")
 (claudio/install-search-engin "music" "http://music.163.com/#/search/m/?s=" "163音乐：")
 
+(defun @()
+    (interactive)
+  (let ((url (read-string "网址： ")))
+    (browse-url-firefox url)))
+
 (provide 'init-broswe)
 ;;; init-broswe.el ends here

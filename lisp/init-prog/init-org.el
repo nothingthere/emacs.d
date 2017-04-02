@@ -4,6 +4,7 @@
 ;;; Commentary:
 ;;; Code:
 ;;org-mode -- YES
+
 (use-package org
   :config
   (add-hook 'org-mode-hook
@@ -11,10 +12,13 @@
               ;; 打开自动换行
               (auto-fill-mode)
               ;; 拼写检查
-              (flyspell-mode))
+              (flyspell-mode)
+              ;; 单词补全
+              (claudio/company-push-local-backend
+               '(company-ispell :with company-yasnippet)))
             ;; 如果不append到最后，会使org-babel-hide-all-hashes
             ;; 有时不能正常使用，显示完整的hash值
-            t nil)
+            )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;smartparens配置
 
@@ -62,6 +66,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;源码便捷配置
+  ;; 不进行语法检查配置
+  (add-hook 'org-src-mode-hook
+            (lambda()
+              (set (make-local-variable 'flycheck-disabled-checkers) '(emacs-lisp-checkdoc))
+              nil t))
+
   ;; 代码块语法高亮
   (setq org-src-fontify-natively t)
 
