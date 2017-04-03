@@ -71,7 +71,8 @@
 (claudio/install-search-engin "music" "http://music.163.com/#/search/m/?s=" "163音乐：")
 
 (defun @()
-    (interactive)
+    "直接输入网址，用火狐浏览器打开."
+  (interactive)
   (let ((url (read-string "网址： ")))
     (browse-url-firefox url)))
 
