@@ -1,1 +1,8 @@
 * 我的Emacs配置
+** 兼容
+   由于配置了自动安装系统程序的功能，可能会出现兼容型问题。主要在程序
+   安装方式上。只支持Debian形式的包安装：
+   
+   #+BEGIN_EXAMPLE shell
+     sudo apt install xxx
+   #+END_EXAMPLE

@@ -134,10 +134,13 @@
   (("C-c ;" . iedit-mode)))
 
 ;; helm-ag -- 项目内快速搜索
+;; 需先在系统中安装silversearch-ag
+;; ubuntu安装方法为：sudo apt install silversearch-ag
+;; 有点奇怪：安装后使用明为"ag"
+
 (use-package helm-ag
   :init
-  (claudio/with-system-enabled ("ag" :pkg-name "helm-ag"
-                                :apt-name "silversearch-ag"))
+  (claudio/with-sys-enabled ("silversearcher-ag"))
   :bind
   ("C-x f" . helm-ag-project-root))
 

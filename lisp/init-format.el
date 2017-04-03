@@ -64,19 +64,19 @@
 
 ;; python
 (use-package py-autopep8
-  :init (claudio/with-system-enabled ("autopep8"
-                                      :msg "为使用%s，先确保安装pip，再执行sudo pip install %s"))
+  :init
+  (claudio/with-sys-enabled ("python-autopep8"))
   :config (add-hook 'python-mode-hook #'py-autopep8-enable-on-save))
 
 ;; clang家族语言：c c++ js
 ;; 确保本地安装了clang-format程序
-(claudio/with-system-enabled ("clang-format" :pkg-name "clang-format")
-                             (quelpa '(clang-format :repo "nothingthere/clang-format" :fetcher github)
-                                     :update nil)
+(claudio/with-sys-enabled ("clang-format")
+                          (quelpa '(clang-format :repo "nothingthere/clang-format" :fetcher github)
+                                  :update nil)
 
-                             ;; 保存前执行clang-format，参考py-autopep8的作法
-                             (dolist (hook '(c-mode-hook c++-mode-hook))
-                               (claudio/add-local-before-save-hook hook 'clang-format-buffer)))
+                          ;; 保存前执行clang-format，参考py-autopep8的作法
+                          (dolist (hook '(c-mode-hook c++-mode-hook))
+                            (claudio/add-local-before-save-hook hook 'clang-format-buffer)))
 
 ;; sh
 (claudio/add-local-before-save-hook 'sh-mode-hook #'claudio/format-basic)

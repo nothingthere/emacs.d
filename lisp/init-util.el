@@ -10,22 +10,66 @@
 ;; 2. https://web.archive.org/web/20141203143357/http://dto.github.io/notebook/require-cl.html#sec-8
 ;; 加载cl库，方便使用common-lisp
 (with-no-warnings
-  (require 'cl))
+  (require 'cl)
+  )
+
+(defun claudio/string-empty-p(str)
+  "字符串STR是否不含任何字符串.
+本来有内置string-empty-p函数，不过需(require 'subr-x)
+目前只是用这一个函数，代价挺大."
+  (zerop (length str)))
 
 ;;辅助函数
 ;;;;;;;;;;;;;;;;;;包/模块安装函数
+(defun claudio/sys-install-p(pkg)
+  "系统是否安装PKG.
+使用execute-find函数只能找到可执行程度。有时不能确定程序是否安装，如python3-jedi."
+  (or (executable-find pkg)
+      (let ((command (format "dpkg --list | awk '{print $2}' | grep ^%s$" pkg)))
+        (not (claudio/string-empty-p (shell-command-to-string command))))))
 
-(cl-defmacro claudio/with-system-enabled ((app &key
-                                               (pkg-name "XXX")
-                                               (apt-name app)
-                                               (msg "为使用插件%s，请先在系统上执行安装:sudo apt install %s")) &body body)
-  "确保系统安装了APP，如果APP有其他名字，需提供APT-NAME.
-cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Argument-Lists.html。"
-  (if (not (executable-find (format "%s" app))) ;; (claudio/shell-result-empty-p (format "which %s" app))
-	  `(error
-        (format ,msg ,pkg-name ,apt-name))
-    `(progn
-       ,@body)))
+;; (claudio/installed-on-sys-p "silversearcher-ag")
+
+;; 不清楚为了要使用  (let ((default-directory "/sudo::/")
+;; 参考自：https://lists.gnu.org/archive/html/emacs-orgmode/2013-02/msg00354.html
+;; 和：http://emacs.stackexchange.com/questions/29555/how-to-run-sudo-commands-using-shell-command
+(defun claudio/sys-install(pkg)
+  "属于sudo命令安装PKG.
+sudo apt install PKG"
+  (message "系统正在执行sudo apt install %s命令，可能会造成卡顿." pkg)
+  (let ((default-directory "/sudo::/")
+        (command (format "sudo apt install %s" pkg)))
+    (async-shell-command command))
+  (message "系统成功安装%s程序" pkg))
+
+;; (claudio/sys-install "silversearcher-ag")
+
+(defvar *claudio/ensure-all-sys-apps-installed-p* t
+  "是否安装函数clauduio/with-system-enabled函数指定的系统程序.")
+
+(defvar *claudio/sys-pkgs-tobe-installed* nil
+  "需要在系统上安装的程序.")
+
+(add-hook 'after-init-hook
+          (lambda()
+            "安装所有需在系统上安装的程序."
+            (let ((pkg-str (apply #'concatenate 'string
+                                  (mapcar (lambda(str)
+                                            (concatenate 'string " " str))
+                                          *claudio/sys-pkgs-tobe-installed*))))
+              (claudio/sys-install pkg-str))))
+
+(cl-defmacro claudio/with-sys-enabled((pkg &optional manual) &body body)
+  "确保系统上安装程序PKG.
+如果manual为non-nil，表示需手动安装的程序，如果没安装，只是提醒。如lantern.
+如果变量*claudio/ensure-all-sys-app-installed-p*为non-nil，则直接安装.
+如果为nil，则只是警告。"
+  (unless (claudio/sys-install-p pkg)
+    (cond (manual (message "需在系统上手动安装%s，才能确保功能完全." pkg))
+          (*claudio/ensure-all-sys-apps-installed-p*
+           (add-to-list '*claudio/sys-pkgs-tobe-installed*  pkg))
+          (t (warn "系统上没安装%s，使用过程中可能会报错！" pkg))))
+  `(progn ,@body))
 
 (cl-defmacro claudio/with-pkg-enabled (pkg &body body)
   "是否安装有插件PKG，如果安装则执行&BODY,否则报错."
@@ -58,7 +102,7 @@ cl-defun使用方法：https://www.gnu.org/software/emacs/manual/html_node/cl/Ar
 返回值为：'(start . end)"
   (interactive)
   (cond ((region-active-p)
-		 (cons (region-beginning)
+         (cons (region-beginning)
                (region-end)))
         (t (cons (line-beginning-position)
                  (line-end-position)))))

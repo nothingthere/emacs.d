@@ -29,7 +29,8 @@
 ;; ImportError: No module named jedi
 ;; 的解决方法为：
 ;; sudo apt install python3-jedi
-;; sudo pip install jedi
+;; 或者使用pip3安装
+;; sudo pip3 install jedi
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package
   anaconda-mode

@@ -44,10 +44,10 @@
                         (string= (downcase name)
                                  (downcase need-lantern))))
           `(progn
-             (claudio/with-system-enabled
-              ("lantern")
+             (claudio/with-sys-enabled
+              ("lantern" t)
               ;; 在kali上，还需配合chromium一起使用，且需将其设置为默认浏览器
-              (claudio/with-system-enabled
+              (claudio/with-sys-enabled
                ("chromium")
                ;; 如果没启用lantern，先启用
                (unless (claudio/system-running-p "lantern")
