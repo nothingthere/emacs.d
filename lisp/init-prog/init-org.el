@@ -152,7 +152,9 @@
                                                            (js . t)))
 
   ;; 指定执行Python代码的配置
-  (setq org-babel-python-command "/usr/bin/python3.5")
+  (setq org-babel-python-command (or (executable-find "python3.5")
+                                     (org-babel-python-command)))
+
   ;; 如果为t老是询问，好烦
   (setq org-src-tab-acts-natively nil)
 
