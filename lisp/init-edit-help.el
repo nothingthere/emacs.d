@@ -165,7 +165,6 @@
   ;; 两个依赖包5
   (use-package s)
   (use-package dash)
-
   :config
   (defun claudio/origami-elisp-parser (create)
     "修改自插件源码，只是添加了关键字'use-package bind-keys cl-def'作为块头"
@@ -180,8 +179,9 @@
   ;; 全局生效，官方文档说不支持的语言自动使用缩进确定折叠
   (global-origami-mode)
 
-  :bind (([f7] . origami-recursively-toggle-node)
-         ([f6] . origami-show-only-node)))
+  :bind (("C-c f" . origami-recursively-toggle-node)
+         ("C-c F" . origami-toggle-all-nodes))
+  )
 
 ;;;;;;方便编辑的快捷键
 (bind-keys ("C-c TAB" . hippie-expand)
