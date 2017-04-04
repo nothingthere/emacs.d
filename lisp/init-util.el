@@ -83,6 +83,16 @@ sudo apt install APP"
     `(error
       (format "需先安装%S插件" ',app))))
 
+(defun claudio/system-running-p(pname)
+  "判断系统上是否有满足PNAME的进程开启.
+参考自：https://gist.github.com/tkhoa2711/f3d9c1cb04597f03ee76
+"
+  (dolist (pid (list-system-processes))
+    (let ((attrs (process-attributes pid)))
+      (when (string= pname (cdr (assoc 'comm attrs)))
+        (return t)))))
+;; (claudio/system-running-p "lantern")
+
 ;;;;;;;;;;;;;;;;;buffer操作函数
 (cl-defmacro claudio/with-save-position+widen (&body body)
   "'save-excursion + 'save-restriction + 'widen再执行 &BODY."
@@ -162,16 +172,6 @@ sudo apt install APP"
   `(add-hook ,mode-hook
              (lambda()
                (add-hook 'before-save-hook ,@body nil t))))
-
-(defun claudio/system-running-p(pname)
-  "判断系统上是否有满足PNAME的进程开启.
-参考自：https://gist.github.com/tkhoa2711/f3d9c1cb04597f03ee76
-"
-  (dolist (pid (list-system-processes))
-    (let ((attrs (process-attributes pid)))
-      (when (string= pname (cdr (assoc 'comm attrs)))
-        (return t)))))
-;; (claudio/system-running-p "lantern")
 
 (cl-defmacro claudio/simple-save-excursion(&body body)
   "简化版的save-excursion,只记录当前光标.
