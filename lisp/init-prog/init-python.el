@@ -32,7 +32,21 @@
 ;; 或者使用pip3安装
 ;; sudo pip3 install jedi
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 报错
+;; Exception happened during processing of request from ('127.0.0.1', 41164)
+;; Traceback (most recent call last):
+;;   File "/usr/local/lib/python3.5/dist-packages/jedi/parser/python/__init__.py", line 39, in load_grammar
+;;     return _loaded_grammars[path]
+;; KeyError: '/usr/local/lib/python3.5/dist-packages/jedi/parser/python/grammar3.5.txt'
+;; 好像是使用pip3安装版本没有grammer*.txt文件，
+;; 参考：https://jedi.readthedocs.io/en/latest/docs/installation.html 后
+;; 最后手动安装：sudo pip install -e git://github.com/davidhalter/jedi.git#egg=jedi
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (use-package anaconda-mode
+  :disabled t                           ;jedi有bug，还没修复，暂时不使用
   :init
   (claudio/with-sys-enabled ("jedi" :use-pip t))
   :config

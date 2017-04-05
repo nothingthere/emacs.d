@@ -4,6 +4,8 @@
 ;;; Commentary:
 ;; 依赖于emacs25！！！
 ;; 在emacs24.5中，Tramp提示输入密码时会卡顿.
+;; 有时会报错：Couldn’t find local shell prompt for /bin/sh
+;; 没弄清原因，删除.emacs.desktop文件重启后好像能解决
 ;;; Code:
 
 ;; 设置shell程序的解释路径
@@ -65,7 +67,7 @@ pip3 list执行速度很慢，所以对于没安装的程序，此函数会很�
     (message "系统正在执行sudo %s install %s 命令，可能会造成卡顿." command app)))
 
 ;; (claudio/sys-install "pylint3")
-
+;; (claudio/sys-install "jedi" t)
 (cl-defmacro claudio/with-sys-enabled((app &key manual use-pip) &body body)
   "确保系统上安装程序APP.
 如果manual为non-nil，表示需手动安装的程序，如果没安装，只是提醒。如lantern.
