@@ -84,6 +84,7 @@
 ;;加载所有配置文件
 (claudio/require-init-files
  init-util
+ init-app
  init-ui
  init-restore
  init-better-defaults

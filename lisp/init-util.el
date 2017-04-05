@@ -13,75 +13,23 @@
   (require 'cl)
   )
 
+;;辅助函数
 (defun claudio/string-empty-p(str)
   "字符串STR是否不含任何字符串.
 本来有内置string-empty-p函数，不过需(require 'subr-x)
 目前只是用这一个函数，代价挺大."
   (zerop (length str)))
 
-;;辅助函数
-;;;;;;;;;;;;;;;;;;自动安装系统程序配置
-(defun claudio/sys-app-install-p(app)
-  "系统是否安装APP.
-使用execute-find函数只能找到可执行程度。有时不能确定程序是否安装，如python3-jedi."
-  (or (executable-find app)
-      (let ((command (format "dpkg --list | awk '{print $2}' | grep ^%s$" app)))
-        (not (claudio/string-empty-p (shell-command-to-string command))))))
-
-;; (claudio/sys-app-install-p "silversearcher-ag")
-
-;; 不清楚为了要使用  (let ((default-directory "/sudo::/")
-;; 参考自：https://lists.gnu.org/archive/html/emacs-orgmode/2013-02/msg00354.html
-;; 和：http://emacs.stackexchange.com/questions/29555/how-to-run-sudo-commands-using-shell-command
-(defun claudio/sys-install(app)
-  "属于sudo命令安装APP.
-sudo apt install APP"
-  (message "系统正在执行sudo apt install %s命令，可能会造成卡顿." app)
-  (let ((default-directory "/sudo::/")
-        (command (format "sudo apt install %s" app)))
-    (async-shell-command command))
-  (message "系统成功安装%s程序" app))
-
-;; (claudio/sys-install "silversearcher-ag")
-
-(defvar *claudio/ensure-all-sys-apps-installed-p* t
-  "是否安装函数clauduio/with-system-enabled函数指定的系统程序.
-如果是非Debian操作系统，可将此值设为nil，然后手动安装.")
-
-(defvar *claudio/sys-apps-tobe-installed* nil
-  "需要在系统上安装的程序.")
-
-(add-hook 'after-init-hook
-          (lambda()
-            "安装所有需在系统上安装的程序."
-            (when *claudio/sys-apps-tobe-installed*
-              (let ((app-str (apply #'concatenate 'string
-                                    (mapcar (lambda(str)
-                                              (concatenate 'string " " str))
-                                            *claudio/sys-apps-tobe-installed*))))
-                (claudio/sys-install app-str))))
-          ;; 最后执行
-          t)
-
-(cl-defmacro claudio/with-sys-enabled((app &optional manual) &body body)
-  "确保系统上安装程序APP.
-如果manual为non-nil，表示需手动安装的程序，如果没安装，只是提醒。如lantern.
-如果变量*claudio/ensure-all-sys-app-installed-p*为non-nil，则直接安装.
-如果为nil，则只是警告。"
-  (unless (claudio/sys-app-install-p app)
-    (cond (manual (message "需在系统上手动安装%s，才能确保功能完全." app))
-          (*claudio/ensure-all-sys-apps-installed-p*
-           (add-to-list '*claudio/sys-apps-tobe-installed*  app))
-          (t (warn "系统上没安装%s，使用过程中可能会报错！" app))))
-  `(progn ,@body))
-
-(cl-defmacro claudio/with-app-enabled (app &body body)
-  "是否安装有插件APP，如果安装则执行&BODY,否则报错."
-  (if (package-installed-p app)
-      `(progn
-         ,@body)
-    `(error
-      (format "需先安装%S插件" ',app))))
+(cl-defun claudio/list2string(lst &optional (sep " "))
+  "将链表LST转换为字符串，用SEP隔开.
+不支持嵌套链表."
+  (concatenate
+   'string
+   (car lst)
+   (apply #'concatenate 'string
+          (mapcar (lambda(str)
+                    (format "%s%s" sep str))
+                  (cdr lst)))))
 
 (defun claudio/system-running-p(pname)
   "判断系统上是否有满足PNAME的进程开启.
@@ -91,7 +39,8 @@ sudo apt install APP"
     (let ((attrs (process-attributes pid)))
       (when (string= pname (cdr (assoc 'comm attrs)))
         (return t)))))
-;; (claudio/system-running-p "lantern")
+
+;; (claudio/system-running-p "emacs24")
 
 ;;;;;;;;;;;;;;;;;buffer操作函数
 (cl-defmacro claudio/with-save-position+widen (&body body)
@@ -184,6 +133,14 @@ sudo apt install APP"
          (goto-char ,original-point-symbol)
          (set-marker ,original-point-symbol nil))))
   )
+
+(cl-defmacro claudio/with-app-enabled (pkg &body body)
+  "是否安装有插件APP，如果安装则执行&BODY,否则报错."
+  (if (package-installed-p pkg)
+      `(progn
+         ,@body)
+    `(error
+      (format "需先安装%S插件" ',pkg))))
 
 ;; (claudio/simple-save-excursion
 ;;  (mark-whole-buffer)

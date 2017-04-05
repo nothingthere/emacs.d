@@ -32,8 +32,9 @@
 ;; 或者使用pip3安装
 ;; sudo pip3 install jedi
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package
-  anaconda-mode
+(use-package anaconda-mode
+  :init
+  (claudio/with-sys-enabled ("jedi" :use-pip t))
   :config
   ;; company-anaconda -- 使用company补全，依赖于anaconda-mode的服务端
   (use-package

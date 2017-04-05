@@ -65,7 +65,7 @@
 ;; python
 (use-package py-autopep8
   :init
-  (claudio/with-sys-enabled ("python-autopep8"))
+  (claudio/with-sys-enabled ("autopep8" :use-pip t))
   :config (add-hook 'python-mode-hook #'py-autopep8-enable-on-save))
 
 ;; clang家族语言：c c++ js
