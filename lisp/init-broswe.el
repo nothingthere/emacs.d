@@ -1,5 +1,5 @@
 ;;; init-broswe.el --- 浏览器搜索配置
-;; Author:Claudio <m15982038632@gmial.com>
+;; Author:Claudio <3261958605@qq.com>
 ;; Created: 2017
 ;;; Commentary:
 ;; 参考：https://github.com/emacs-china/Spacemacs-rocks#第九天macro-与-use-package

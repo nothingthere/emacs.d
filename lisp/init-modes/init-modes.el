@@ -1,5 +1,5 @@
 ;;; init-modes.el --- 所有自定义的major和minor modes的入口文件
-;; Author:Claudio <m15982038632@gmial.com>
+;; Author:Claudio <3261958605@qq.com>
 ;; Created: 2017
 ;;; Commentary:
 ;;; Code:

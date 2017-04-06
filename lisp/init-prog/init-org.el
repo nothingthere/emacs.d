@@ -1,5 +1,5 @@
 ;;; init-org.el --- org配置
-;; Author:Claudio <m15982038632@gmial.com>
+;; Author:Claudio <3261958605@qq.com>
 ;; Created: 2017
 ;;; Commentary:
 ;;; Code:

@@ -1,5 +1,5 @@
 ;;; claudio-fill.el --- 自动行折叠插件
-;; Author:Claudio <m15982038632@gmial.com>
+;; Author:Claudio <3261958605@qq.com>
 ;; Created: 2017
 ;;; Commentary:
 ;; 参考自《Writing GNU Emacs Extensions》例题

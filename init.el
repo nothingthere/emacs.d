@@ -1,5 +1,5 @@
 ;;; init.el --- 加载各个配置文件
-;; Author:Claudio <m15982038632@gmial.com>
+;; Author:Claudio <3261958605@qq.com>
 ;; Created: 2017
 ;;; Commentary:
 ;;; Code:
