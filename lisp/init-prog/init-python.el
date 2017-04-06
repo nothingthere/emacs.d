@@ -19,18 +19,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 报错：
 ;; Warning (python): Your ‘python-shell-interpreter’ doesn’t seem to support readline, yet ‘python-shell-completion-native’ was t and "python3.5" is not part of the ‘python-shell-completion-native-disabled-interpreters’ list.  Native completions have been disabled locally.
-;;解决办法：https://debbugs.gnu.org/cgi/bugreport.cgi?bug=25753#44
+;; 解决办法：https://debbugs.gnu.org/cgi/bugreport.cgi?bug=25753#44
 ;; 应该是Emacs25.1的问题
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(with-eval-after-load 'python
-  (defun python-shell-completion-native-try ()
-    "Return non-nil if can trigger native completion."
-    (let ((python-shell-completion-native-enable t)
-          (python-shell-completion-native-output-timeout
-           python-shell-completion-native-try-output-timeout))
-      (python-shell-completion-native-get-completions
-       (get-buffer-process (current-buffer))
-       nil "_"))))
+(when (version<= "25" emacs-version)
+  (with-eval-after-load 'python
+    (defun python-shell-completion-native-try ()
+      "Return non-nil if can trigger native completion."
+      (let ((python-shell-completion-native-enable t)
+            (python-shell-completion-native-output-timeout
+             python-shell-completion-native-try-output-timeout))
+        (python-shell-completion-native-get-completions
+         (get-buffer-process (current-buffer))
+         nil "_")))))
 
 ;; anaconda-mode -- 代码补全。需先安装setuptools
 ;; https://pypi.python.org/pypi/setuptools

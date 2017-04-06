@@ -50,7 +50,7 @@ pip3 list执行速度很慢，所以对于没安装的程序，此函数会很�
 ;; (claudio/sys-app-install-p "which")
 ;; (claudio/sys-app-install-p "silversearcher-ag")
 ;; (claudio/sys-app-install-p "jedi")
-;; (claudio/sys-app-install-p "pylint3")
+;; (claudio/sys-app-install-p "pylint")
 ;; (claudio/sys-app-install-p "autopep8")
 
 ;; 不清楚为何要使用  (let ((default-directory "/sudo::/")
