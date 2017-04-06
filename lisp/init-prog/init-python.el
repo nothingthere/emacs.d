@@ -22,7 +22,7 @@
 ;; 解决办法：https://debbugs.gnu.org/cgi/bugreport.cgi?bug=25753#44
 ;; 应该是Emacs25.1的问题
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(when (version<= "25" emacs-version)
+(when (version= emacs-version "25.1")
   (with-eval-after-load 'python
     (defun python-shell-completion-native-try ()
       "Return non-nil if can trigger native completion."

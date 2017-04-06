@@ -13,17 +13,6 @@
     (when (claudio/current-line-empty-p)
       (delete-blank-lines))))
 
-(defun claudio/format-delete-bottom-blanklines()
-  "删除文本末的空行."
-  (goto-char (point-max))
-  (beginning-of-line)
-  (when (claudio/current-line-empty-p)
-    (delete-blank-lines)
-    ;; 如果完全无文本，就不进行任何操作
-    ;; 当前位置不是buffer最前面
-    (unless (bobp)
-      (delete-backward-char 1))))
-
 (defun claudio/format-leave-1-empty-line()
   "将buffer中多个相邻的空行只留1个."
   (goto-char (point-min))
@@ -38,6 +27,17 @@
             (t
              (setq previous-line-empty-p nil))))))
 
+(defun claudio/format-delete-bottom-blanklines()
+  "删除文本末的空行."
+  (goto-char (point-max))
+  (beginning-of-line)
+  (when (claudio/current-line-empty-p)
+    (delete-blank-lines)
+    ;; 如果完全无文本，就不进行任何操作
+    ;; 当前位置不是buffer最前面
+    (unless (bobp)
+      (delete-backward-char 1))))
+
 (defun claudio/format-indent-buffer()
   "调整整个buffer的缩进."
   (let ((indent-blacklist '(makefile-gmake-mode snippet-mode python-mode)))
@@ -46,11 +46,13 @@
                      (point-max)))))
 
 (defun claudio/format-basic()
-  "删除顶部空行，（暂时不）删除底部空行，文本中最多2个空行，删除行末空白字符，且缩进。"
+  "删除顶部空行，（暂时不）删除底部空行，文本中最多2个空行，删除行末空白字符，且缩进。
+为保证执行速度，claudio/format-delete-top-blanklines claudio/format-leave-1-empty-line
+和claudio/format-delete-bottom-blanklines应按此顺序执行."
   (interactive)
   (claudio/with-save-position+widen (claudio/format-delete-top-blanklines)
-                                    ;; (claudio/format-delete-bottom-blanklines)
                                     (claudio/format-leave-1-empty-line)
+                                    ;; (claudio/format-delete-bottom-blanklines)
                                     (delete-trailing-whitespace (point-min)
                                                                 (point-max))
                                     (claudio/format-indent-buffer)))
