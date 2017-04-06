@@ -65,6 +65,7 @@
 ;; python
 (use-package py-autopep8
   :init
+  ;; 本来可以使用python-autpep8，但是会出现卡顿，所以使用pip版本
   (claudio/with-sys-enabled ("autopep8" :use-pip t))
   :config (add-hook 'python-mode-hook #'py-autopep8-enable-on-save))
 
