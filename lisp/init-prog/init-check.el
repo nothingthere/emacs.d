@@ -17,9 +17,13 @@
 
   ;; python
   ;; 将检测python的版本更换到3.X
-  (claudio/with-sys-enabled ("pylint3")
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; 直接使用pylint3有时会报错
+  ;; 解决办法：使用pylint：sudo apt install pylint
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (claudio/with-sys-enabled ("pylint")
                             (setq flycheck-python-pylint-executable
-                                  (or (executable-find "pylint3")
+                                  (or (executable-find "pylint")
                                       flycheck-python-pylint-executable)
 
                                   ;; 还需添加下面这行才能生效

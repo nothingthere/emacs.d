@@ -11,10 +11,26 @@
  python-indent-guess-indent-offset nil
  ;; 解释器位置
  python-shell-interpreter (or
-                           (executable-find "python3.5")
+                           (executable-find "python3")
                            python-shell-interpreter)
 
  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 报错：
+;; Warning (python): Your ‘python-shell-interpreter’ doesn’t seem to support readline, yet ‘python-shell-completion-native’ was t and "python3.5" is not part of the ‘python-shell-completion-native-disabled-interpreters’ list.  Native completions have been disabled locally.
+;;解决办法：https://debbugs.gnu.org/cgi/bugreport.cgi?bug=25753#44
+;; 应该是Emacs25.1的问题
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(with-eval-after-load 'python
+  (defun python-shell-completion-native-try ()
+    "Return non-nil if can trigger native completion."
+    (let ((python-shell-completion-native-enable t)
+          (python-shell-completion-native-output-timeout
+           python-shell-completion-native-try-output-timeout))
+      (python-shell-completion-native-get-completions
+       (get-buffer-process (current-buffer))
+       nil "_"))))
 
 ;; anaconda-mode -- 需先安装setuptools
 ;;https://pypi.python.org/pypi/setuptools
@@ -23,8 +39,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 报错
 ;; Traceback (most recent call last):
-;; File "<string>", line 4, in <module>
-;; File "/home/cryptomaniac/.emacs.d/anaconda-mode/0.1.7/anaconda_mode-0.1.7-py2.7.egg/anaconda_mode.py", line 17, in <module>
+;; File "<string  ", line 4, in <module
+;; File "/home/cryptomaniac/.emacs.d/anaconda-mode/0.1.7/anaconda_mode-0.1.7-py2.7.egg/anaconda_mode.py", line 17, in <module
 ;; from jedi import Script, NotFoundError
 ;; ImportError: No module named jedi
 ;; 的解决方法为：
@@ -45,10 +61,17 @@
 ;; 最后手动安装：sudo pip install -e git://github.com/davidhalter/jedi.git#egg=jedi
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;最终解决方法
+;; 安装Debian版本的jedi
+;; sudo apt install python3-jedi
+;; 总结:使用pip3安装程序，安装在/usr/local/lib/python3.5中
+;; 使用apt安装的python库，安装在/usr/lib/python3/dist-packages$中
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (use-package anaconda-mode
-  :disabled t                           ;jedi有bug，还没修复，暂时不使用
   :init
-  (claudio/with-sys-enabled ("jedi" :use-pip t))
+  (claudio/with-sys-enabled ("python3-jedi"))
   :config
   ;; company-anaconda -- 使用company补全，依赖于anaconda-mode的服务端
   (use-package

@@ -20,7 +20,7 @@
                   (with-current-buffer b-name
                     (rename-uniquely))))))
 
-(defvar *claudio/ensure-all-sys-apps-installed-p* nil
+(defvar *claudio/ensure-all-sys-apps-installed-p* t
   "是否保证所有以来的程序都自动安装.
 由于pip3 --list命令执行速度很慢，claudio/sys-app-install-p函数也会很慢。
 确保所有依赖程序的情况下，可将此值设为nil，提高启动速度."
