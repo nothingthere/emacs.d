@@ -32,8 +32,8 @@
        (get-buffer-process (current-buffer))
        nil "_"))))
 
-;; anaconda-mode -- 需先安装setuptools
-;;https://pypi.python.org/pypi/setuptools
+;; anaconda-mode -- 代码补全。需先安装setuptools
+;; https://pypi.python.org/pypi/setuptools
 ;; 如果要使用python3.5则需安装python3-jedi
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
