@@ -71,6 +71,12 @@
   (claudio/with-sys-enabled ("autopep8" :use-pip t))
   :config (add-hook 'python-mode-hook #'py-autopep8-enable-on-save))
 
+;; golang
+(use-package go-mode
+  :config
+  (claudio/add-local-before-save-hook 'go-mode-hook
+                                      'gofmt-before-save))
+
 ;; clang家族语言：c c++ js
 ;; 确保本地安装了clang-format程序
 (claudio/with-sys-enabled ("clang-format")
