@@ -28,15 +28,20 @@
              (setq previous-line-empty-p nil))))))
 
 (defun claudio/format-delete-bottom-blanklines()
-  "删除文本末的空行."
+  "删除文本末的空行，保证最后有空行."
   (goto-char (point-max))
-  (beginning-of-line)
-  (when (claudio/current-line-empty-p)
-    (delete-blank-lines)
-    ;; 如果完全无文本，就不进行任何操作
-    ;; 当前位置不是buffer最前面
-    (unless (bobp)
-      (delete-backward-char 1))))
+  (end-of-line)
+  ;; 添加新行，保证至少有一个空行
+  (newline)
+  (delete-blank-lines))
+
+;; (beginning-of-line)
+;; (when (claudio/current-line-empty-p)
+;;   (delete-blank-lines)
+;;   ;; 如果完全无文本，就不进行任何操作
+;;   ;; 当前位置不是buffer最前面
+;;   (unless (bobp)
+;;     (delete-backward-char 1))))
 
 (defun claudio/format-indent-buffer()
   "调整整个buffer的缩进."
@@ -52,7 +57,7 @@
   (interactive)
   (claudio/with-save-position+widen (claudio/format-delete-top-blanklines)
                                     (claudio/format-leave-1-empty-line)
-                                    ;; (claudio/format-delete-bottom-blanklines)
+                                    (claudio/format-delete-bottom-blanklines)
                                     (delete-trailing-whitespace (point-min)
                                                                 (point-max))
                                     (claudio/format-indent-buffer)))
@@ -75,7 +80,7 @@
 (use-package go-mode
   :config
   (claudio/add-local-before-save-hook 'go-mode-hook
-                                      'gofmt-before-save))
+                                      #'gofmt-before-save))
 
 ;; clang家族语言：c c++ js
 ;; 确保本地安装了clang-format程序
@@ -85,7 +90,7 @@
 
                           ;; 保存前执行clang-format，参考py-autopep8的作法
                           (dolist (hook '(c-mode-hook c++-mode-hook))
-                            (claudio/add-local-before-save-hook hook 'clang-format-buffer)))
+                            (claudio/add-local-before-save-hook hook #'clang-format-buffer)))
 
 ;; sh
 (claudio/add-local-before-save-hook 'sh-mode-hook #'claudio/format-basic)
