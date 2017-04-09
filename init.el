@@ -93,6 +93,7 @@
  init-prog
  init-broswe
  init-move
+ init-flycheck
  init-chinese
  init-misc
  init-timestamp

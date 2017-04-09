@@ -1,4 +1,4 @@
-;; init-check.el --- 编程语言语法检测
+;; init-flycheck.el --- 编程语言语法检测
 ;; Author:Claudio <3261958605@qq.com>
 ;; Created: 2017
 ;;; Commentary:
@@ -31,5 +31,5 @@
 
   )
 
-(provide 'init-check)
-;;; init-check.el ends here
+(provide 'init-flycheck)
+;;; init-flycheck.el ends here

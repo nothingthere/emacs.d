@@ -16,7 +16,6 @@
  init-org
  init-bash
  init-nasm
- init-check
  )
 
 ;; multi-term -- 方便打开命令行
