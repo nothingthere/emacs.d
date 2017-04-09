@@ -11,7 +11,7 @@
 
 (setq-default
  ;; 如果有新的desktop文件生成，指定的执行方式
- desktop-save 'ask-if-exists
+ desktop-save 'ask-if-new
  ;;desktop文件存放文件夹.emacs.d
  desktop-path (list user-emacs-directory)
 

@@ -1,8 +1,9 @@
-personal_ws-1.1 en 15 
+personal_ws-1.1 en 19 
 contextmanager
 frozenset
 EOFError
 pws
+claudio
 memoryview
 elisp
 tounicode
@@ -11,6 +12,9 @@ aspell
 init
 fromfile
 iterable
+typecode
+itemsize
 bytearray
 initializer
+typecodes
 kwarg
