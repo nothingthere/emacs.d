@@ -7,8 +7,8 @@
 ;; flycheck -- 语法检查
 (use-package flycheck
   :config
-  (diminish 'flycheck-mode "FlyC")
-  (global-flycheck-mode 1)
+  (add-hook 'after-init-hook 'global-flycheck-mode)
+  (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list)
 
   ;; elisp
   ;; flycheck对elisp的错误检测好烦人，出现好多不合适的提示，禁用。
@@ -25,7 +25,6 @@
                             (setq flycheck-python-pylint-executable
                                   (or (executable-find "pylint")
                                       flycheck-python-pylint-executable)
-
                                   ;; 还需添加下面这行才能生效
                                   flycheck-python-pycompile-executable "python3"))
 
