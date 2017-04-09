@@ -36,7 +36,7 @@
   "系统是否安装APP.
 使用execute-find函数只能找到可执行程度。有时不能确定程序是否安装python-jedi和使用pip安装的jedi.
 pip3 list执行速度很慢，所以对于没安装的程序，此函数会很耗时."
-  (message "Debug：检查 %s 是否安装." app)
+  ;; (message "Debug：检查 %s 是否安装." app)
   (or
    ;; 可执行程序
    (executable-find app)
