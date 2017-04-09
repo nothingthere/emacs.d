@@ -94,6 +94,7 @@
  init-broswe
  init-move
  init-flycheck
+ init-flyspell
  init-chinese
  init-misc
  init-timestamp

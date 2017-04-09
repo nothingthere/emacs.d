@@ -11,8 +11,7 @@
             (lambda()
               ;; 打开自动换行
               (auto-fill-mode)
-              ;; 拼写检查
-              (flyspell-mode)
+
               ;; 单词补全
               (claudio/company-push-local-backend
                '(company-ispell :with company-yasnippet)))
