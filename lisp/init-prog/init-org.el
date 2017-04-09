@@ -14,7 +14,8 @@
 
               ;; 单词补全
               (claudio/company-push-local-backend
-               '(company-ispell :with company-yasnippet)))
+               '(company-ispell :with company-yasnippet))
+              )
             ;; 如果不append到最后，会使org-babel-hide-all-hashes
             ;; 有时不能正常使用，显示完整的hash值
             )

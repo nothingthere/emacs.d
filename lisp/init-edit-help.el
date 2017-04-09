@@ -14,7 +14,7 @@
         ("C-n" . company-select-next))
 
   :config
-  (diminish 'company-mode "CMP")
+  ;; (diminish 'company-mode "CMP")
   (add-hook 'after-init-hook 'global-company-mode)
   (setq-default
    ;; 等待时间"秒"
