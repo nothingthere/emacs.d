@@ -27,21 +27,23 @@
             (t
              (setq previous-line-empty-p nil))))))
 
-(defun claudio/format-delete-bottom-blanklines()
-  "删除文本末的空行，保证最后有空行."
+(defun claudio/format-delete-bottom-blanklines(&optional strict)
+  "删除文本末的空行，保证最后有空行.如果STRICT参数为non-nil，末尾不留空行.
+末尾不留空行的情况，仅适用于org-src源码格式化."
   (goto-char (point-max))
-  (end-of-line)
-  ;; 添加新行，保证至少有一个空行
-  (newline)
-  (delete-blank-lines))
-
-;; (beginning-of-line)
-;; (when (claudio/current-line-empty-p)
-;;   (delete-blank-lines)
-;;   ;; 如果完全无文本，就不进行任何操作
-;;   ;; 当前位置不是buffer最前面
-;;   (unless (bobp)
-;;     (delete-backward-char 1))))
+  (cond (strict
+         (beginning-of-line)
+         (when (claudio/current-line-empty-p)
+           (delete-blank-lines)
+           ;; 如果完全无文本，就不进行任何操作
+           ;; 当前位置不是buffer最前面
+           (unless (bobp)
+             (delete-backward-char 1))))
+        (t
+         (end-of-line)
+         ;; 添加新行，保证至少有一个空行
+         (newline)
+         (delete-blank-lines))))
 
 (defun claudio/format-indent-buffer()
   "调整整个buffer的缩进."
@@ -118,7 +120,7 @@
                  (clang-format-buffer)))
               ;; 全部去首尾空行
               (claudio/format-delete-top-blanklines)
-              (claudio/format-delete-bottom-blanklines)))
+              (claudio/format-delete-bottom-blanklines t)))
 
 ;;1. 刚开始使用 (advice-add 'org-edit-src-exit :before #'claudio/org-src-beautify)
 ;;调用org-edit-src-exit时还行，不过调用org-edit-src-save时总是报参数错误
