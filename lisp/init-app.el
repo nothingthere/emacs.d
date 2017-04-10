@@ -1,5 +1,5 @@
 ;;; init-app.el --- 自动安装系统依赖程序
-;; Author: Claudio <m15982038632@gmail.com>
+;; Author: Claudio <3261958605@qq.com>
 ;; Created: 2017-04-05 13:50:16
 ;;; Commentary:
 ;; 依赖于emacs25！！！

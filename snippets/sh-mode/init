@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: init
+# key: init
+# --
+#!/bin/bash
+# $1
+# Author: Claudio <3261958605@qq.com>
+# Created: `(format-time-string "%F %H:%M:%S" (current-time))`
+# Commentary:
+# Code:
+$2

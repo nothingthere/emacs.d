@@ -134,7 +134,7 @@
          (set-marker ,original-point-symbol nil))))
   )
 
-(cl-defmacro claudio/util-with-pkg-enabled (pkg &body body)
+(cl-defmacro claudio/util-with-pkg-enabled(pkg &body body)
   "是否安装有插件PKG，如果安装则执行&BODY,否则报错."
   (if (package-installed-p pkg)
       `(progn

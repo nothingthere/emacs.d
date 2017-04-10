@@ -1,5 +1,5 @@
 ;;; claudio-wpdl-mode.el --- 学习如何编写主模式的实验模式
-;; Author: Claudio <m15982038632@gmail.com>
+;; Author: Claudio <3261958605@qq.com>
 ;; Created: 2017-04-01 15:52:32
 ;;; Commentary:
 ;; 参考地址：https://www.emacswiki.org/emacs/ModeTutorial

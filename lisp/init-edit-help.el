@@ -22,6 +22,14 @@
    ;; 输入多少个字符时激活
    company-minimum-prefix-length 1)
 
+  ;; !!! 在图像界面下才能使用
+  ;; company-quickhelp -- 代码提示功能
+  (use-package company-quickhelp
+    :if (display-graphic-p)
+    :config
+    (bind-key "M-h" 'company-quickhelp-manual-begin company-active-map
+              (featurep 'company)))
+
   ;; yasnippet -- snippets片段补全
   (use-package yasnippet
     :bind
@@ -47,15 +55,7 @@
       (set (make-local-variable 'company-backends)
            (append (list backend) company-backends))))
 
-  ;; !!! 在图像界面下才能使用
-  ;; company-quickhelp -- 代码提示功能
-
-  (use-package company-quickhelp
-    :if (display-graphic-p)
-    :config
-    (bind-key "M-h" 'company-quickhelp-manual-begin company-active-map
-              (featurep 'company)))
-
+  ;; end yasnippet
   ;; end company
   )
 
@@ -149,10 +149,6 @@
   :disabled t
   :bind
   ("C-c :" . avy-goto-char-2))
-
-;; acs-pinyin -- ？？？？
-(use-package ace-pinyin
-  :disabled t)
 
 ;; which-key -- 当按下快捷键忘记后面键位时，停留后显示提示
 (use-package which-key

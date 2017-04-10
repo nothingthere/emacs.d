@@ -23,7 +23,7 @@
   :config (setq multi-term-program "/bin/bash")
   :bind (("M-!" . multi-term)))
 
-(defun claudio/reload-script()
+(defun claudio/prog-reload-script()
   "重新加载当前文件。并保留光标位置。改变权限为775
 主要作用为重新加载bash文件，使用shell-script-mode生效"
   (interactive)
