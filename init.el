@@ -45,7 +45,7 @@
            quelpa-self-upgrade-p nil
            ;; 已经安装的包不更新
            quelpa-upgrade-p nil
-           ;; 不跟新github上的melpa源
+           ;; 不跟新Github上的melpa源
            quelpa-update-melpa-p nil
            ;; 只有quelpa安装不在melpa上的包
            quelpa-checkout-melpa-p nil
@@ -91,7 +91,7 @@
  init-edit-help
  init-format
  init-prog
- init-broswe
+ init-browse
  init-move
  init-flycheck
  init-flyspell

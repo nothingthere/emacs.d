@@ -8,19 +8,19 @@
 (defun claudio/format-delete-top-blanklines()
   "删除顶部所有空格."
   (goto-char (point-min))
-  (when (claudio/current-line-empty-p)
+  (when (claudio/util-current-line-empty-p)
     (delete-blank-lines)
-    (when (claudio/current-line-empty-p)
+    (when (claudio/util-current-line-empty-p)
       (delete-blank-lines))))
 
 (defun claudio/format-leave-1-empty-line()
   "将buffer中多个相邻的空行只留1个."
   (goto-char (point-min))
-  (let ((previous-line-empty-p (claudio/current-line-empty-p)))
+  (let ((previous-line-empty-p (claudio/util-current-line-empty-p)))
     ;; 当前行是否为空
     (while (not (eobp))
       (forward-line)
-      (cond ((claudio/current-line-empty-p)     ;如果当前行为空
+      (cond ((claudio/util-current-line-empty-p)     ;如果当前行为空
              (if previous-line-empty-p          ;且上一行也为空
                  (delete-blank-lines)           ;则保留一个空行
                (setq previous-line-empty-p t))) ;否则标记上一行为空
@@ -33,7 +33,7 @@
   (goto-char (point-max))
   (cond (strict
          (beginning-of-line)
-         (when (claudio/current-line-empty-p)
+         (when (claudio/util-current-line-empty-p)
            (delete-blank-lines)
            ;; 如果完全无文本，就不进行任何操作
            ;; 当前位置不是buffer最前面
@@ -57,48 +57,48 @@
 为保证执行速度，claudio/format-delete-top-blanklines claudio/format-leave-1-empty-line
 和claudio/format-delete-bottom-blanklines应按此顺序执行."
   (interactive)
-  (claudio/with-save-position+widen (claudio/format-delete-top-blanklines)
-                                    (claudio/format-leave-1-empty-line)
-                                    (claudio/format-delete-bottom-blanklines)
-                                    (delete-trailing-whitespace (point-min)
-                                                                (point-max))
-                                    (claudio/format-indent-buffer)))
+  (claudio/util-with-save-position+widen (claudio/format-delete-top-blanklines)
+                                         (claudio/format-leave-1-empty-line)
+                                         (claudio/format-delete-bottom-blanklines)
+                                         (delete-trailing-whitespace (point-min)
+                                                                     (point-max))
+                                         (claudio/format-indent-buffer)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;各种语言的独立配置
 ;; elisp和common lisp
 (dolist (hook '(emacs-lisp-mode-hook lisp-mode-hook))
-  (claudio/add-local-before-save-hook hook #'claudio/format-basic))
+  (claudio/util-add-local-before-save-hook hook #'claudio/format-basic))
 
 ;; python
 (use-package py-autopep8
   :init
   ;; 本来可以使用python-autpep8，但是会出现卡顿，所以使用pip版本
-  (claudio/with-sys-enabled ("autopep8" :use-pip t))
+  (claudio/with-app-enabled ("autopep8" :use-pip t))
   :config (add-hook 'python-mode-hook #'py-autopep8-enable-on-save))
 
 ;; golang
 (use-package go-mode
   :config
-  (claudio/add-local-before-save-hook 'go-mode-hook
-                                      #'gofmt-before-save))
+  (claudio/util-add-local-before-save-hook 'go-mode-hook
+                                           #'gofmt-before-save))
 
 ;; clang家族语言：c c++ js
 ;; 确保本地安装了clang-format程序
-(claudio/with-sys-enabled ("clang-format")
+(claudio/with-app-enabled ("clang-format")
                           (quelpa '(clang-format :repo "nothingthere/clang-format" :fetcher github)
                                   :update nil)
 
                           ;; 保存前执行clang-format，参考py-autopep8的作法
                           (dolist (hook '(c-mode-hook c++-mode-hook))
-                            (claudio/add-local-before-save-hook hook #'clang-format-buffer)))
+                            (claudio/util-add-local-before-save-hook hook #'clang-format-buffer)))
 
 ;; sh
-(claudio/add-local-before-save-hook 'sh-mode-hook #'claudio/format-basic)
+(claudio/util-add-local-before-save-hook 'sh-mode-hook #'claudio/format-basic)
 
 ;; org
-(claudio/add-local-before-save-hook 'org-mode-hook #'claudio/format-basic)
+(claudio/util-add-local-before-save-hook 'org-mode-hook #'claudio/format-basic)
 
 ;; 源码
 (advice-add 'org-edit-src-exit

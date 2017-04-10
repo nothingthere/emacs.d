@@ -179,7 +179,7 @@
   (defun claudio/org-evaluate-all-block-code()
     "执行buffer中所有源码."
     (interactive)
-    (claudio/with-save-position+widen
+    (claudio/util-with-save-position+widen
      (goto-char (point-min))
      (while (not (eobp))
        (beginning-of-line)
@@ -231,7 +231,7 @@
          (message "此函数只能用于org-mode下"))
         (t
          (let ((icon ?*))				;表示标题的符号
-           (claudio/with-save-position+widen
+           (claudio/util-with-save-position+widen
             (goto-char (point-min))
             (while (not (eobp)) ;逐行遍历
               (beginning-of-line)

@@ -5,7 +5,7 @@
 ;; 参考自Purcell：https://github.com/nothingthere/emacs.d-1/blob/master/lisp/init-flyspell.el
 ;;; Code:
 (use-package flyspell
-  :init (claudio/with-sys-enabled ("aspell")
+  :init (claudio/with-app-enabled ("aspell")
                                   (setq-default ispell-program-name (executable-find "aspell")
                                                 ;; 个人词典位置
                                                 ;; 此文件中的单词不能用于补全

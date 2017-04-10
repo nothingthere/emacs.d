@@ -32,12 +32,12 @@ LEN为原来文本被改变的长度，插入时值为0，删除时值为被删�
   (let ((left (if (zerop len)
                   ;; 如果为插入，左边界为光标所在行行首
                   ;; start
-                  (claudio/simple-save-excursion
+                  (claudio/util-simple-save-excursion
                    (goto-char start)
                    (beginning-of-line)
                    (point))
                 ;; 如果为删除，则为上一行行首和段落首靠后处
-                (claudio/simple-save-excursion
+                (claudio/util-simple-save-excursion
                  (max (progn
                         (goto-char start)
                         (beginning-of-line 0)
@@ -71,14 +71,14 @@ LEN为原来文本被改变的长度，插入时值为0，删除时值为被删�
 (defun claudio-fill--same-line-p(start end)
   "START和END是否在同一行."
   ;; (message "same-line-p")
-  (claudio/simple-save-excursion
+  (claudio/util-simple-save-excursion
    (goto-char start)
    (end-of-line)
    (<= end (point))))
 
 (defun claudio-fill--short-line-p(pos)
   "光标位置POS所在列是否在fill-column变量范围内."
-  (claudio/simple-save-excursion
+  (claudio/util-simple-save-excursion
    (goto-char pos)
    (<= (current-column) fill-column)))
 

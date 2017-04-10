@@ -72,7 +72,7 @@
 
 (use-package anaconda-mode
   :init
-  (claudio/with-sys-enabled ("python3-jedi"))
+  (claudio/with-app-enabled ("python3-jedi"))
   :config
   ;; company-anaconda -- 使用company补全，依赖于anaconda-mode的服务端
   (use-package

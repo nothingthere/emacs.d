@@ -49,7 +49,7 @@ TYPE：为'date时插入日期，'both时插入日期和时间，其他情况则
 (defun claudio/timestamp-update-timestamp()
   "更新buffer中的时间戳."
   (interactive "*")
-  (claudio/with-save-position+widen
+  (claudio/util-with-save-position+widen
    (save-match-data
      (goto-char (point-min))
      (let ((regexp (concat (regexp-quote *claudio/timestamp-prefix*)
