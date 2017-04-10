@@ -20,8 +20,6 @@
             ;; 有时不能正常使用，显示完整的hash值
             )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;smartparens配置
-
   ;; 使用:bind关键字时，不能使用匿名函数作为执行函数
   (bind-keys ("C-c t" . (lambda()
                           "打开所有未完成任务."
@@ -143,10 +141,18 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;代码执行配置
   ;; 源码evaluated时不确认
-  (setq org-confirm-babel-evaluate nil)
+  ;; 如果值为nil表示不询问，如果为t则表示询问
+  ;; 如果为函数，则函数需有2个参数，第一个为语言，第二个为执行代码
+  ;; 函数返回值为t时表示询问，为nil时表示不询问
+  (setq org-confirm-babel-evaluate
+        (lambda(lang body)
+          (let ((enabled-langs '("python")))
+            (not (find lang enabled-langs :test #'string=)))))
+
   ;; 修改执行结果中显示的关键字
   ;; 修改后造成不能显示和隐藏，还不能缩略显示HASH
   ;; (setq org-babel-results-keyword "结果")
+
   ;; 指定可执行的语言
   (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)
                                                            (python . t)
