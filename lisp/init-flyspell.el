@@ -5,12 +5,14 @@
 ;; 参考自Purcell：https://github.com/nothingthere/emacs.d-1/blob/master/lisp/init-flyspell.el
 ;;; Code:
 (use-package flyspell
-  :init (claudio/with-app-enabled ("aspell")
-                                  (setq-default ispell-program-name (executable-find "aspell")
-                                                ;; 个人词典位置
-                                                ;; 此文件中的单词不能用于补全
-                                                ispell-personal-dictionary "~/.emacs.d/aspell.en.pws"))
+  :init
+  (claudio/app-may-tobe-installed "aspell")
   :config
+  (setq-default ispell-program-name (executable-find "aspell")
+                ;; 个人词典位置
+                ;; 此文件中的单词不能用于补全
+                ispell-personal-dictionary "~/.emacs.d/aspell.en.pws")
+
   ;; 为所有编程buffer的注释和字符串添加检查功能
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 

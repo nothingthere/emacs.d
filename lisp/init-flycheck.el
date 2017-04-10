@@ -21,12 +21,13 @@
   ;; 直接使用pylint3有时会报错
   ;; 解决办法：使用pylint：sudo apt install pylint
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (claudio/with-app-enabled ("pylint")
-                            (setq flycheck-python-pylint-executable
-                                  (or (executable-find "pylint")
-                                      flycheck-python-pylint-executable)
-                                  ;; 还需添加下面这行才能生效
-                                  flycheck-python-pycompile-executable "python3"))
+
+  (claudio/app-may-tobe-installed "pylint")
+  (setq flycheck-python-pylint-executable
+        (or (executable-find "pylint")
+            flycheck-python-pylint-executable)
+        ;; 还需添加下面这行才能生效
+        flycheck-python-pycompile-executable "python3")
 
   )
 

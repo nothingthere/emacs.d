@@ -75,7 +75,7 @@
 (use-package py-autopep8
   :init
   ;; 本来可以使用python-autpep8，但是会出现卡顿，所以使用pip版本
-  (claudio/with-app-enabled ("autopep8" :use-pip t))
+  (claudio/app-may-tobe-installed "autopep8" :use-pip t)
   :config (add-hook 'python-mode-hook #'py-autopep8-enable-on-save))
 
 ;; golang
@@ -86,13 +86,13 @@
 
 ;; clang家族语言：c c++ js
 ;; 确保本地安装了clang-format程序
-(claudio/with-app-enabled ("clang-format")
-                          (quelpa '(clang-format :repo "nothingthere/clang-format" :fetcher github)
-                                  :update nil)
+(claudio/app-may-tobe-installed "clang-format")
+(quelpa '(clang-format :repo "nothingthere/clang-format" :fetcher github)
+        :update nil)
 
-                          ;; 保存前执行clang-format，参考py-autopep8的作法
-                          (dolist (hook '(c-mode-hook c++-mode-hook))
-                            (claudio/util-add-local-before-save-hook hook #'clang-format-buffer)))
+;; 保存前执行clang-format，参考py-autopep8的作法
+(dolist (hook '(c-mode-hook c++-mode-hook))
+  (claudio/util-add-local-before-save-hook hook #'clang-format-buffer))
 
 ;; sh
 (claudio/util-add-local-before-save-hook 'sh-mode-hook #'claudio/format-basic)

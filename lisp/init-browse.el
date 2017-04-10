@@ -13,6 +13,10 @@
 (defvar *claudio/browse-search-engin-need-lantern* '("google" "youtube" "emacs")
   "需要使用lantern翻墙的网站.")
 
+;; 在kali上，lantern还需配合chromium一起使用，且需将其设置为默认浏览器
+(dolist(app '("lantern" "chromium"))
+  (claudio/app-may-tobe-installed app))
+
 (defun claudio/search(query-url prompt)
   "通过PROMPT提示输入搜索内容，通过QUERY-URL指定的地址在浏览器中打开。"
   (let((query-string (concat query-url (url-hexify-string
@@ -34,28 +38,22 @@
 
 (defmacro claudio/browse-install-search-engin(search-engin-name search-engin-url search-engin-prompt)
   "定义一些不同浏览器的搜索函数."
-  (claudio/with-app-enabled
-   ("lantern" :manual t)
-   ;; 在kali上，还需配合chromium一起使用，且需将其设置为默认浏览器
-   (claudio/with-app-enabled
-    ("chromium")
-    `(defun ,(intern (format "@%s" search-engin-name))
-         ()
-       ,(format "通过%s搜索" search-engin-name)
-       (interactive)
-       ;; 如果需使用翻墙，要配合lantern一起使用
-       ,(if (find search-engin-name *claudio/browse-search-engin-need-lantern*
-                  :test (lambda(name need-lantern)
-                          (string= (downcase name)
-                                   (downcase need-lantern))))
+  `(defun ,(intern (format "@%s" search-engin-name))
+       ()
+     ,(format "通过%s搜索" search-engin-name)
+     (interactive)
+     ;; 如果需使用翻墙，要配合lantern一起使用
+     ,(if (find search-engin-name *claudio/browse-search-engin-need-lantern*
+                :test (lambda(name need-lantern)
+                        (string= (downcase name)
+                                 (downcase need-lantern))))
 
-            ;; 如果没启用lantern，先启用
-            `(unless (claudio/util-app-running-p "lantern")
-               (shell-command (format "%s&"
-                                      (or (executable-find "lantern") "lantern")))))
-
-       ;; 执行搜索
-       (claudio/search ,search-engin-url ,search-engin-prompt)))))
+          ;; 如果没启用lantern，先启用
+          `(unless (claudio/util-app-running-p "lantern")
+             (shell-command (format "%s&"
+                                    (or (executable-find "lantern") "lantern")))))
+     ;; 执行搜索
+     (claudio/search ,search-engin-url ,search-engin-prompt)))
 
 (claudio/browse-install-search-engin "bing" "http://cn.bing.com/search?q=" "必应: ")
 (claudio/browse-install-search-engin "github" "https://github.com/search?q=" "GitHub 搜索: ")

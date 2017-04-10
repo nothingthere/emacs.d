@@ -22,17 +22,17 @@
 
 (defvar *claudio/app-ensure-all-sys-apps-installed-p* t
   "是否保证所有以来的程序都自动安装.
-由于pip3 --list命令执行速度很慢，claudio/app-install-p函数也会很慢。
+由于pip3 --list命令执行速度很慢，claudio/app-installed-p函数也会很慢。
 确保所有依赖程序的情况下，可将此值设为nil，提高启动速度."
   )
 
-(defvar *claudio/app-apps-tobe-installed* nil
-  "需要在系统上安装的程序.")
+(defvar *claudio/app-apps-tobe-installed-by-apt* nil
+  "需要在系统上使用apt安装的程序.")
 
 (defvar *claudio/app-apps-tobe-installed-by-pip* nil
   "需要在系统上使用pip安装的程序.")
 
-(defun claudio/app-install-p(app)
+(defun claudio/app-installed-p(app)
   "系统是否安装APP.
 使用execute-find函数只能找到可执行程度。有时不能确定程序是否安装python-jedi和使用pip安装的jedi.
 pip3 list执行速度很慢，所以对于没安装的程序，此函数会很耗时."
@@ -47,11 +47,11 @@ pip3 list执行速度很慢，所以对于没安装的程序，此函数会很�
    (let ((command (format "pip3 list --format=columns --disable-pip-version-check | awk '{print $1}' | grep ^%s$" app)))
      (not (claudio/util-string-empty-p (shell-command-to-string command))))))
 
-;; (claudio/app-install-p "which")
-;; (claudio/app-install-p "silversearcher-ag")
-;; (claudio/app-install-p "jedi")
-;; (claudio/app-install-p "pylint")
-;; (claudio/app-install-p "autopep8")
+;; (claudio/app-installed-p "which")
+;; (claudio/app-installed-p "silversearcher-ag")
+;; (claudio/app-installed-p "jedi")
+;; (claudio/app-installed-p "pylint")
+;; (claudio/app-installed-p "autopep8")
 
 ;; 不清楚为何要使用  (let ((default-directory "/sudo::/")
 ;; 参考自：https://lists.gnu.org/archive/html/emacs-orgmode/2013-02/msg00354.html
@@ -68,28 +68,26 @@ pip3 list执行速度很慢，所以对于没安装的程序，此函数会很�
 
 ;; (claudio/app-install "pylint3")
 ;; (claudio/app-install "jedi" t)
-(cl-defmacro claudio/with-app-enabled((app &key manual use-pip) &body body)
+
+(cl-defun claudio/app-may-tobe-installed(app &key manual use-pip)
   "确保系统上安装程序APP.
 如果manual为non-nil，表示需手动安装的程序，如果没安装，只是提醒。如lantern.
 如果变量*claudio/ensure-all-sys-app-installed-p*为non-nil，则直接安装.
 如果为nil，则只是警告。
 如果USE-PIP为non-nil，则使用pip安装"
   (when *claudio/app-ensure-all-sys-apps-installed-p*
-    (unless (claudio/app-install-p app)
+    (unless (claudio/app-installed-p app)
       (cond (manual (message "需在系统上手动安装%s，才能确保功能完全." app))
-            (t
-             (if use-pip
-                 (add-to-list '*claudio/app-apps-tobe-installed-by-pip* app)
-               (add-to-list '*claudio/app-apps-tobe-installed*  app))))))
-  `(progn
-     ,@body))
+            (use-pip (add-to-list '*claudio/app-apps-tobe-installed-by-pip* app))
+            ;; ....其他安装方式放这里
+            (t (add-to-list '*claudio/app-apps-tobe-installed-by-apt* app))))))
 
 (add-hook 'after-init-hook
           (lambda()
             "使用apt安装系统程序."
             ;; 使用sudo apt 安装的程序
-            (when *claudio/app-apps-tobe-installed*
-              (claudio/app-install (claudio/util-list2string *claudio/app-apps-tobe-installed*)))
+            (when *claudio/app-apps-tobe-installed-by-apt*
+              (claudio/app-install (claudio/util-list2string *claudio/app-apps-tobe-installed-by-apt*)))
             )
           t)
 
@@ -97,7 +95,7 @@ pip3 list执行速度很慢，所以对于没安装的程序，此函数会很�
           (lambda()
             "使用pip3安装程序."
             ;; 确保安装pip3
-            (unless (claudio/app-install-p "python3-pip")
+            (unless (claudio/app-installed-p "python3-pip")
               (claudio/app-install "python3-pip"))
             ;; 使用sudo pip3安装的程序
             (when *claudio/app-apps-tobe-installed-by-pip*

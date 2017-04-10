@@ -140,7 +140,7 @@
 
 (use-package helm-ag
   :init
-  (claudio/with-app-enabled ("silversearcher-ag"))
+  (claudio/app-may-tobe-installed "silversearcher-ag")
   :bind
   ("C-x f" . helm-ag-project-root))
 
