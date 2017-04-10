@@ -75,12 +75,13 @@ pip3 list执行速度很慢，所以对于没安装的程序，此函数会很�
 如果变量*claudio/ensure-all-sys-app-installed-p*为non-nil，则直接安装.
 如果为nil，则只是警告。
 如果USE-PIP为non-nil，则使用pip安装"
-  (when *claudio/app-ensure-all-sys-apps-installed-p*
-    (unless (claudio/app-installed-p app)
-      (cond (manual (message "需在系统上手动安装%s，才能确保功能完全." app))
-            (use-pip (add-to-list '*claudio/app-apps-tobe-installed-by-pip* app))
-            ;; ....其他安装方式放这里
-            (t (add-to-list '*claudio/app-apps-tobe-installed-by-apt* app))))))
+  (unless (claudio/app-installed-p app)
+    (if *claudio/app-ensure-all-sys-apps-installed-p*
+        (cond (manual (message "需在系统上手动安装%s，才能确保功能完全." app))
+              (use-pip (add-to-list '*claudio/app-apps-tobe-installed-by-pip* app))
+              ;; ....其他安装方式放这里
+              (t (add-to-list '*claudio/app-apps-tobe-installed-by-apt* app)))
+      (warn "需在系统上安装 %s 才能保证此配置正常运行。" app))))
 
 (add-hook 'after-init-hook
           (lambda()

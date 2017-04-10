@@ -14,8 +14,8 @@
   "需要使用lantern翻墙的网站.")
 
 ;; 在kali上，lantern还需配合chromium一起使用，且需将其设置为默认浏览器
-(dolist(app '("lantern" "chromium"))
-  (claudio/app-may-tobe-installed app))
+(claudio/app-may-tobe-installed "lantern" :manual t)
+(claudio/app-may-tobe-installed "chromium")
 
 (defun claudio/search(query-url prompt)
   "通过PROMPT提示输入搜索内容，通过QUERY-URL指定的地址在浏览器中打开。"
