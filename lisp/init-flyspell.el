@@ -19,8 +19,6 @@
   ;; 为文本编辑模式添加拼写检查功能，当然也包含org模式
   (add-hook 'text-mode-hook 'flyspell-mode)
 
-  ;; 修改样式
-  (add-to-list 'flyspell-prog-text-faces 'nxml-text-face)
   )
 
 (provide 'init-flyspell)

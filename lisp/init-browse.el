@@ -10,7 +10,7 @@
 (setq eww-search-prefix "http://cn.bing.com/search?q=")
 
 ;; 定制自己的搜索方式
-(defvar *claudio/browse-search-engin-need-lantern* '("google" "youtube" "emacs")
+(defvar *claudio/browse-search-engin-need-lantern* '("google" "youtube" "emacs" "linux")
   "需要使用lantern翻墙的网站.")
 
 ;; 在kali上，lantern还需配合chromium一起使用，且需将其设置为默认浏览器
@@ -58,7 +58,6 @@
 (claudio/browse-install-search-engin "bing" "http://cn.bing.com/search?q=" "必应: ")
 (claudio/browse-install-search-engin "github" "https://github.com/search?q=" "GitHub 搜索: ")
 (claudio/browse-install-search-engin "google" "http://www.google.com/search?q=" "谷歌: ")
-(claudio/browse-install-search-engin "emacs" "http://www.google.com/search?q=emacs+" "emacs: ")
 (claudio/browse-install-search-engin "melpa" "http://melpa.org/#/" "Melpa：")
 (claudio/browse-install-search-engin "repo" "https://github.com/nothingthere/" "我的项目：")
 (claudio/browse-install-search-engin "douban" "https://www.douban.com/search?q=" "豆瓣搜索：")
@@ -67,6 +66,8 @@
 (claudio/browse-install-search-engin "youdao" "http://dict.youdao.com/w/" "有道翻译：")
 (claudio/browse-install-search-engin "wiki" "https://en.wikipedia.org/wiki/" "Wiki：")
 (claudio/browse-install-search-engin "music" "http://music.163.com/#/search/m/?s=" "163音乐：")
+(claudio/browse-install-search-engin "emacs" "http://www.google.com/search?q=emacs+" "emacs: ")
+(claudio/browse-install-search-engin "linux" "http://www.google.com/search?q=linux+" "linux: ")
 
 (defun @()
     "直接输入网址，用火狐浏览器打开."
