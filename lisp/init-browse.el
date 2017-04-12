@@ -66,6 +66,7 @@
 (claudio/browse-install-search-engin "youdao" "http://dict.youdao.com/w/" "有道翻译：")
 (claudio/browse-install-search-engin "wiki" "https://en.wikipedia.org/wiki/" "Wiki：")
 (claudio/browse-install-search-engin "music" "http://music.163.com/#/search/m/?s=" "163音乐：")
+(claudio/browse-install-search-engin "ximalaya" "http://www.ximalaya.com/search/" "喜马拉雅电台: ")
 (claudio/browse-install-search-engin "emacs" "http://www.google.com/search?q=emacs+" "emacs: ")
 (claudio/browse-install-search-engin "linux" "http://www.google.com/search?q=linux+" "linux: ")
 
