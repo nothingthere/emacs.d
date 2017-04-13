@@ -64,7 +64,6 @@ SEARCH-ENGINE-NAME为生成函数的函数名，SEARCH-ENGINE-URL为搜索路径
 (claudio/browse-install-search-engine "douban" "https://www.douban.com/search?q=" "豆瓣搜索：")
 (claudio/browse-install-search-engine "youtube" "https://www.youtube.com/results?search_query=" "Youtube搜索：")
 (claudio/browse-install-search-engine "bilibili" "http://search.bilibili.com/all?keyword=" "bilibili：")
-(claudio/browse-install-search-engine "youdao" "http://dict.youdao.com/w/" "有道翻译：")
 (claudio/browse-install-search-engine "wiki" "https://en.wikipedia.org/wiki/" "Wiki：")
 (claudio/browse-install-search-engine "zhihu" "https://www.zhihu.com/search?type=content&q=" "知乎：")
 (claudio/browse-install-search-engine "music" "http://music.163.com/#/search/m/?s=" "163音乐：")
