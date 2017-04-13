@@ -60,6 +60,11 @@
 
 ;; 主题应用 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package color-theme-sanityinc-tomorrow
+  :disabled t
+  :config
+  (add-hook 'after-init-hook #'color-theme-sanityinc-tomorrow-day))
+
 ;;Solarized主题有点奇葩，一般加载主题使用的就是(load-theme 'xxx)，为啥会这样？
 ;; 好像不能在命令行中正确显示？？？
 (use-package solarized-theme
@@ -79,7 +84,7 @@
   (load-theme 'zenburn t)
   ;; 设置当前行的颜色。使用zenburn主题后，命令行环境下高亮当前行的解决办法。
   ;; 参考地址：http://stackoverflow.com/questions/2718189/emacshighlight-the-current-line-by-underline-it
-  (set-face-attribute hl-line-face nil  :background "#000")
+  (set-face-attribute hl-line-face nil  :background "black")
   )
 
 (use-package monokai-theme
@@ -94,7 +99,7 @@
   (load-theme 'tao-yin t)
   )
 
-;; 改变样式
+;; 改变当前行高亮样式
 (set-face-attribute font-lock-function-name-face nil :bold t :italic t)
 
 (provide 'init-ui)

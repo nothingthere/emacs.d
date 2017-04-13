@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: array:import
+# key: array
+# --
+from array import array

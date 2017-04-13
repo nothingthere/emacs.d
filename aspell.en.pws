@@ -1,13 +1,18 @@
-personal_ws-1.1 en 22 
+personal_ws-1.1 en 28 
+bool
+Bool
 contextmanager
+struct
 frozenset
 EOFError
 pws
 claudio
+codecs
 memoryview
 elisp
 tounicode
 emacs
+tobytes
 nodejs
 aspell
 init
@@ -21,3 +26,4 @@ typecodes
 golang
 kwarg
 melpa
+ValueError

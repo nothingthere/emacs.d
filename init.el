@@ -99,6 +99,7 @@
  init-misc
  init-timestamp
  ;; init-modes
+ init-translation
  )
 
 ;;; init.el ends here
