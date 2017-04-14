@@ -1,6 +1,5 @@
-personal_ws-1.1 en 28 
+personal_ws-1.1 en 29 
 bool
-Bool
 contextmanager
 struct
 frozenset
@@ -15,10 +14,12 @@ emacs
 tobytes
 nodejs
 aspell
+Fortran
 init
 fromfile
 iterable
 typecode
+hashable
 itemsize
 bytearray
 initializer
