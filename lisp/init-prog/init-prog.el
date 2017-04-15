@@ -23,18 +23,25 @@
   :config (setq multi-term-program "/bin/bash")
   :bind (("M-!" . multi-term)))
 
-(defun claudio/prog-reload-script()
-  "重新加载当前文件。并保留光标位置。改变权限为775
-主要作用为重新加载bash文件，使用shell-script-mode生效"
-  (interactive)
-  (let ((file buffer-file-name)			;buff对应的文件
-		(pos (point))					;当前位置
-		(perm 755))                     ;权限
-    (save-buffer)						;先保持文件
-	(kill-buffer (current-buffer))
-    (find-file file)
-    (goto-char pos)
-    (shell-command (format "chmod %d %s" perm file))))
+;; (defun claudio/prog-reload-script()
+;;   "重新加载当前文件。并保留光标位置。改变权限为775
+;; 主要作用为重新加载bash文件，使用shell-script-mode生效"
+;;   (interactive)
+;;   (let ((file buffer-file-name)			;buff对应的文件
+;; 		(pos (point))					;当前位置
+;; 		(perm 755))                     ;权限
+;;     (save-buffer)						;先保持文件
+;; 	(kill-buffer (current-buffer))
+;;     (find-file file)
+;;     (goto-char pos)
+;;     (shell-command (format "chmod %d %s" perm file))))
+
+;; 保存后，如果为可执行脚本文件，修改其文件属性，使可执行
+(add-hook 'prog-mode-hook
+          (lambda()
+            "使脚本可执行."
+            (add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p
+                      nil t)))
 
 (provide 'init-prog)
 ;;; init-prog.el ends here

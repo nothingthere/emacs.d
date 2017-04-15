@@ -1,5 +1,6 @@
-personal_ws-1.1 en 29 
+personal_ws-1.1 en 31 
 bool
+byteoder
 contextmanager
 struct
 frozenset
@@ -15,6 +16,7 @@ tobytes
 nodejs
 aspell
 Fortran
+byteorder
 init
 fromfile
 iterable
