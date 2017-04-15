@@ -22,9 +22,9 @@
   ;; 解决办法：使用pylint：sudo apt install pylint
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  (claudio/app-may-tobe-installed "pylint")
+  (claudio/app-may-tobe-installed "pylint3")
   (setq flycheck-python-pylint-executable
-        (or (executable-find "pylint")
+        (or (executable-find "pylint3")
             flycheck-python-pylint-executable)
         ;; 还需添加下面这行才能生效
         flycheck-python-pycompile-executable "python3")
