@@ -5,6 +5,5 @@
 # Author: Claudio <3261958605@qq.com>
 # Created: `(format-time-string "%F %H:%M:%S" (current-time))`
 # Commentary:
-# Code:
 #+TITLE: $1
 $2

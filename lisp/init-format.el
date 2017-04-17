@@ -7,62 +7,102 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;基础格式化配置函数
 (defun claudio/format-delete-top-blanklines()
   "删除顶部所有空格."
-  (goto-char (point-min))
-  (when (claudio/util-current-line-empty-p)
-    (delete-blank-lines)
-    (when (claudio/util-current-line-empty-p)
-      (delete-blank-lines))))
+  (claudio/util-simple-save-excursion
+   (goto-char (point-min))
+   (when (claudio/util-current-line-empty-p)
+     (delete-blank-lines)
+     (when (claudio/util-current-line-empty-p)
+       (delete-blank-lines)))))
 
-(defun claudio/format-leave-1-empty-line()
-  "将buffer中多个相邻的空行只留1个."
-  (goto-char (point-min))
-  (let ((previous-line-empty-p (claudio/util-current-line-empty-p)))
-    ;; 当前行是否为空
-    (while (not (eobp))
-      (forward-line)
-      (cond ((claudio/util-current-line-empty-p)     ;如果当前行为空
-             (if previous-line-empty-p          ;且上一行也为空
-                 (delete-blank-lines)           ;则保留一个空行
-               (setq previous-line-empty-p t))) ;否则标记上一行为空
-            (t
-             (setq previous-line-empty-p nil))))))
+(defun claudio/format-leave-1-empty-line(start end)
+  "将buffer中从START到END多个相邻的空行只留1个."
+  (claudio/util-simple-save-excursion
+   (save-restriction
+     (widen)
+     (goto-char start)
+     (let ((previous-line-empty-p (claudio/util-current-line-empty-p)))
+       ;; 当前行是否为空
+       (while (and
+               (not (eobp))
+               (< (point) end))
+         (forward-line)
+         (cond ((claudio/util-current-line-empty-p)     ;如果当前行为空
+                (if previous-line-empty-p          ;且上一行也为空
+                    (delete-blank-lines)           ;则保留一个空行
+                  (setq previous-line-empty-p t))) ;否则标记上一行为空
+               (t
+                (setq previous-line-empty-p nil))))))))
 
 (defun claudio/format-delete-bottom-blanklines(&optional strict)
   "删除文本末的空行，保证最后有空行.如果STRICT参数为non-nil，末尾不留空行.
 末尾不留空行的情况，仅适用于org-src源码格式化."
-  (goto-char (point-max))
-  (cond (strict
-         (beginning-of-line)
-         (when (claudio/util-current-line-empty-p)
-           (delete-blank-lines)
-           ;; 如果完全无文本，就不进行任何操作
-           ;; 当前位置不是buffer最前面
-           (unless (bobp)
-             (delete-backward-char 1))))
-        (t
-         (end-of-line)
-         ;; 添加新行，保证至少有一个空行
-         (newline)
-         (delete-blank-lines))))
+  (claudio/util-simple-save-excursion
+   (goto-char (point-max))
+   (cond (strict
+          (beginning-of-line)
+          (when (claudio/util-current-line-empty-p)
+            (delete-blank-lines)
+            ;; 如果完全无文本，就不进行任何操作
+            ;; 当前位置不是buffer最前面
+            (unless (bobp)
+              (delete-backward-char 1))))
+         (t
+          (end-of-line)
+          ;; 添加新行，保证至少有一个空行
+          (newline)
+          (delete-blank-lines)))))
 
-(defun claudio/format-indent-buffer()
-  "调整整个buffer的缩进."
-  (let ((indent-blacklist '(makefile-gmake-mode snippet-mode python-mode)))
-    (unless (find major-mode indent-blacklist)
-      (indent-region (point-min)
-                     (point-max)))))
+(defun claudio/format-indent-region(start end)
+  "调整buffer中START到END的的缩进."
+  (save-restriction
+    (widen)
+    (let ((indent-blacklist '(makefile-gmake-mode snippet-mode python-mode)))
+      (unless (find major-mode indent-blacklist)
+        (indent-region start end)))))
+
+(defun claudio/format:get-format-region-for-big-buffer(lines-for-big-buffer)
+  "获取当前行前面LINES-FOR-BIG-BUFFER行处的位置作为start，当前行后面一行处作为end，返回(start . end)."
+  (claudio/util-simple-save-excursion
+   (save-restriction
+     (widen)
+     (let ((start
+            (progn (forward-line (- lines-for-big-buffer))
+                   (point)))
+           (end
+            ;; +1是为了缩进整个区域时包含当前行
+            (progn (forward-line (+ lines-for-big-buffer 1))
+                   (point))))
+       (cons start end)))))
 
 (defun claudio/format-basic()
-  "删除顶部空行，（暂时不）删除底部空行，文本中最多2个空行，删除行末空白字符，且缩进。
-为保证执行速度，claudio/format-delete-top-blanklines claudio/format-leave-1-empty-line
-和claudio/format-delete-bottom-blanklines应按此顺序执行."
+  "删除顶部空行，删除底部空行，文本中相邻空行只保留一个，删除行末空白字符，且缩进。
+当buffer太大时，只格式化前面N行到当前行
+虽然提升了性能，可能会造成不完全格式化，如
+1. 没保存就跳转到距离当前行很远的地方编辑，再保存
+2. 输入>LINES-FOR-BIG-BUFFER行还没保存
+解决办法：随时保存
+LINES-FOR-BIG-BUFFER的确定方法：
+笔记本全屏显示为40行，所以设置为40
+即使是大屏，也很少书写40行后还未保存
+"
   (interactive)
-  (claudio/util-with-save-position+widen (claudio/format-delete-top-blanklines)
-                                         (claudio/format-leave-1-empty-line)
-                                         (claudio/format-delete-bottom-blanklines)
-                                         (delete-trailing-whitespace (point-min)
-                                                                     (point-max))
-                                         (claudio/format-indent-buffer)))
+  (let ((start (point-min))
+        (end (point-max))
+        (big-buffer-size 10000)
+        (lines-for-big-buffer 40))
+
+    ;; 当buffer太大时，重新设置格式化区域
+    (when (> (buffer-size) big-buffer-size)
+      (let ((region (claudio/format:get-format-region-for-big-buffer lines-for-big-buffer)))
+        (setq start (car region)
+              end (cdr region))))
+
+    (claudio/format-delete-top-blanklines)
+    (claudio/format-leave-1-empty-line start end)
+    (claudio/format-delete-bottom-blanklines)
+    (delete-trailing-whitespace start end)
+    (claudio/format-indent-region start end)
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

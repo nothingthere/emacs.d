@@ -112,9 +112,11 @@
 (defun claudio/util-reload-buffer()
   "重新从磁盘读取文件."
   (interactive)
-  (let ((file (buffer-file-name)))
+  (let ((file (buffer-file-name))
+        (point (point)))
     (kill-buffer)
-    (find-file file)))
+    (find-file file)
+    (goto-char point)))
 
 (cl-defmacro claudio/util-add-local-before-save-hook (mode-hook &body body)
   "在为MODE-HOOK的before-save-hook添加函数."
@@ -131,8 +133,7 @@
        (unwind-protect
            (progn ,@body)
          (goto-char ,original-point-symbol)
-         (set-marker ,original-point-symbol nil))))
-  )
+         (set-marker ,original-point-symbol nil)))))
 
 (cl-defmacro claudio/util-with-pkg-enabled(pkg &body body)
   "是否安装有插件PKG，如果安装则执行&BODY,否则报错."
