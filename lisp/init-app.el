@@ -61,7 +61,7 @@ pip3 list执行速度很慢，所以对于没安装的程序，此函数会很�
 如果参数USE-PIP为non-nil，则使用pip3安装."
   (let ((default-directory "/sudo::/")
         (command
-         (if use-pip "pip3" "apt")))
+         (if use-pip "pip3" "apt-get --assume-yes")))
     (async-shell-command (format "%s install %s" command app))
     ;; (start-process-shell-command command "XXX" "install" app)
     (message "系统正在执行sudo %s install %s 命令，可能会造成卡顿." command app)))
