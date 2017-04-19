@@ -70,7 +70,8 @@
                    (point)))
            (end
             ;; +1是为了缩进整个区域时包含当前行
-            (progn (forward-line (+ lines-for-big-buffer 1))
+            ;; 再加上lines-for-big-buffer是为了在org模式下缩进光标后的内容
+            (progn (forward-line (+ (1+ lines-for-big-buffer) lines-for-big-buffer))
                    (point))))
        (cons start end)))))
 

@@ -10,5 +10,18 @@
             (claudio/company-push-local-backend
              '(company-clang  :with company-yasnippet))))
 
+(use-package ggtags
+  :init
+  (claudio/app-may-tobe-installed "global")
+  ;; (claudio/app-may-tobe-installed "Pygments" :use-pip t)
+
+  :config
+  (add-hook 'c-mode-common-hook
+            (lambda()
+              (when (derived-mode-p 'c-mode 'c++-mode )
+                (ggtags-mode)))
+            )
+  )
+
 (provide 'init-clang)
 ;;; init-clang.el ends here

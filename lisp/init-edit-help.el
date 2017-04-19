@@ -25,15 +25,15 @@
   ;; !!! 在图像界面下才能使用
   ;; company-quickhelp -- 代码提示功能
   (use-package company-quickhelp
-  :if (display-graphic-p)
-  :config
-  (bind-key "M-h" 'company-quickhelp-manual-begin company-active-map
+    :if (display-graphic-p)
+    :config
+    (bind-key "M-h" 'company-quickhelp-manual-begin company-active-map
               (featurep 'company)))
 
   ;; yasnippet -- snippets片段补全
   (use-package yasnippet
-  :bind
-  (:map yas-minor-mode-map
+    :bind
+    (:map yas-minor-mode-map
           ;; 禁用yansnippets默认键
           ("<tab>" . nil)
           ("TAB" . nil))
@@ -44,8 +44,7 @@
     ;; 实在不想折腾company完美补全，差不都照抄了purcell的配置
     ;; https://github.com/nothingthere/emacs.d-1/blob/master/lisp/init-company.el
     (setq-default company-backends
-                  '((company-capf company-dabbrev-code
-                                  :with company-yasnippet)
+                  '((company-capf company-dabbrev-code :with company-yasnippet)
                     (company-dabbrev :with company-yasnippet))
                   ;; 只在相同major-mode下搜索
                   company-dabbrev-other-buffers t)
@@ -182,23 +181,23 @@
 (bind-keys ("C-c TAB" . hippie-expand)
            ("M-s o" .
             (lambda()
-  ()
-  "提升occur-mode性能，默认备选为选择/光标处单词"
-  (interactive)
-  (push
+              ()
+              "提升occur-mode性能，默认备选为选择/光标处单词"
+              (interactive)
+              (push
                (if(region-active-p)
-    (buffer-substring-no-properties
+                   (buffer-substring-no-properties
                     (region-beginning)
                     (region-end))
                  (let((sym (thing-at-point 'symbol)))
                    (if (stringp sym)
-    (regexp-quote sym)
-  sym)))
+                       (regexp-quote sym)
+                     sym)))
                regexp-history)
               (call-interactively 'occur)))
            ("M-;" .
             (lambda()
-  "修改后的注释函数。
+              "修改后的注释函数。
 1. 如果有选中区域，注释/去注释该区域
 2. 如果为空行，仅注释
 3n. 如果在代码行末，注释并缩进

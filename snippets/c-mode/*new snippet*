@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: init:文件初始化
+# key: init
+# --
+/*
+Author: Claudio <3261958605@qq.com>
+Created: 2017-04-18 21:21:24
+Commentary:
+*/
+$1
