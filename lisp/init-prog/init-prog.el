@@ -20,7 +20,15 @@
 
 ;; multi-term -- 方便打开命令行
 (use-package multi-term
-  :config (setq multi-term-program "/bin/bash")
+  :config
+  (setq multi-term-program "/bin/bash")
+
+  ;; 将新建命令行窗口放在垂直方向
+  (advice-add 'multi-term :after
+              (lambda(&rest _r)
+                (split-window-below)
+                (windmove-up)))
+
   :bind (("M-!" . multi-term)))
 
 ;; (defun claudio/prog-reload-script()

@@ -170,7 +170,7 @@
   (defun claudio/org-insert-src-block (src-code-type)
     "快速编辑`SRC-CODE-TYPE’源代码."
     (interactive
-     (let ((src-code-types '("emacs-lisp" "python" "js" "sh" "c" "awk" "common-lisp")))
+     (let ((src-code-types '("emacs-lisp" "python" "js" "sh" "c" "awk" "common-lisp" "go")))
        (list (ivy-read "源代码名称：" src-code-types
                        :initial-input "python"
                        :sort t))))

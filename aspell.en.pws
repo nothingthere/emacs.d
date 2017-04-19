@@ -1,9 +1,11 @@
-personal_ws-1.1 en 38 
+personal_ws-1.1 en 45 
 bool
 byteoder
 stdout
 ExitStack
+TLS
 contextmanager
+ssl
 struct
 frozenset
 EOFError
@@ -13,8 +15,11 @@ codecs
 memoryview
 elisp
 tounicode
+asynchat
 emacs
 tobytes
+asyncio
+socketpairs
 contextlib
 contextDecorator
 nodejs
@@ -34,6 +39,8 @@ typecodes
 golang
 reentrant
 kwarg
+asyncore
 melpa
+DATAGRAMS
 ValueError
 stderr

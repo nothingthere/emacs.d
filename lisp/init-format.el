@@ -156,6 +156,8 @@ LINES-FOR-BIG-BUFFER的确定方法：
                    (setq py-autopep8-options '("--ignore=E301"))
                    (py-autopep8-buffer)
                    (setq py-autopep8-options old-py-autopep8-options)))
+                (go-mode
+                 (gofmt))
                 ((c-mode c++-mode js-mode)
                  (clang-format-buffer)))
               ;; 全部去首尾空行
