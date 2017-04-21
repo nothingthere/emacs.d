@@ -77,6 +77,7 @@
 
 (defun claudio/format-basic()
   "删除顶部空行，删除底部空行，文本中相邻空行只保留一个，删除行末空白字符，且缩进。
+WHOLE参数为non-nil时，不管buffer多大都格式化整个buffer.
 当buffer太大时，只格式化前面N行到当前行
 虽然提升了性能，可能会造成不完全格式化，如
 1. 没保存就跳转到距离当前行很远的地方编辑，再保存
@@ -89,7 +90,7 @@ LINES-FOR-BIG-BUFFER的确定方法：
   (interactive)
   (let ((start (point-min))
         (end (point-max))
-        (big-buffer-size 10000)
+        (big-buffer-size 20000)
         (lines-for-big-buffer 40))
 
     ;; 当buffer太大时，重新设置格式化区域
@@ -100,9 +101,10 @@ LINES-FOR-BIG-BUFFER的确定方法：
 
     (claudio/format-delete-top-blanklines)
     (claudio/format-leave-1-empty-line start end)
-    (claudio/format-delete-bottom-blanklines)
     (delete-trailing-whitespace start end)
     (claudio/format-indent-region start end)
+    (claudio/format-delete-bottom-blanklines)
+    ;; (message "%d %d" start end)
     ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
