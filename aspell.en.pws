@@ -1,4 +1,4 @@
-personal_ws-1.1 en 135 
+personal_ws-1.1 en 145 
 Runtime
 contextmanager
 UnicodeWarning
@@ -30,6 +30,7 @@ pws
 Fortran
 IndexError
 winerror
+fullmatch
 PermissionError
 asyncio
 asynchat
@@ -45,6 +46,7 @@ ValueError
 textwrap
 byteorder
 fromfile
+repl
 StopIteration
 ConnectionResetError
 emacs
@@ -63,6 +65,7 @@ SyntaxWarning
 stdout
 ConnectionRefeusedError
 UnicodeTranslateError
+lineno
 str
 MemoryError
 LookupError
@@ -83,12 +86,16 @@ RecursionError
 ProcessLookupError
 ImportError
 kwarg
+msg
+maxsplit
 BrokenPipeError
 ConnectionError
 tounicode
 FileExitsError
 InterruptedError
+finditer
 UnicodeDecondeError
+DOTALL
 DeprecationWarning
 ResourceWarnig
 contextlib
@@ -98,6 +105,7 @@ SystemExit
 nodejs
 BaseException
 claudio
+subn
 rlconpleter
 ReferenceError
 octdigits
@@ -124,6 +132,7 @@ frozenset
 BufferError
 NotADirectoryError
 kwds
+colno
 WindosError
 IGNORECASE
 coroutine
@@ -131,6 +140,7 @@ Formatter
 KeyError
 TimeoutError
 FutureWarning
+pos
 aspell
 AssertionError
 initializer
