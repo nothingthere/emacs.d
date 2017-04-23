@@ -121,6 +121,13 @@ LINES-FOR-BIG-BUFFER的确定方法：
   (claudio/app-may-tobe-installed "autopep8" :use-pip t)
   :config (add-hook 'python-mode-hook #'py-autopep8-enable-on-save))
 
+(use-package py-isort
+  :init (claudio/app-may-tobe-installed "isort" :use-pip t)
+  :config
+  (setq py-isort-options '("--lines=100" "--multi_line=1"))
+  (claudio/util-add-local-before-save-hook 'python-mode-hook
+                                           #'py-isort-buffer))
+
 ;; golang
 (use-package go-mode
   :config

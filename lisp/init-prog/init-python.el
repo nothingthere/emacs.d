@@ -85,10 +85,5 @@
                 (claudio/company-push-local-backend
                  '(company-anaconda :with company-yasnippet))))))
 
-;; (use-package py-isort
-;;   :init (claudio/app-may-tobe-installed "isort" :use-pip t)
-;;   :config
-;;   (add-hook 'before-save-hook #'py-isort-before-save))
-
 (provide 'init-python)
 ;;; init-python.el ends here
