@@ -50,7 +50,7 @@ pip3 list执行速度很慢，所以对于没安装的程序，此函数会很�
 ;; (claudio/app-installed-p "which")
 ;; (claudio/app-installed-p "silversearcher-ag")
 ;; (claudio/app-installed-p "jedi")
-;; (claudio/app-installed-p "pylint")
+;; (claudio/app-installed-p "pylint3")
 ;; (claudio/app-installed-p "autopep8")
 
 ;; 不清楚为何要使用  (let ((default-directory "/sudo::/")
@@ -66,7 +66,6 @@ pip3 list执行速度很慢，所以对于没安装的程序，此函数会很�
     ;; (start-process-shell-command command "XXX" "install" app)
     (message "系统正在执行sudo %s install %s 命令，可能会造成卡顿." command app)))
 
-;; (claudio/app-install "pylint3")
 ;; (claudio/app-install "jedi" t)
 
 (cl-defun claudio/app-may-tobe-installed(app &key manual use-pip)

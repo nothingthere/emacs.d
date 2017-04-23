@@ -169,7 +169,10 @@ LINES-FOR-BIG-BUFFER的确定方法：
                    ;; 函数定义和类定义中不能有空行
                    (setq py-autopep8-options '("--ignore=E301"))
                    (py-autopep8-buffer)
-                   (setq py-autopep8-options old-py-autopep8-options)))
+                   (setq py-autopep8-options old-py-autopep8-options)
+                   ;; 好像要有对应的buffer文件才能调用py-isort-buffer/region
+                   ;; (py-isort-buffer)
+                   ))
                 (go-mode
                  (gofmt))
                 ((c-mode c++-mode js-mode)

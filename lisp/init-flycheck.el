@@ -17,11 +17,6 @@
 
   ;; python
   ;; 将检测python的版本更换到3.X
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; 直接使用pylint3有时会报错
-  ;; 解决办法：使用pylint：sudo apt install pylint
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
   (claudio/app-may-tobe-installed "pylint3")
   (setq flycheck-python-pylint-executable
         (or (executable-find "pylint3")
