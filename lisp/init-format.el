@@ -121,6 +121,11 @@ LINES-FOR-BIG-BUFFER的确定方法：
   (claudio/app-may-tobe-installed "autopep8" :use-pip t)
   :config (add-hook 'python-mode-hook #'py-autopep8-enable-on-save))
 
+;; py-isort -- 排序imports
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 安装pylint时会自动安装python-isort，造成不能找到可执行程序isort
+;; 解决方法：如果安装了pylint3，需先sudo apt remove pylint3，在pip3 install isort，在sudo apt install pylint3
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package py-isort
   :init (claudio/app-may-tobe-installed "isort" :use-pip t)
   :config
