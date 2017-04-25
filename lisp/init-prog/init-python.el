@@ -83,7 +83,7 @@
                 (anaconda-mode)
                 (anaconda-eldoc-mode)
                 (claudio/company-push-local-backend
-                 '(company-anaconda  :with company-yasnippet))))))
+                 '(company-anaconda :with company-yasnippet))))))
 
 (provide 'init-python)
 ;;; init-python.el ends here

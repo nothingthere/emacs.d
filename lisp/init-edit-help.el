@@ -43,9 +43,12 @@
 
     ;; 实在不想折腾company完美补全，差不都照抄了purcell的配置
     ;; https://github.com/nothingthere/emacs.d-1/blob/master/lisp/init-company.el
+
     (setq-default company-backends
-                  '((company-capf company-dabbrev-code :with company-yasnippet)
-                    (company-dabbrev :with company-yasnippet))
+                  '((company-capf  :with company-yasnippet)
+                    company-dabbrev-code
+                    company-dabbrev
+                    )
                   ;; 只在相同major-mode下搜索
                   company-dabbrev-other-buffers t)
 
