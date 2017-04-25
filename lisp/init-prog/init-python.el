@@ -11,7 +11,7 @@
  python-indent-guess-indent-offset nil
  ;; 解释器位置
  python-shell-interpreter (or
-                           (executable-find "python3")
+                           (executable-find "python3.5")
                            python-shell-interpreter)
 
  )
@@ -72,7 +72,7 @@
 
 (use-package anaconda-mode
   :init
-  (claudio/app-may-tobe-installed "python3-jedi")
+  (claudio/app-may-tobe-installed "jedi" :use-pip t)
   :config
   ;; company-anaconda -- 使用company补全，依赖于anaconda-mode的服务端
   (use-package
@@ -83,7 +83,7 @@
                 (anaconda-mode)
                 (anaconda-eldoc-mode)
                 (claudio/company-push-local-backend
-                 '(company-anaconda :with company-yasnippet))))))
+                 '(company-anaconda  :with company-yasnippet))))))
 
 (provide 'init-python)
 ;;; init-python.el ends here
