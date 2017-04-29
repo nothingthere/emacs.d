@@ -82,8 +82,10 @@
               (lambda()
                 (anaconda-mode)
                 (anaconda-eldoc-mode)
-                (claudio/company-push-local-backend
-                 '(company-anaconda :with company-yasnippet))))))
+                (set (make-local-variable 'company-backends)
+                     '((company-anaconda :with company-yasnippet)
+                       company-dabbrev company-capf
+                       ))))))
 
 (provide 'init-python)
 ;;; init-python.el ends here

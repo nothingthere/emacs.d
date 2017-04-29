@@ -109,8 +109,11 @@
                    ;; ("*" . "*")
                    ;; ("/" . "/")
                    ))
-    (sp-local-pair 'org-mode (car match)
-                   (cdr match))))
+
+    (sp-local-pair '(org-mode python-mode)
+                   (car match)
+                   (cdr match)))
+  )
 
 ;; popwin -- 使光标跳转到帮助窗口
 (use-package popwin
