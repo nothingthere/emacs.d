@@ -18,14 +18,16 @@
 
 ;; 使用use-package管理插件
 (use-package use-package
-  :config (setq
-           ;; 启动时在*Message*中显示加载时间
-           use-package-verbose nil
-           ;; 所有包都需安装后才能使用
-           use-package-always-ensure t
-           ;; 所有包都延迟加载
-           ;; use-package-always-defer t
-           use-package-always-demand t)
+  :config
+  (setq
+   ;; 启动时在*Message*中显示加载时间
+   use-package-verbose nil
+   ;; 所有包都需安装后才能使用
+   use-package-always-ensure t
+   ;; 所有包都延迟加载
+   use-package-always-defer t
+   ;; use-package-always-demand t
+   )
 
   (eval-when-compile
     (require 'use-package))
@@ -40,16 +42,17 @@
 
 ;; 启动quelpa，现在主要是为了安装自己的项目nothingthere/clang-format
 (use-package quelpa
-  :config (setq
-           ;; 不更新自己
-           quelpa-self-upgrade-p nil
-           ;; 已经安装的包不更新
-           quelpa-upgrade-p nil
-           ;; 不跟新Github上的melpa源
-           quelpa-update-melpa-p nil
-           ;; 只有quelpa安装不在melpa上的包
-           quelpa-checkout-melpa-p nil
-           ))
+  :config
+  (setq
+   ;; 不更新自己
+   quelpa-self-upgrade-p nil
+   ;; 已经安装的包不更新
+   quelpa-upgrade-p nil
+   ;; 不跟新Github上的melpa源
+   quelpa-update-melpa-p nil
+   ;; 只有quelpa安装不在melpa上的包
+   quelpa-checkout-melpa-p nil
+   ))
 
 ;; 本地加载配置
 ;; 添加文件加载路径

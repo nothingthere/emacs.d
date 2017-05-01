@@ -6,6 +6,7 @@
 
 ;; company -- 自动补全插件
 (use-package company
+  :demand t
   :bind
   (:map company-active-map
         ("M-p" . nil)
@@ -32,6 +33,7 @@
 
   ;; yasnippet -- snippets片段补全
   (use-package yasnippet
+    :demand t
     :bind
     (:map yas-minor-mode-map
           ;; 禁用yansnippets默认键

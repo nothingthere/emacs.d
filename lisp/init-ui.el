@@ -79,24 +79,12 @@
 ;; zenburn-them -- zenbutn主题
 (use-package zenburn-theme
   :if (not (display-graphic-p))
-  ;; :disabled t
+  :demand t
   :config
   (load-theme 'zenburn t)
   ;; 设置当前行的颜色。使用zenburn主题后，命令行环境下高亮当前行的解决办法。
   ;; 参考地址：http://stackoverflow.com/questions/2718189/emacshighlight-the-current-line-by-underline-it
   (set-face-attribute hl-line-face nil  :background "black")
-  )
-
-(use-package monokai-theme
-  :disabled t
-  :config
-  (load-theme 'monokai t)
-  )
-
-(use-package tao-theme
-  :disabled t
-  :config
-  (load-theme 'tao-yin t)
   )
 
 ;; 改变当前行高亮样式

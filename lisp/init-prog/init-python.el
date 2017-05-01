@@ -73,10 +73,11 @@
 (use-package anaconda-mode
   :init
   (claudio/app-may-tobe-installed "jedi" :use-pip t)
+  :demand t
   :config
   ;; company-anaconda -- 使用company补全，依赖于anaconda-mode的服务端
-  (use-package
-    company-anaconda
+  (use-package company-anaconda
+    :demand t
     :config
     (add-hook 'python-mode-hook
               (lambda()

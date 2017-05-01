@@ -74,7 +74,8 @@ pip3 list执行速度很慢，所以对于没安装的程序，此函数会很�
 如果变量*claudio/ensure-all-sys-app-installed-p*为non-nil，则直接安装.
 如果为nil，则只是警告。
 如果USE-PIP为non-nil，则使用pip安装"
-  (unless (claudio/app-installed-p app)
+  (when (and *claudio/app-ensure-all-sys-apps-installed-p*
+             (not (claudio/app-installed-p app)))
     (if *claudio/app-ensure-all-sys-apps-installed-p*
         (cond (manual (message "需在系统上手动安装%s，才能确保功能完全." app))
               (use-pip (add-to-list '*claudio/app-apps-tobe-installed-by-pip* app))
@@ -82,25 +83,27 @@ pip3 list执行速度很慢，所以对于没安装的程序，此函数会很�
               (t (add-to-list '*claudio/app-apps-tobe-installed-by-apt* app)))
       (warn "需在系统上安装 %s 才能保证此配置正常运行。" app))))
 
-(add-hook 'after-init-hook
-          (lambda()
-            "使用apt安装系统程序."
-            ;; 使用sudo apt 安装的程序
-            (when *claudio/app-apps-tobe-installed-by-apt*
-              (claudio/app-install (claudio/util-list2string *claudio/app-apps-tobe-installed-by-apt*)))
-            )
-          t)
+(when *claudio/app-ensure-all-sys-apps-installed-p*
+  (add-hook 'after-init-hook
+            (lambda()
+              "使用apt安装系统程序."
+              ;; 使用sudo apt 安装的程序
+              (when *claudio/app-apps-tobe-installed-by-apt*
+                (claudio/app-install (claudio/util-list2string *claudio/app-apps-tobe-installed-by-apt*)))
+              )
+            t)
 
-(add-hook 'after-init-hook
-          (lambda()
-            "使用pip3安装程序."
-            ;; 确保安装pip3
-            (unless (claudio/app-installed-p "python3-pip")
-              (claudio/app-install "python3-pip"))
-            ;; 使用sudo pip3安装的程序
-            (when *claudio/app-apps-tobe-installed-by-pip*
-              (claudio/app-install (claudio/util-list2string *claudio/app-apps-tobe-installed-by-pip*) t)))
-          t)
+  (add-hook 'after-init-hook
+            (lambda()
+              "使用pip3安装程序."
+              ;; 确保安装pip3
+              (unless (claudio/app-installed-p "python3-pip")
+                (claudio/app-install "python3-pip"))
+              ;; 使用sudo pip3安装的程序
+              (when *claudio/app-apps-tobe-installed-by-pip*
+                (claudio/app-install (claudio/util-list2string *claudio/app-apps-tobe-installed-by-pip*) t)))
+            t)
+  )
 
 (provide 'init-app)
 ;;; init-app.el ends here

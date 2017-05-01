@@ -8,8 +8,7 @@
 ;;web-mode设置
 ;;使用说明页面：http://web-mode.org/
 ;;html文件自动使用web-mode
-(use-package
-  web-mode
+(use-package web-mode
   :config
   ;;编辑纯html文件
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -40,8 +39,7 @@
 ;;C-j emmet-expand-line
 ;;C-M-left emmet-prev-edit-point
 ;;C-M-right emmet-next-edit-point
-(use-package
-  emmet-mode
+(use-package emmet-mode
   :config
   ;;(setq emmet-move-cursor-between-quotes t)
   (add-hook 'web-mode-hook 'emmet-mode)  ;使用web-mode时自动加载

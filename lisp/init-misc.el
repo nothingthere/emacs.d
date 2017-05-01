@@ -7,7 +7,7 @@
 (use-package 2048-game)
 
 ;; bongo -- 播放音乐
-(use-package bongo)
+;; (use-package bongo)
 
 (provide 'init-misc)
 ;;; init-misc.el ends here

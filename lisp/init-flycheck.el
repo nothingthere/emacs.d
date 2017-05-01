@@ -6,6 +6,7 @@
 
 ;; flycheck -- 语法检查
 (use-package flycheck
+  :demand t
   :config
   (add-hook 'after-init-hook 'global-flycheck-mode)
   (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list)
