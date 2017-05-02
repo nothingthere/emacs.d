@@ -67,11 +67,13 @@
      (widen)
      (let ((start
             (progn (forward-line (- lines-for-big-buffer))
+                   ;; (message "开始行： %d" (line-number-at-pos))
                    (point)))
            (end
             ;; +1是为了缩进整个区域时包含当前行
             ;; 再加上lines-for-big-buffer是为了在org模式下缩进光标后的内容
             (progn (forward-line (+ (1+ lines-for-big-buffer) lines-for-big-buffer))
+                   ;; (message "结束行： %d" (line-number-at-pos))
                    (point))))
        (cons start end)))))
 
@@ -90,7 +92,7 @@ LINES-FOR-BIG-BUFFER的确定方法：
   (interactive)
   (let ((start (point-min))
         (end (point-max))
-        (big-buffer-size 20000)
+        (big-buffer-size 10000)
         (lines-for-big-buffer 40))
 
     ;; 当buffer太大时，重新设置格式化区域
@@ -98,6 +100,8 @@ LINES-FOR-BIG-BUFFER的确定方法：
       (let ((region (claudio/format:get-format-region-for-big-buffer lines-for-big-buffer)))
         (setq start (car region)
               end (cdr region))))
+
+    ;; (message "start: %d end: %d" start end)
 
     (claudio/format-delete-top-blanklines)
     (claudio/format-leave-1-empty-line start end)

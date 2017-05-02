@@ -1,4 +1,4 @@
-personal_ws-1.1 en 211 
+personal_ws-1.1 en 234 
 unicodedate
 getdecoder
 subn
@@ -7,6 +7,7 @@ numlines
 ChildProcessError
 IndexError
 pws
+timezon
 UserWarning
 AttributeError
 Fortran
@@ -33,7 +34,9 @@ ArithmeticError
 TLS
 RecursionError
 itemsize
+defaultdict
 ssl
+deque
 hashable
 aspell
 readline
@@ -41,6 +44,7 @@ charchunk
 fromedesc
 json
 encodings
+MAXYEAR
 PendingDeprecationWarning
 str
 UnboundLocalError
@@ -67,9 +71,11 @@ stdout
 BufferError
 EOFError
 valeu
+tzinfo
 TimeoutError
 nodejs
 getreader
+enum
 FileNotFoundError
 bool
 tofiledate
@@ -77,21 +83,23 @@ OSError
 TabError
 StopAsyncIteration
 colno
+MINYEAR
 TexWrapper
 UnicodeTranslateError
 StopIteration
 Runtime
+weakref
 BytesWarning
 tofile
 UnicodeError
 golang
-streamwriter
 StreamWriter
+streamwriter
 BaseException
 destroyes
 Ratcliff
-incrementaldecoder
 IncrementalDecoder
+incrementaldecoder
 ExitStack
 difflib
 stringprep
@@ -109,10 +117,12 @@ elisp
 ImportWarning
 ae
 typecodes
+heapq
 ce
 b'qwd
 de
 EnvironmentError
+reprlib
 hexdigits
 SequenceMatcher
 StreamRecoder
@@ -122,6 +132,7 @@ todesc
 jsjunk
 filecmp
 FloatingPointError
+datetime
 winerror
 bytearray
 ResourceWarnig
@@ -141,6 +152,7 @@ IsADirectoryError
 memoryview
 Formatter
 IndentationError
+timedelta
 LookupError
 OverflowError
 asyncore
@@ -149,10 +161,12 @@ IGNORECASE
 TypeError
 tounicode
 iterencode
+UserList
 coroutine
 ConnectionRefeusedError
 socketpairs
 msg
+abc
 StreamReader
 streamreader
 contextDecorator
@@ -161,6 +175,7 @@ iterable
 charjunk
 contextlib
 ImportError
+pprint
 fullmatch
 GeneratorExit
 fromalines
@@ -179,8 +194,10 @@ repr
 DOTALL
 BrokenPipeError
 RuntimeError
+namedtuple
 SyntaxError
 FileExitsError
+UserString
 RuntimeWarning
 KeybordInterrupt
 IncrementalEncoder
@@ -190,16 +207,21 @@ kwargs
 HtmlDiff
 finditer
 bhi
+strptime
 alo
 UnicodeDecondeError
 ProcessLookupError
 pos
+ChainMap
+Chainmap
 errno
 byteoder
 struct
 getincrementalencoder
 dedent
 finename
+UserDict
+userdict
 BlockingIOError
 getwriter
 arg
@@ -209,4 +231,5 @@ AssertionError
 identifer
 chr
 whitespace
+OrderedDict
 linejunk
