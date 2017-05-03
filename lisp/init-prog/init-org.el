@@ -15,6 +15,9 @@
               ;; 单词补全
               (claudio/company-push-local-backend
                '(company-ispell :with company-yasnippet))
+
+              ;; 删除CamelCase单词时不全部删除
+              (subword-mode)
               )
             ;; 如果不append到最后，会使org-babel-hide-all-hashes
             ;; 有时不能正常使用，显示完整的hash值
@@ -111,7 +114,8 @@
                                         ;; table/vector：解释为org表格
                                         ;; scalar/verbatim：不解释为表格
                                         ;; list：解释为org列表
-                                        (:results . "output replace pp table")
+                                        ;; (:results . "output replace pp table")
+                                        (:results . "output replace org list")
 
                                         ;; 导出时的选择：
                                         ;; code： 只导出代码

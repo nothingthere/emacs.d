@@ -51,5 +51,7 @@
             (add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p
                       nil t)))
 
+(add-hook 'prog-mode-hook 'subword-mode)
+
 (provide 'init-prog)
 ;;; init-prog.el ends here

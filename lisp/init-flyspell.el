@@ -7,6 +7,7 @@
 (use-package flyspell
   :init
   (claudio/app-may-tobe-installed "aspell")
+  :demand t
   :config
   (setq-default ispell-program-name (executable-find "aspell")
                 ;; 个人词典位置

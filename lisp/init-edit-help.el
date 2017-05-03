@@ -93,6 +93,7 @@
 
 ;; smartparens -- 自动补全括号
 (use-package smartparens
+  :demand t
   :config
   ;; (smartparens-global-strict-mode t)
   (smartparens-global-mode t)
@@ -111,7 +112,6 @@
                    ;; ("*" . "*")
                    ;; ("/" . "/")
                    ))
-
     (sp-local-pair '(org-mode python-mode)
                    (car match)
                    (cdr match)))
@@ -184,6 +184,11 @@
   :bind (("C-c f" . origami-recursively-toggle-node)
          ("C-c F" . origami-toggle-all-nodes))
   )
+
+;; string-inflection -- 下划线、横线、Camel转换
+(use-package string-inflection
+  :bind (("C-c C" . string-inflection-camelcase)
+         ("C-c L" . string-inflection-lower-camelcase)))
 
 ;;;;;;方便编辑的快捷键
 (bind-keys ("C-c TAB" . hippie-expand)
