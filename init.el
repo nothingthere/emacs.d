@@ -92,6 +92,7 @@
  init-restore
  init-better-defaults
  init-edit-help
+ init-complete
  init-format
  init-prog
  init-browse
