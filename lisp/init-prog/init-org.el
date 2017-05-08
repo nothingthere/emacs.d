@@ -17,7 +17,7 @@
                '(company-ispell :with company-yasnippet))
 
               ;; 删除CamelCase单词时不全部删除
-              (subword-mode)
+              ;; (subword-mode)
               )
             ;; 如果不append到最后，会使org-babel-hide-all-hashes
             ;; 有时不能正常使用，显示完整的hash值

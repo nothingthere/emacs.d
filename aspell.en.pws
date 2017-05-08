@@ -1,4 +1,4 @@
-personal_ws-1.1 en 262 
+personal_ws-1.1 en 283 
 prog
 unicodedate
 getdecoder
@@ -22,9 +22,11 @@ wrapcolumn
 asynchat
 autojunk
 asian
+itertools
 ConnectionAbortedError
 NameError
 ReferenceError
+iterables
 emacs
 SRC
 reentrant
@@ -50,6 +52,7 @@ encodings
 MAXYEAR
 PendingDeprecationWarning
 str
+popleft
 UnboundLocalError
 ndiff
 seqs
@@ -69,17 +72,21 @@ sys
 UnicodeWarning
 ConnectionResetError
 metavar
+islice
 KeyError
 utf
 fromfile
 textwrap
+dropwhile
 stdout
+usr
 BufferError
 EOFError
 tzinfo
 valeu
 TimeoutError
 nodejs
+uniq
 getreader
 enum
 FileNotFoundError
@@ -98,6 +105,7 @@ StopIteration
 Runtime
 BytesWarning
 tofile
+functools
 FileType
 UnicodeError
 dest
@@ -109,9 +117,10 @@ destroyes
 Ratcliff
 IncrementalDecoder
 incrementaldecoder
-ExitStack
 difflib
+ExitStack
 stringprep
+deepcopy
 fromlines
 DATAGRAMS
 init
@@ -123,6 +132,7 @@ getencoder
 charset
 TextWrapper
 elisp
+appendleft
 ArgumentParser
 ImportWarning
 ae
@@ -139,6 +149,7 @@ SequenceMatcher
 StreamRecoder
 contextmanager
 frozenset
+maxlen
 const
 todesc
 jsjunk
@@ -157,13 +168,14 @@ maxsplit
 dfunc
 io
 fromfiledate
+inplace
 DeprecationWarning
 typecode
 vformat
 claudio
 IsADirectoryError
 namespace
-Namespace
+startmap
 memoryview
 formatter
 IndentationError
@@ -178,6 +190,7 @@ IGNORECASE
 TypeError
 argparse
 os
+groupby
 tounicode
 UserList
 iterencode
@@ -191,6 +204,7 @@ StreamReader
 streamreader
 contextDecorator
 rlconpleter
+itertool
 iterable
 charjunk
 MetavarTypeHelpFormatter
@@ -201,10 +215,12 @@ ascii
 fullmatch
 GeneratorExit
 fromalines
+extendleft
 asyncio
 NotImplementedError
 ZeroDivisionError
 FutureWarning
+fromkeys
 MULTILINE
 ahi
 repl
@@ -215,6 +231,7 @@ CodecInfo
 nargs
 repr
 RawDescriptionHelpFormatter
+classmethod
 DOTALL
 BrokenPipeError
 getopt
@@ -224,9 +241,10 @@ SyntaxError
 FileExitsError
 UserString
 RuntimeWarning
+takewhile
 KeybordInterrupt
-IncrementalEncoder
 incrementalencoder
+IncrementalEncoder
 traceback
 kwargs
 HtmlDiff
@@ -239,20 +257,23 @@ UnicodeDecondeError
 ProcessLookupError
 RawTextHelpFormatter
 pos
-ChainMap
 Chainmap
+ChainMap
+filterfalse
 errno
 byteoder
+fillvalue
 struct
 getincrementalencoder
 dedent
 finename
-UserDict
 userdict
+UserDict
 getpass
 BlockingIOError
 getwriter
 arg
+func
 ValueError
 blo
 AssertionError
