@@ -60,5 +60,11 @@
 	)
   )
 
+;; 当前一个字符ASCII大于255时，去掉空格
+(advice-add 'delete-indentation :after
+            (lambda(&rest _r)
+              (when (> (char-before) 255)
+                (delete-char 1))))
+
 (provide 'init-chinese)
 ;;; init-chinese.el ends here

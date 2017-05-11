@@ -131,6 +131,34 @@
   :bind (("C-c C" . string-inflection-camelcase)
          ("C-c L" . string-inflection-lower-camelcase)))
 
+;; comment-dwim-2 -- 注释
+(use-package comment-dwim-2
+  :bind ("M-;" . comment-dwim-2))
+
+;; 注释
+(defun claudio/edit-help-comment()
+  "修改后的注释函数。
+1. 如果有选中区域，注释/去注释该区域
+2. 如果为空行，仅注释
+3n. 如果在代码行末，注释并缩进
+
+对于有些没后缀的文件，如.bashrc也需注释，所以对所有文件都应用。
+
+缺点：不能通过快捷键去注释行末注释"
+  (interactive)
+  ;; 如果在空行上。不能理解comment-dwim的参数该怎样设置
+  (cond ((claudio/util-current-line-empty-p)
+         (comment-dwim nil))
+        ((claudio/util-at-end-of-line-p)
+         (comment-indent))
+        ;; 如果在行末，前面有内容
+        ;; 默认注释选中区域和本行
+        (t
+         (let* ((region (claudio/util-get-region-or-get-the-line-as-region))
+                (start (car region))
+                (end (cdr region)))
+           (comment-or-uncomment-region start end)))))
+
 ;;;;;;方便编辑的快捷键
 (bind-keys ("C-c TAB" . hippie-expand)
            ("M-s o" .
@@ -149,29 +177,7 @@
                      sym)))
                regexp-history)
               (call-interactively 'occur)))
-           ("M-;" .
-            (lambda()
-              "修改后的注释函数。
-1. 如果有选中区域，注释/去注释该区域
-2. 如果为空行，仅注释
-3n. 如果在代码行末，注释并缩进
-
-对于有些没后缀的文件，如.bashrc也需注释，所以对所有文件都应用。
-
-缺点：不能通过快捷键去注释行末注释"
-              (interactive)
-              ;; 如果在空行上。不能理解comment-dwim的参数该怎样设置
-              (cond ((claudio/util-current-line-empty-p)
-                     (comment-dwim nil))
-                    ((claudio/util-at-end-of-line-p)
-                     (comment-indent))
-                    ;; 如果在行末，前面有内容
-                    ;; 默认注释选中区域和本行
-                    (t
-                     (let* ((region (claudio/util-get-region-or-get-the-line-as-region))
-                            (start (car region))
-                            (end (cdr region)))
-                       (comment-or-uncomment-region start end)))))))
+           )
 
 (provide 'init-edit-help)
 ;;; init-edit-help.el ends here
