@@ -10,7 +10,7 @@
 (setq eww-search-prefix "http://cn.bing.com/search?q=")
 
 ;; 定制自己的搜索方式
-(defvar *claudio/browse-search-engine-need-lantern* '("google" "youtube" "emacs" "linux" "python")
+(defvar *claudio/browse-search-engine-need-lantern* '("google" "youtube" "emacs" "linux" "python" "stackoverflow")
   "需要使用lantern翻墙的网站.")
 
 ;; 在kali上，lantern还需配合chromium一起使用，且需将其设置为默认浏览器
@@ -71,6 +71,7 @@ SEARCH-ENGINE-NAME为生成函数的函数名，SEARCH-ENGINE-URL为搜索路径
 (claudio/browse-install-search-engine "emacs" "http://www.google.com/search?q=emacs+" "emacs: ")
 (claudio/browse-install-search-engine "linux" "http://www.google.com/search?q=linux+" "linux: ")
 (claudio/browse-install-search-engine "python" "http://www.google.com/search?q=python+" "python: ")
+(claudio/browse-install-search-engine "stackoverflow" "http://stackoverflow.com/search?tab=votes&q=" "stackoverflow：")
 
 (defun @()
     "直接输入网址，用火狐浏览器打开."

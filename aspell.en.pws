@@ -1,4 +1,5 @@
-personal_ws-1.1 en 288 
+personal_ws-1.1 en 308 
+del
 prog
 unicodedate
 getdecoder
@@ -22,6 +23,7 @@ wrapcolumn
 asynchat
 autojunk
 asian
+getweakrefs
 itertools
 ConnectionAbortedError
 NameError
@@ -33,6 +35,7 @@ reentrant
 args
 kwarg
 argv
+Finalizer
 EncodeFile
 ArithmeticError
 TLS
@@ -60,6 +63,7 @@ seqs
 initializer
 IOError
 melpa
+getweakrefcount
 ConnectionError
 WindosError
 byteorder
@@ -87,6 +91,7 @@ tzinfo
 valeu
 TimeoutError
 nodejs
+WeakValueDictionary
 uniq
 getreader
 enum
@@ -108,6 +113,7 @@ BytesWarning
 tofile
 functools
 typename
+keyrefs
 FileType
 UnicodeError
 dest
@@ -122,6 +128,8 @@ incrementaldecoder
 ExitStack
 difflib
 stringprep
+atexit
+ProxyTypes
 deepcopy
 fromlines
 DATAGRAMS
@@ -129,7 +137,9 @@ init
 octdigits
 fromdesc
 getincrementaldecoder
+CallableProxyType
 tobytes
+WeakSet
 getencoder
 charset
 TextWrapper
@@ -148,6 +158,7 @@ EnvironmentError
 reprlib
 hexdigits
 SequenceMatcher
+ef
 StreamRecoder
 contextmanager
 frozenset
@@ -162,6 +173,7 @@ winerror
 bytearray
 ResourceWarnig
 stderr
+sqlite
 Obershelp
 tabsize
 kwds
@@ -187,6 +199,7 @@ epilog
 fromatter
 OverflowError
 asyncore
+WeakKeyDictionary
 codec
 IGNORECASE
 TypeError
@@ -213,6 +226,7 @@ charjunk
 MetavarTypeHelpFormatter
 contextlib
 ImportError
+ReferenceType
 pprint
 ascii
 MAXSIZE
@@ -224,11 +238,13 @@ asyncio
 NotImplementedError
 ZeroDivisionError
 FutureWarning
+ProxyType
 fromkeys
 MULTILINE
 ahi
 repl
 codecs
+bea
 lineno
 UnicodeEncodeError
 CodecInfo
@@ -267,7 +283,9 @@ Chainmap
 filterfalse
 errno
 byteoder
+valuerefs
 fillvalue
+WeakMethod
 struct
 getincrementalencoder
 dedent
@@ -277,8 +295,10 @@ userdict
 getpass
 BlockingIOError
 getwriter
+heapify
 arg
 func
+finalizers
 ValueError
 blo
 AssertionError

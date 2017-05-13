@@ -53,5 +53,39 @@
 
 (add-hook 'prog-mode-hook 'subword-mode)
 
+(defun claudio/prog-run-current-file()
+  "执行当前脚本。"
+  (interactive)
+  (let* ((suffix-map '(("php" . "php")
+                       ("pl" . "perl")
+                       ("go" . "go run")
+                       ("py" . "python3.5")
+                       ("sh" . "bash")))
+         (file-name (buffer-file-name))
+         file-suffix prog-name cmd-str)
+
+    ;; 不存在文件
+    (unless file-name
+      (when (y-or-n-p "保存当前buffer? ")
+        (setq file-name (buffer-file-name))))
+
+    ;; 通过文件名构建命令
+    (when file-name
+      (setq file-suffix (file-name-extension file-name)
+            prog-name (cdr (assoc file-suffix suffix-map))
+            cmd-str (concat prog-name " '" file-name "'")))
+
+    (message cmd-str)
+    ;; 根据不同条件执行
+    (cond ((not file-name) (message "文件不存在！"))
+          ((string-equal file-suffix "el") ; special case for emacs lisp
+           (load (file-name-sans-extension file-name)))
+          (prog-name
+           (when (buffer-modified-p) (save-buffer))
+           (async-shell-command cmd-str (format "*%s.%s脚本运行结果*"  (file-name-base file-name) file-suffix)))
+          (t (message "不支持 .%s 文件运行！" file-suffix)))))
+
+(bind-keys ("C-c R" . claudio/prog-run-current-file))
+
 (provide 'init-prog)
 ;;; init-prog.el ends here
