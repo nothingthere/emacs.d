@@ -135,6 +135,12 @@
          (goto-char ,original-point-symbol)
          (set-marker ,original-point-symbol nil)))))
 
+;; (claudio/util-simple-save-excursion
+;;  (mark-whole-buffer)
+;;  (goto-char (point-min))
+;;  (message "%d" (point))
+;; )
+
 (cl-defmacro claudio/util-with-pkg-enabled(pkg &body body)
   "是否安装有插件PKG，如果安装则执行&BODY,否则报错."
   (if (package-installed-p pkg)
@@ -143,11 +149,12 @@
     `(error
       (format "需先安装%S插件" ',pkg))))
 
-;; (claudio/util-simple-save-excursion
-;;  (mark-whole-buffer)
-;;  (goto-char (point-min))
-;;  (message "%d" (point))
-;; )
+(defun claudio/util-mode-name-2-hook-name(mode-name)
+  "将MODE-NAME转换为mode-name-hook.
+非常naive的做法。"
+  (intern (format "%s-hook" (symbol-name mode-name))))
+
+;; (type-of(claudio/util-mode-name-2-hook-name 'python-mode))
 
 (provide 'init-util)
 ;;; init-util.el ends here

@@ -60,6 +60,7 @@
 
 ;; popwin -- 使光标跳转到帮助窗口
 (use-package popwin
+  :demand t
   :config
   (popwin-mode 1))
 

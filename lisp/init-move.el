@@ -13,8 +13,7 @@
                                      `(advice-add ,split-fn
                                                   :after
                                                   (lambda
-                                                    (&rest
-                                                     r)
+                                                    (&rest r)
                                                     (let ((target-window (next-window)))
                                                       (set-window-buffer target-window
                                                                          (other-buffer))

@@ -14,7 +14,7 @@
 ;; 如果有新进程，不询问。方便使用apt命令安装程序时，执行pip3安装程序
 ;; 参考地址：http://stackoverflow.com/questions/6895155/multiple-asynchronous-shell-commands-in-emacs-dired
 (advice-add #'async-shell-command :after
-            (lambda(_r)
+            (lambda(&rest _r)
               (let ((b-name "*Async Shell Command*"))
                 (when (get-buffer b-name)
                   (with-current-buffer b-name
