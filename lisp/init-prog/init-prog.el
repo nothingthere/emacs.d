@@ -73,7 +73,7 @@
       (when prog-name
         (setq cmd-str (format prog-name file-name))))
 
-    (message cmd-str)
+    ;; (message cmd-str)
     ;; 根据不同条件执行
     (cond ((not file-name) (message "文件不存在！"))
           (prog-name
@@ -96,8 +96,6 @@
                         (when current-prefix-arg
                           (load (file-name-sans-extension (buffer-file-name)))))
                       t t)))
-
-;; (bind-keys ([f8] . claudio/prog-run-current-file))
 
 (provide 'init-prog)
 ;;; init-prog.el ends here

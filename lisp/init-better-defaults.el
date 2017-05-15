@@ -7,7 +7,8 @@
 (setq confirm-kill-emacs #'yes-or-no-p)
 
 ;;禁用备份文件
-(setq make-backup-files nil)
+(setq make-backup-files nil
+      vc-make-backup-files nil)
 
 ;;关闭移动到顶部/底部时的警告音
 ;; (setq ring-bell-function 'ignore)
