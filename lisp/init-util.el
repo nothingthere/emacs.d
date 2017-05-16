@@ -113,10 +113,17 @@
   "重新从磁盘读取文件."
   (interactive)
   (let ((file (buffer-file-name))
+        (w-start (window-start))
         (point (point)))
-    (kill-buffer)
-    (find-file file)
-    (goto-char point)))
+    (cond ((not file)
+           (message "重加载当前文件：当前buffer没有对应文件。"))
+          (t (when (buffer-modified-p)
+               (save-buffer))
+             (kill-buffer)
+             (find-file file)
+             (set-window-start (get-buffer-window) w-start)
+             (goto-char point)
+             (message "重加载当前文件完毕。")))))
 
 (cl-defmacro claudio/util-add-local-before-save-hook (mode-hook &body body)
   "在为MODE-HOOK的before-save-hook添加函数."
