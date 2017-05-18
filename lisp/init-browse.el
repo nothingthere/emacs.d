@@ -39,9 +39,8 @@
 (defmacro claudio/browse-install-search-engine(search-engine-name search-engine-url search-engine-prompt)
   "定义一些不同浏览器的搜索函数.
 SEARCH-ENGINE-NAME为生成函数的函数名，SEARCH-ENGINE-URL为搜索路径，SEARCH-ENGINE-PROMPT为执行命令时的提示信息."
-  `(defun ,(intern (format "@%s" search-engine-name))
-       ()
-     ,(format "通过%s搜索" search-engine-name)
+  `(defun ,(intern (format "@%s" search-engine-name)) ()
+     ,(format "通过%s搜索。" search-engine-name)
      (interactive)
      ;; 如果需使用翻墙，要配合lantern一起使用
      ,(if (find search-engine-name *claudio/browse-search-engine-need-lantern*
