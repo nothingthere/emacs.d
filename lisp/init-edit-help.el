@@ -136,6 +136,9 @@
 (use-package comment-dwim-2
   :bind ("M-;" . comment-dwim-2))
 
+;; unfill -- 段落折叠
+(use-package unfill)
+
 ;; 注释
 (defun claudio/edit-help-comment()
   "修改后的注释函数。

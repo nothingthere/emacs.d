@@ -1,7 +1,8 @@
-personal_ws-1.1 en 308 
+personal_ws-1.1 en 318 
 del
 prog
 unicodedate
+fnmatch
 getdecoder
 subn
 tolines
@@ -35,7 +36,7 @@ reentrant
 args
 kwarg
 argv
-Finalizer
+finalizer
 EncodeFile
 ArithmeticError
 TLS
@@ -76,6 +77,7 @@ lineterm
 sys
 UnicodeWarning
 ConnectionResetError
+uri
 metavar
 islice
 KeyError
@@ -83,9 +85,11 @@ utf
 fromfile
 textwrap
 dropwhile
+fileinput
 stdout
 usr
 BufferError
+pathlib
 EOFError
 tzinfo
 valeu
@@ -111,9 +115,9 @@ StopIteration
 Runtime
 BytesWarning
 tofile
+keyrefs
 functools
 typename
-keyrefs
 FileType
 UnicodeError
 dest
@@ -125,8 +129,8 @@ destroyes
 Ratcliff
 IncrementalDecoder
 incrementaldecoder
-ExitStack
 difflib
+ExitStack
 stringprep
 atexit
 ProxyTypes
@@ -138,8 +142,8 @@ octdigits
 fromdesc
 getincrementaldecoder
 CallableProxyType
-tobytes
 WeakSet
+tobytes
 getencoder
 charset
 TextWrapper
@@ -150,12 +154,14 @@ ImportWarning
 ae
 typecodes
 heapq
+symlink
 ce
 textpad
 b'qwd
 de
 EnvironmentError
 reprlib
+tempfile
 hexdigits
 SequenceMatcher
 ef
@@ -177,6 +183,7 @@ sqlite
 Obershelp
 tabsize
 kwds
+shutil
 InterruptedError
 maxsplit
 dfunc
@@ -189,6 +196,7 @@ vformat
 claudio
 IsADirectoryError
 namespace
+posix
 startmap
 memoryview
 formatter
@@ -216,8 +224,8 @@ socketpairs
 msg
 abc
 py
-streamreader
 StreamReader
+streamreader
 contextDecorator
 rlconpleter
 itertool
@@ -239,6 +247,7 @@ NotImplementedError
 ZeroDivisionError
 FutureWarning
 ProxyType
+linecache
 fromkeys
 MULTILINE
 ahi
@@ -257,14 +266,15 @@ BrokenPipeError
 getopt
 RuntimeError
 namedtuple
+filcmp
 SyntaxError
 FileExitsError
 UserString
 RuntimeWarning
 takewhile
 KeybordInterrupt
-IncrementalEncoder
 incrementalencoder
+IncrementalEncoder
 traceback
 kwargs
 HtmlDiff
@@ -278,8 +288,8 @@ UnicodeDecondeError
 ProcessLookupError
 RawTextHelpFormatter
 pos
-ChainMap
 Chainmap
+ChainMap
 filterfalse
 errno
 byteoder
@@ -290,8 +300,8 @@ struct
 getincrementalencoder
 dedent
 finename
-UserDict
 userdict
+UserDict
 getpass
 BlockingIOError
 getwriter

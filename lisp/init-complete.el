@@ -46,7 +46,7 @@
     ;; https://github.com/nothingthere/emacs.d-1/blob/master/lisp/init-company.el
 
     (setq-default company-backends
-                  '((company-capf  :with company-yasnippet)
+                  '((company-capf :with company-yasnippet)
                     company-dabbrev-code
                     company-dabbrev
                     )

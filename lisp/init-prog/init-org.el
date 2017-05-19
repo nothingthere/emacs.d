@@ -155,7 +155,7 @@
 
   ;; 修改执行结果中显示的关键字
   ;; 修改后造成不能显示和隐藏，还不能缩略显示HASH
-  ;; (setq org-babel-results-keyword "结果")
+  ;; (setq org-babel-results-keyword "#+结果")
 
   ;; 指定可执行的语言
   (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)
@@ -185,6 +185,21 @@
     (previous-line 2)
     (org-edit-src-code))
 
+  (defun claudio/org-insert-example-block(lang)
+    "插入LANG类型的EXAMPLE."
+    (interactive
+     (let ((lang-types '("emacs-lisp" "python" "js" "sh" "c" "awk" "common-lisp" "go")))
+       (list (ivy-read "语言类型： " lang-types
+                       :initial-input "python"
+                       :sort t))))
+    (newline-and-indent)
+    (insert (format "#+BEGIN_EXAMPLE %s\n" lang))
+    (newline-and-indent)
+    (insert "#+END_EXAMPLE\n")
+    (previous-line 2)
+    (org-edit-special)
+    (beginning-of-line))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;执行所有源码
   (defun claudio/org-evaluate-all-block-code()
     "执行buffer中所有源码."
@@ -206,7 +221,8 @@
   :bind (:map org-mode-map
               ("C-c =" . er/expand-region)
               ("C-c ;" . mc/mark-all-dwim)
-              ("C-c s i" . claudio/org-insert-src-block))
+              ("C-c s i" . claudio/org-insert-src-block)
+              ("C-c s e" . claudio/org-insert-example-block))
 
   ;; END
   )
