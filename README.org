@@ -5,16 +5,21 @@
 
 * 当前版本
   
-  #+BEGIN_SRC sh :session
-    emacs24 --version
-  #+END_SRC
+  24.5.1
   
-  #+RESULTS:
-  #+BEGIN_SRC org
-  - GNU Emacs 24.5.1
-  - Copyright (C) 2015 Free Software Foundation, Inc.
-  - GNU Emacs comes with ABSOLUTELY NO WARRANTY.
-  - You may redistribute copies of Emacs
-  - under the terms of the GNU General Public License.
-  - For more information about these matters, see the file named COPYING.
-  #+END_SRC
+* 编程语言支持
+- bash
+- clang
+- golang
+- javascript
+- markdown
+- python
+  
+* 主功能
+- [[file:lisp/init-flyspell.el][拼写检查]]
+- [[file:lisp/init-translation.el][翻译支持]]
+- [[file:lisp/init-flycheck.el][编程语言语法检查]]
+- [[file:lisp/init-browse.el][科学上网]]
+- [[file:lisp/init-complete.el][自动补全]]
+- [[file:lisp/init-format.el][文档格式化]]
+- [[file:lisp/init-app.el][系统应用自动安装]]
