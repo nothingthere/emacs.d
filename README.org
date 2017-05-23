@@ -1,8 +1,20 @@
-* 我的Emacs配置
-** 兼容
-   由于配置了自动安装系统程序的功能，可能会出现兼容型问题。主要在程序
-   安装方式上。只支持Debian形式的包安装：
-   
-   #+BEGIN_SRC sh :session
-     sudo apt-get install xxx
-   #+END_SRC
+# Author: Claudio <3261958605@qq.com>
+# Created: 2017-05-24 00:31:26
+# Commentary:
+#+TITLE: 我的Emacs配置
+
+* 当前版本
+  
+  #+BEGIN_SRC sh :session
+    emacs24 --version
+  #+END_SRC
+  
+  #+RESULTS:
+  #+BEGIN_SRC org
+  - GNU Emacs 24.5.1
+  - Copyright (C) 2015 Free Software Foundation, Inc.
+  - GNU Emacs comes with ABSOLUTELY NO WARRANTY.
+  - You may redistribute copies of Emacs
+  - under the terms of the GNU General Public License.
+  - For more information about these matters, see the file named COPYING.
+  #+END_SRC
