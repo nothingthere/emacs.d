@@ -69,12 +69,7 @@
   :bind ("C-c =" . er/expand-region))
 
 ;; multiple-cursors -- 多行编辑
-(use-package multiple-cursors
-  :disabled t
-  :bind
-  (("C-c ;" . mc/mark-all-dwim)
-   ("C-c d" . mc/mark-next-like-this)
-   ("C-c D" . mc/skip-to-next-like-this)))
+(use-package multiple-cursors)
 
 ;; iedit -- 多行编辑
 (use-package iedit

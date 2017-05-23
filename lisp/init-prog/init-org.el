@@ -220,7 +220,7 @@
   ;; 快捷键绑定
   :bind (:map org-mode-map
               ("C-c =" . er/expand-region)
-              ("C-c ;" . mc/mark-all-dwim)
+              ("C-c ;" . iedit-mode)
               ("C-c s i" . claudio/org-insert-src-block)
               ("C-c s e" . claudio/org-insert-example-block))
 

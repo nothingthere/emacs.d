@@ -88,5 +88,11 @@
                        company-dabbrev company-capf
                        ))))))
 
+;; help-pydoc -- python文档查看
+
+(use-package helm-pydoc
+  :bind (:map python-mode-map
+              ("C-c C-d" . helm-pydoc)))
+
 (provide 'init-python)
 ;;; init-python.el ends here
