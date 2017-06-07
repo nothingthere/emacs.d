@@ -32,6 +32,11 @@
    ("C-h v" . counsel-describe-variable)
    ("C-x C-f" . counsel-find-file)))
 
+;; find-file-in-project -- 在当前项目中查找文件
+(use-package find-file-in-project
+  :bind
+  ("C-c ." . find-file-in-project))
+
 ;; smartparens -- 自动补全括号
 (use-package smartparens
   :demand t
@@ -128,8 +133,7 @@
          ("C-c L" . string-inflection-lower-camelcase)))
 
 ;; comment-dwim-2 -- 注释
-(use-package comment-dwim-2
-  :bind ("M-;" . comment-dwim-2))
+(use-package comment-dwim-2 :bind ("M-;" . comment-dwim-2))
 
 ;; unfill -- 段落折叠
 (use-package unfill)

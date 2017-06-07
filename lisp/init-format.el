@@ -72,7 +72,7 @@
            (end
             ;; +1是为了缩进整个区域时包含当前行
             ;; 再加上lines-for-big-buffer是为了在org模式下缩进光标后的内容
-            (progn (forward-line (+ (1+ lines-for-big-buffer) lines-for-big-buffer))
+            (progn (forward-line (+ (* lines-for-big-buffer 2) 1))
                    ;; (message "结束行： %d" (line-number-at-pos))
                    (point))))
        (cons start end)))))
@@ -103,10 +103,10 @@ LINES-FOR-BIG-BUFFER的确定方法：
 
     ;; (message "start: %d end: %d" start end)
 
+    (claudio/format-indent-region start end)
     (claudio/format-delete-top-blanklines)
     (claudio/format-leave-1-empty-line start end)
     (delete-trailing-whitespace start end)
-    (claudio/format-indent-region start end)
     (claudio/format-delete-bottom-blanklines)
     ;; (message "%d %d" start end)
     ))
@@ -114,6 +114,9 @@ LINES-FOR-BIG-BUFFER的确定方法：
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;各种语言的独立配置
+;; 添加hook前缓存原来的save-buffer函数，可以在混乱情况下使用此函数进行简单存储
+;; (fset 'claudio-origin-save-buffer #'save-buffer) ;不起作用？？？
+
 ;; elisp和common lisp
 (dolist (hook '(emacs-lisp-mode-hook lisp-mode-hook))
   (claudio/util-add-local-before-save-hook hook #'claudio/format-basic))

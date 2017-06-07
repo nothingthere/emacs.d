@@ -20,6 +20,11 @@
   ;; 为文本编辑模式添加拼写检查功能，当然也包含org模式
   (add-hook 'text-mode-hook 'flyspell-mode)
 
+  ;; 在查看man文档时不检查拼写 ？？？
+  ;; (add-hook 'Man-mode-hook
+  ;;           (lambda()
+  ;;             (flyspell-mode-off))
+  ;;           nil t)
   )
 
 (provide 'init-flyspell)

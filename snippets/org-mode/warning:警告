@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: note:注意
-# key: note
+# name: warning:警告
+# key: warning
 # --
 #+BEGIN_QUOTE
-*注意* ： $1
+*警告* ：$1
 #+END_QUOTE

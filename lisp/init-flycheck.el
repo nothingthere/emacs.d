@@ -18,6 +18,7 @@
 
   ;; python
   ;; 将检测python的版本更换到3.X
+
   (claudio/app-may-tobe-installed "pylint3")
   (setq flycheck-python-pylint-executable
         (or (executable-find "pylint3")

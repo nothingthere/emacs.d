@@ -87,21 +87,27 @@
 ;;加载所有配置文件
 (claudio/require-init-files
  init-util
+
  init-app
  init-ui
- init-restore
  init-better-defaults
  init-edit-help
+
+ init-restore
+
  init-complete
  init-format
  init-prog
- init-browse
- init-move
+
  init-flycheck
  init-flyspell
  init-chinese
+
+ init-browse
+ init-move
  init-misc
  init-timestamp
+
  ;; init-modes
  init-translation
  )

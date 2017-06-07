@@ -188,7 +188,7 @@
   (defun claudio/org-insert-example-block(lang)
     "插入LANG类型的EXAMPLE."
     (interactive
-     (let ((lang-types '("emacs-lisp" "python" "js" "sh" "c" "awk" "common-lisp" "go")))
+     (let ((lang-types '("emacs-lisp" "python" "ipython" "js" "sh" "c" "awk" "common-lisp" "go")))
        (list (ivy-read "语言类型： " lang-types
                        :initial-input "python"
                        :sort t))))
