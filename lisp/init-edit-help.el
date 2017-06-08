@@ -7,7 +7,7 @@
 ;;recentf --启用保存最近打开文档，下次打开时可快速打开
 (use-package recentf
   :config
-  (setq-default recentf-max-saved-items 1000))
+  (setq-default recentf-max-saved-items 100))
 
 ;; swiper --- 3件套：swiper ivy counsel
 (use-package swiper
@@ -137,6 +137,13 @@
 
 ;; unfill -- 段落折叠
 (use-package unfill)
+
+;; aggressive-indent-mode -- 缩进帮助插件
+(use-package aggressive-indent
+  :demand t
+  :config
+  (global-aggressive-indent-mode 1)
+  )
 
 ;; 注释
 (defun claudio/edit-help-comment()

@@ -54,28 +54,29 @@
 
 (defun claudio/format-indent-region(start end)
   "调整buffer中START到END的的缩进."
-  (save-restriction
-    (widen)
-    (let ((indent-blacklist '(makefile-gmake-mode snippet-mode python-mode)))
-      (unless (find major-mode indent-blacklist)
-        (indent-region start end)))))
+  (save-excursion
+    (save-restriction
+      (widen)
+      (let ((indent-blacklist '(makefile-gmake-mode snippet-mode python-mode)))
+        (unless (find major-mode indent-blacklist)
+          (indent-region start end))))))
 
 (defun claudio/format:get-format-region-for-big-buffer(lines-for-big-buffer)
   "获取当前行前面LINES-FOR-BIG-BUFFER行处的位置作为start，当前行后面一行处作为end，返回(start . end)."
-  (claudio/util-simple-save-excursion
-   (save-restriction
-     (widen)
-     (let ((start
-            (progn (forward-line (- lines-for-big-buffer))
-                   ;; (message "开始行： %d" (line-number-at-pos))
-                   (point)))
-           (end
-            ;; +1是为了缩进整个区域时包含当前行
-            ;; 再加上lines-for-big-buffer是为了在org模式下缩进光标后的内容
-            (progn (forward-line (+ (* lines-for-big-buffer 2) 1))
-                   ;; (message "结束行： %d" (line-number-at-pos))
-                   (point))))
-       (cons start end)))))
+  (save-excursion
+    (save-restriction
+      (widen)
+      (let ((start
+             (progn (forward-line (- lines-for-big-buffer))
+                    ;; (message "开始行： %d" (line-number-at-pos))
+                    (point)))
+            (end
+             ;; +1是为了缩进整个区域时包含当前行
+             ;; 再加上lines-for-big-buffer是为了在org模式下缩进光标后的内容
+             (progn (forward-line (+ (* lines-for-big-buffer 2) 1))
+                    ;; (message "结束行： %d" (line-number-at-pos))
+                    (point))))
+        (cons start end)))))
 
 (defun claudio/format-basic()
   "删除顶部空行，删除底部空行，文本中相邻空行只保留一个，删除行末空白字符，且缩进。

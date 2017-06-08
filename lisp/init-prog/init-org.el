@@ -22,6 +22,11 @@
             ;; 如果不append到最后，会使org-babel-hide-all-hashes
             ;; 有时不能正常使用，显示完整的hash值
             )
+  (setq org-src-tab-acts-natively t)
+
+  ;; org-ellipsis原来为"..."，可能造成使用claudio/format-basic时出现卡死情况，所以修改。（可能是这个原因）
+  (setq org-ellipsis " \u25bc" )
+  (add-hook 'org-mode-hook (lambda () (modify-syntax-entry (string-to-char "\u25bc") "w")))
 
   ;; 使用:bind关键字时，不能使用匿名函数作为执行函数
   (bind-keys ("C-c t" . (lambda()
