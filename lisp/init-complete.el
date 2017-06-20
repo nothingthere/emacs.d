@@ -56,7 +56,22 @@
     (defun claudio/company-push-local-backend(backend)
       "将BACKEND添加到buffer-local的company-backends中."
       (set (make-local-variable 'company-backends)
-           (append (list backend) company-backends))))
+           (append (list backend) company-backends)))
+
+    (defun claudio/yas-insert-init-snippet()
+      "当新建文件时，如果没有任何内容，且可找到\"init:文件初始化\"的snippet，自动插入。"
+      (let* ((base "init:文件初始化")
+             (snippet (yas-lookup-snippet base)))
+
+        (when (and
+               (equal (buffer-size) 0)
+               snippet)
+          (yas-expand-snippet snippet)
+          (message "自动添加文件初始结构完成。"))))
+
+    (add-hook 'find-file-hook #'claudio/yas/insert-init-snippet t)
+
+    )
 
   ;; end yasnippet
   ;; end company

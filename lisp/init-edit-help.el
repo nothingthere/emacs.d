@@ -7,7 +7,7 @@
 ;;recentf --启用保存最近打开文档，下次打开时可快速打开
 (use-package recentf
   :config
-  (setq-default recentf-max-saved-items 100))
+  (setq-default recentf-max-saved-items 20))
 
 ;; swiper --- 3件套：swiper ivy counsel
 (use-package swiper
@@ -143,7 +143,7 @@
   :demand t
   :config
   (global-aggressive-indent-mode 1)
-  )
+  (add-to-list 'aggressive-indent-excluded-modes 'python-mode))
 
 ;; 注释
 (defun claudio/edit-help-comment()

@@ -1,9 +1,13 @@
 # -*- mode: snippet -*-
-# name: init
+# name: init:文件初始化
 # key: init
 # --
+#!/bin/bash
+# $1
 # Author: Claudio <3261958605@qq.com>
 # Created: `(format-time-string "%F %H:%M:%S" (current-time))`
 # Commentary:
-#+TITLE: $1
+# Code:
 $2
+
+exit

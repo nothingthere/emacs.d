@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: ifcomment:emacs 配置文件注释格式
-# key: ifcomment
+# name: init:文件初始化
+# key: init
 # --
 ;;; $1.el --- $2
 ;; Author: Claudio <3261958605@qq.com.com>

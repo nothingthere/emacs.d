@@ -48,7 +48,6 @@
     (".pl" . "perl '%s'")
     (".go" . "go run '%s'")
     (".c" . "gcc -o a.out '%s' ; [[ -e 'a.out' ]] && ./a.out ; [[ -e 'a.out' ]] && rm a.out")
-    ;; (".html" . "firefox %s")
     (".py" . "python3.5 '%s'")
     (".sh" . "bash '%s'"))
   "可自动执行的文件后缀和自动执行命令映射表.")
