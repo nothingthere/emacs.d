@@ -13,8 +13,8 @@ cgi
 iterencode
 OpenerDirectory
 arg
-StreamWriter
 streamwriter
+StreamWriter
 blo
 UserString
 encodings
@@ -124,8 +124,8 @@ autojunk
 WeakMethod
 fromfile
 args
-fileinput
 FileInput
+fileinput
 argv
 ArgumentParser
 getweakrefs
@@ -135,8 +135,8 @@ AbstractDigestAuthHandler
 suid
 TextIOWrapper
 itertools
-StreamReader
 streamreader
+StreamReader
 memoryview
 defaultdict
 golang
@@ -205,7 +205,6 @@ dropwhile
 filcmp
 shutil
 maxsize
-MAXSIZE
 contextDecorator
 CallableProxyType
 setresuid
@@ -393,11 +392,12 @@ HTTPPasswordMgr
 kwargs
 io
 fromedesc
-IncrementalEncoder
 incrementalencoder
+IncrementalEncoder
 getfilesystemencoding
 robotparser
 json
+authkey
 takewhile
 BaseException
 asyncore
@@ -457,8 +457,8 @@ setegid
 functools
 tofiledate
 localhost
-incrementaldecoder
 IncrementalDecoder
+incrementaldecoder
 coroutine
 fchdir
 EOFError

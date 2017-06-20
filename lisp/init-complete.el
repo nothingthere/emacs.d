@@ -69,7 +69,7 @@
           (yas-expand-snippet snippet)
           (message "自动添加文件初始结构完成。"))))
 
-    (add-hook 'find-file-hook #'claudio/yas/insert-init-snippet t)
+    (add-hook 'find-file-hook #'claudio/yas-insert-init-snippet t)
 
     )
 
