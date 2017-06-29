@@ -90,5 +90,8 @@
 ;; 改变当前行高亮样式
 (set-face-attribute font-lock-function-name-face nil :bold t :italic t)
 
+;; 将背景设置为透明
+;; (set-background-color "ARGBBB000000")
+
 (provide 'init-ui)
 ;;; init-ui.el ends here

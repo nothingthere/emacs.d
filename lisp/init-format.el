@@ -139,7 +139,7 @@ LINES-FOR-BIG-BUFFER的确定方法：
   :init (claudio/app-may-tobe-installed "isort" :use-pip t)
   :demand t
   :config
-  (setq py-isort-options '("--multi_line=1" "--line-width=80" "--balanced"))
+  (setq py-isort-options '("--no-sections" "--line-width=80" "--balanced"))
   (claudio/util-add-local-before-save-hook 'python-mode-hook
                                            #'py-isort-buffer))
 
