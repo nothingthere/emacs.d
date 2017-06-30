@@ -51,7 +51,7 @@ pip3 list执行速度很慢，所以对于没安装的程序，此函数会很�
 ;; (claudio/app-installed-p "silversearcher-ag")
 ;; (claudio/app-installed-p "jedi")
 ;; (claudio/app-installed-p "pylint3")
-;; (claudio/app-installed-p "autopep8")
+;; (claudio/app-installed-p "isort")
 
 ;; 不清楚为何要使用  (let ((default-directory "/sudo::/")
 ;; 参考自：https://lists.gnu.org/archive/html/emacs-orgmode/2013-02/msg00354.html

@@ -136,7 +136,7 @@ LINES-FOR-BIG-BUFFER的确定方法：
 ;; 解决方法：如果安装了pylint3，需先sudo apt remove pylint3，在pip3 install isort，在sudo apt install pylint3
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package py-isort
-  :init (claudio/app-may-tobe-installed "isort" :use-pip t)
+  :init (claudio/app-may-tobe-installed "isort")
   :demand t
   :config
   (setq py-isort-options '("--no-sections" "--line-width=80" "--balanced"))

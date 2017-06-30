@@ -20,12 +20,17 @@
   ;; 将检测python的版本更换到3.X
 
   (claudio/app-may-tobe-installed "pylint3")
-  (setq flycheck-python-pylint-executable
-        (or (executable-find "pylint3")
-            flycheck-python-pylint-executable)
-        ;; 还需添加下面这行才能生效
-        flycheck-python-pycompile-executable "python3")
+  ;; (setq flycheck-python-pylint-executable
+  ;;       (or (executable-find "pylint3")
+  ;;           flycheck-python-pylint-executable)
+  ;;       ;; 还需添加下面这行才能生效
+  ;;       flycheck-python-pycompile-executable "python3")
 
+  (setq flycheck-python-flake8-executable
+        (or (executable-find "flake8")
+            flycheck-python-flake8-executable)
+        flycheck-python-pycompile-executable "python3"
+        )
   )
 
 (provide 'init-flycheck)
