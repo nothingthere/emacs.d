@@ -92,6 +92,12 @@
 
 ;; 将背景设置为透明
 ;; (set-background-color "ARGBBB000000")
+;; powerline -- 模式栏目使用powerline
+
+(use-package powerline
+  :demand t
+  :config
+  (powerline-default-theme))
 
 (provide 'init-ui)
 ;;; init-ui.el ends here
