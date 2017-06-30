@@ -96,5 +96,13 @@
 ;; pony-mode -- django副模式？？？
 (use-package pony-mode)
 
+;; elpy -- Python集成开发环境
+;; (use-package elpy
+;;   :config
+;;   (elpy-enable)
+;;   (setq elpy-rpc-python-command "python3")
+;;   (add-hook 'python-mode-hook #'elpy-mode)
+;;   )
+
 (provide 'init-python)
 ;;; init-python.el ends here
