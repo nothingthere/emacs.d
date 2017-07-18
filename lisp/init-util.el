@@ -159,7 +159,7 @@
 (defun claudio/util-mode-name-2-hook-name(mode-name)
   "将MODE-NAME转换为mode-name-hook.
 非常naive的做法。"
-  (intern (format "%s-hook" (symbol-name mode-name))))
+  (intern (format "%s-hook" mode-name)))
 
 ;; (type-of(claudio/util-mode-name-2-hook-name 'python-mode))
 

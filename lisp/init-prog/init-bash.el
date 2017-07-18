@@ -8,8 +8,15 @@
   :config
   (add-hook 'sh-mode-hook
             (lambda()
-              (claudio/company-push-local-backend
-               '(company-shell company-files :with company-yasnippet)))))
+              (set (make-local-variable 'company-backends)
+                   '((company-shell
+                      :with company-yasnippet)
+
+                     (claudio/company-files-without-prefix-backend
+                      :with company-yasnippet)
+
+                     (company-files
+                      :with company-yasnippet))))))
 
 (provide 'init-bash)
 ;;; init-bash.el ends here

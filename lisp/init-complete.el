@@ -82,5 +82,49 @@
   ;; end company
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 在不输入./时，也能自动补全当前文件夹中的文件
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'company-files)                ;使用company-files内部的私有函数
+(defun claudio/company-files-without-prefix-backend (command &optional arg &rest ignored)
+  "自动补全当前文件夹中的文件，不输入./也可自动补全 COMMAND ARG IGNORED用法不详.
+如果编写自己的backend教程：
+http://sixty-north.com/blog/writing-the-simplest-emacs-company-mode-backend"
+  (interactive (list 'interactive))
+  ;; 获取当前文件夹中所有文件
+  (let* ((dir-prefix "./")
+         (candiates-files (company-files--complete dir-prefix)))
+    (cl-case command
+      (interactive (company-begin-backend #'claudio/company-files-without-prefix-backend))
+      ;; 对当前输入内容过滤，如果当前文件夹中有文件名以当前输入内容开始
+
+      ;; 则返回：当前输入内容，作为需candidates作为补全的判断
+      ;; 不能返回"./当前内容"，参考company--insert-candidate发现：
+      ;; 这样做为删除一些字符（具体原因还没明白）
+
+      ;; 否则返回nil，以便将机会让给别的backend，返回值作为arg可在candidates中使用
+      (prefix
+       (let ((current-symbol (company-grab-symbol)))
+         ;; (message "grab-symbol： %s" current-symbol)
+         (if (or (zerop (length (remove-if-not
+                                 (lambda(file-name)
+                                   (string-prefix-p (concat dir-prefix current-symbol) file-name))
+                                 candiates-files)))
+                 (null current-symbol))
+             nil
+           current-symbol)))
+      ;;获取备选文件名，去除所有备选中前面的：./
+      (candidates
+       ;; (message "company-prefix：%s" company-prefix)
+       (mapcar (lambda(file)
+                 (substring file 2))
+               (remove-if-not
+                (lambda(file-name)
+                  (string-prefix-p (concat dir-prefix arg) file-name))
+                candiates-files)))
+      (sorted t)
+      (no-cache t)
+      )))
+
 (provide 'init-complete)
 ;;; init-complete.el ends here

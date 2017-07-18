@@ -13,6 +13,7 @@
  init-golang
  init-python
  init-clang
+ init-makefile
  init-org
  init-bash
  init-nasm
@@ -43,44 +44,42 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 自动执行当前文件
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar *claudio/prog-run-current-file-suffix-map*
-  '((".php" . "php '%s'")
-    (".pl" . "perl '%s'")
-    (".go" . "go run '%s'")
-    (".c" . "gcc -o a.out '%s' ; [[ -e 'a.out' ]] && ./a.out ; [[ -e 'a.out' ]] && rm a.out")
-    (".py" . "python3.5 '%s'")
-    (".sh" . "bash '%s'"))
+(defvar *claudio/prog-run-current-file-mode-map*
+  '((go-mode . "go run '%s'")
+    (c-mode . "gcc -o a.out '%s' ; [[ -e 'a.out' ]] && ./a.out ; [[ -e 'a.out' ]] && rm a.out")
+    (python-mode . "python3.5 '%s'")
+    (sh-mode . "bash '%s'")
+    (makefile-gmake-mode . "make --keep-going --file='%s'")
+    )
+
   "可自动执行的文件后缀和自动执行命令映射表.")
 
-(defvar *claudio/prog-run-current-file-modes*
-  (remove-if (lambda(elem) (listp elem))
-             (mapcar (lambda(pair)
-                       (cdr (assoc-if (lambda(key) (string-match-p key (car pair))) auto-mode-alist)))
-                     *claudio/prog-run-current-file-suffix-map*))
-  "可自动执行当前文件的主模式名.")
+(defun claudio/prog-run-current-file-command(mode)
+  (cdr (assoc mode *claudio/prog-run-current-file-mode-map*)))
 
 (defun claudio/prog-run-current-file()
   "执行当前脚本。"
   (interactive)
   (let* ((file-name (buffer-file-name))
-         file-suffix prog-name cmd-str)
-
+         (command (claudio/prog-run-current-file-command major-mode))
+         cmd-string)
     ;; 通过文件名构建命令
-    (when file-name
-      (setq file-suffix (file-name-extension file-name t)
-            prog-name (cdr (assoc file-suffix  *claudio/prog-run-current-file-suffix-map*)))
-      (when prog-name
-        (setq cmd-str (format prog-name file-name))))
+    (when (and file-name command)
+      (setq cmd-string (format command file-name)))
 
     ;; (message cmd-str)
     ;; 根据不同条件执行
     (cond ((not file-name) (message "文件不存在！"))
-          (prog-name
-           (async-shell-command cmd-str (format "*%s%s脚本运行结果*"  (file-name-base file-name) file-suffix)))
+          (cmd-string
+           (async-shell-command cmd-string (format "*%s%s脚本运行结果*"
+                                                   (file-name-base file-name)
+                                                   (if (file-name-extension file-name)
+                                                       (concat "." (file-name-extension file-name))
+                                                     ""))))
           (t (message "不支持 %s 文件运行！" file-suffix)))))
 
-(dolist (mode *claudio/prog-run-current-file-modes*)
-  (add-hook (claudio/util-mode-name-2-hook-name mode)
+(dolist (mode-map *claudio/prog-run-current-file-mode-map*)
+  (add-hook (claudio/util-mode-name-2-hook-name (car mode-map))
             (lambda()
               (add-hook 'after-save-hook
                         (lambda()
