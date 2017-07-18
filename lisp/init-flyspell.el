@@ -15,10 +15,10 @@
                 ispell-personal-dictionary "~/.emacs.d/aspell.en.pws")
 
   ;; 为所有编程buffer的注释和字符串添加检查功能
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  (add-hook 'prog-mode-hook #'flyspell-prog-mode)
 
   ;; 为文本编辑模式添加拼写检查功能，当然也包含org模式
-  (add-hook 'text-mode-hook 'flyspell-mode)
+  (add-hook 'text-mode-hook #'flyspell-mode)
 
   ;; 在查看man文档时不检查拼写 ？？？
   ;; (add-hook 'Man-mode-hook

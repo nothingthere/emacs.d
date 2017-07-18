@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: fcntl:include
+# key: fcntl
+# --
+#include <fcntl.h>
+$1

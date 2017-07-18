@@ -7,8 +7,10 @@
 ;; 补全
 (add-hook 'c-mode-hook
           (lambda()
-            (claudio/company-push-local-backend
-             '(company-clang  :with company-yasnippet))))
+            (set (make-local-variable 'company-backends)
+                 '((company-clang :with company-yasnippet)
+                   (company-capf :with company-yasnippet)
+                   (company-dabbrev :with company-yasnippet)))))
 
 (use-package ggtags
   :init

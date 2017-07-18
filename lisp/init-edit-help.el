@@ -140,7 +140,7 @@
 
 ;; aggressive-indent-mode -- 缩进帮助插件
 (use-package aggressive-indent
-  :demand t
+  :disabled t
   :config
   (global-aggressive-indent-mode 1)
   (add-to-list 'aggressive-indent-excluded-modes 'python-mode))

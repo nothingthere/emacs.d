@@ -20,7 +20,9 @@
    ;; 等待时间"秒"
    company-idle-delay 0.1
    ;; 输入多少个字符时激活
-   company-minimum-prefix-length 1)
+   company-minimum-prefix-length 1
+   company-dabbrev-ignore-case t
+   )
 
   ;; !!! 在图像界面下才能使用
   ;; company-quickhelp -- 代码提示功能
