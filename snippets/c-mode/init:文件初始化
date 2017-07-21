@@ -2,9 +2,10 @@
 # name: init:文件初始化
 # key: init
 # --
-/*
-  Author: Claudio <3261958605@qq.com>
-  Created: `(format-time-string "%F %H:%M:%S" (current-time))`
-  Commentary: 
-*/
-$1
+/**************************************************************
+* `(claudio/util-construct-pure-buffer-file-name)`
+* Author: Claudio <3261958605@qq.com>
+* Created: `(format-time-string "%F %H:%M:%S" (current-time))`
+* Commentary: $1
+***************************************************************/
+$2

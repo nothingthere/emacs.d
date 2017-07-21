@@ -9,10 +9,15 @@
 (add-hook 'makefile-gmake-mode-hook
           (lambda()
             (set (make-local-variable 'company-backends)
-                 '(company-cmake
-                   claudio/company-files-without-prefix-backend
-                   company-files
-                   company-dabbrev))))
+                 '((company-cmake
+                    :with company-yasnippet)
+                   (claudio/company-files-without-prefix-backend
+                    :with company-yasnippet)
+                   (company-files
+                    :with company-yasnippet)
+                   (company-dabbrev
+                    :with company-yasnippet)
+                   ))))
 
 (provide 'init-makefile)
 ;;; init-makefile.el ends here

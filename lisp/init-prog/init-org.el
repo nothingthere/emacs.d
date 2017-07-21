@@ -6,6 +6,7 @@
 ;;org-mode -- YES
 
 (use-package org
+  :demand t
   :config
   (add-hook 'org-mode-hook
             (lambda()

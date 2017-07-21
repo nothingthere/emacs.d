@@ -2,11 +2,7 @@
 # name: init:文件初始化
 # key: init
 # --
-#!/usr/bin/python3
-# `(claudio/util-construct-pure-buffer-file-name)`
+# Makefile
 # Author: Claudio <3261958605@qq.com>
 # Created: `(format-time-string "%F %H:%M:%S" (current-time))`
-# Code:
-'''
 $1
-'''

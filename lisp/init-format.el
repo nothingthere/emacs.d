@@ -164,7 +164,9 @@ LINES-FOR-BIG-BUFFER的确定方法：
 ;; org
 (claudio/util-add-local-before-save-hook 'org-mode-hook #'claudio/format-basic)
 
-;; 源码
+;; makefile-gmake-mode
+(claudio/util-add-local-before-save-hook 'makefile-gmake-mode-hook #'claudio/format-basic)
+;; org源码
 (advice-add 'org-edit-src-exit
             :before
             (lambda (&rest _r)

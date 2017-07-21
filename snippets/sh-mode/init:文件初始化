@@ -3,10 +3,10 @@
 # key: init
 # --
 #!/bin/bash
-# $1
+# `(claudio/util-construct-pure-buffer-file-name)`
 # Author: Claudio <3261958605@qq.com>
 # Created: `(format-time-string "%F %H:%M:%S" (current-time))`
-# Commentary:
+# Commentary: $1
 # Code:
 $2
 

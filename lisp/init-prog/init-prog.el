@@ -46,10 +46,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar *claudio/prog-run-current-file-mode-map*
   '((go-mode . "go run '%s'")
-    (c-mode . "gcc -o a.out '%s' ; [[ -e 'a.out' ]] && ./a.out ; [[ -e 'a.out' ]] && rm a.out")
+    (c-mode . "gcc -o a.out '%s' ;[[ -e 'a.out' ]] &&  ./a.out ; [[ -e 'a.out' ]] && rm a.out")
     (python-mode . "python3.5 '%s'")
     (sh-mode . "bash '%s'")
-    (makefile-gmake-mode . "make --keep-going --file='%s'")
+    (makefile-gmake-mode . "make --keep-going --always-make --file='%s'")
     )
 
   "可自动执行的文件后缀和自动执行命令映射表.")
@@ -71,11 +71,9 @@
     ;; 根据不同条件执行
     (cond ((not file-name) (message "文件不存在！"))
           (cmd-string
-           (async-shell-command cmd-string (format "*%s%s脚本运行结果*"
-                                                   (file-name-base file-name)
-                                                   (if (file-name-extension file-name)
-                                                       (concat "." (file-name-extension file-name))
-                                                     ""))))
+           (async-shell-command
+            cmd-string
+            (format "*%s运行结果*" (claudio/util-construct-pure-buffer-file-name))))
           (t (message "不支持 %s 文件运行！" file-suffix)))))
 
 (dolist (mode-map *claudio/prog-run-current-file-mode-map*)

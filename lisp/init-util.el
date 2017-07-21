@@ -161,7 +161,15 @@
 非常naive的做法。"
   (intern (format "%s-hook" mode-name)))
 
-;; (type-of(claudio/util-mode-name-2-hook-name 'python-mode))
+(defun claudio/util-construct-pure-buffer-file-name()
+  "获取当前buffer的纯文件名：~/test.c -> test.c."
+  (let ((file (buffer-file-name)))
+    (if file
+        (concat (file-name-base file)
+                (if (file-name-extension file)
+                    "." "")
+                (file-name-extension file))
+      "")))
 
 (provide 'init-util)
 ;;; init-util.el ends here

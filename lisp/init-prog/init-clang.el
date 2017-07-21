@@ -10,6 +10,7 @@
             (set (make-local-variable 'company-backends)
                  '((company-clang :with company-yasnippet)
                    (company-capf :with company-yasnippet)
+                   (claudio/company-files-without-prefix-backend :with company-yasnippet)
                    (company-dabbrev :with company-yasnippet)))))
 
 (use-package ggtags
