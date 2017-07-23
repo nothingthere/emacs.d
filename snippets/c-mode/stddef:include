@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: stddef:include
+# key: stddef
+# --
+#include <stddef.h>
+$1

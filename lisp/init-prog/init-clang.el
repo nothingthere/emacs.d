@@ -22,9 +22,18 @@
   (add-hook 'c-mode-common-hook
             (lambda()
               (when (derived-mode-p 'c-mode 'c++-mode )
-                (ggtags-mode)))
-            )
-  )
+                (ggtags-mode)))))
+
+;; 为头文件生产固定格式
+(defun claudio/clang-generate-header-file-template()
+  "为头文件生产固定格式."
+  (let* ((file-name (claudio/util-construct-pure-buffer-file-name))
+         (header-file-p (string-suffix-p ".h" file-name)))
+
+    (if header-file-p
+        (let ((const  (upcase (replace-regexp-in-string "\\." "_" file-name))))
+          (format "#ifndef %s\n#define %s\n\n#endif" const const const))
+      "")))
 
 (provide 'init-clang)
 ;;; init-clang.el ends here

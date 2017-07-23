@@ -154,18 +154,24 @@ LINES-FOR-BIG-BUFFER的确定方法：
 (claudio/app-may-tobe-installed "clang-format")
 (quelpa '(clang-format :repo "nothingthere/clang-format" :fetcher github)
         :update nil)
+
 ;; 保存前执行clang-format，参考py-autopep8的作法
 (dolist (hook '(c-mode-hook c++-mode-hook))
-  (claudio/util-add-local-before-save-hook hook #'clang-format-buffer))
+  (claudio/util-add-local-before-save-hook
+   hook #'clang-format-buffer))
 
 ;; sh
-(claudio/util-add-local-before-save-hook 'sh-mode-hook #'claudio/format-basic)
+(claudio/util-add-local-before-save-hook
+ 'sh-mode-hook #'claudio/format-basic)
 
 ;; org
-(claudio/util-add-local-before-save-hook 'org-mode-hook #'claudio/format-basic)
+(claudio/util-add-local-before-save-hook
+ 'org-mode-hook #'claudio/format-basic)
 
 ;; makefile-gmake-mode
-(claudio/util-add-local-before-save-hook 'makefile-gmake-mode-hook #'claudio/format-basic)
+(claudio/util-add-local-before-save-hook
+ 'makefile-gmake-mode-hook #'claudio/format-basic)
+
 ;; org源码
 (advice-add 'org-edit-src-exit
             :before

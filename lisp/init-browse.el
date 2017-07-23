@@ -10,7 +10,8 @@
 (setq eww-search-prefix "http://cn.bing.com/search?q=")
 
 ;; 定制自己的搜索方式
-(defvar *claudio/browse-search-engine-need-lantern* '("google" "youtube" "emacs" "linux" "python" "stackoverflow")
+(defvar *claudio/browse-search-engine-need-lantern*
+  '("google" "youtube" "emacs" "linux" "python" "stackoverflow" "clang")
   "需要使用lantern翻墙的网站.")
 
 ;; 在kali上，lantern还需配合chromium一起使用，且需将其设置为默认浏览器
@@ -19,12 +20,13 @@
 
 (defun claudio/search(query-url prompt)
   "通过PROMPT提示输入搜索内容，通过QUERY-URL指定的地址在浏览器中打开。"
-  (let((query-string (concat query-url (url-hexify-string
-                                        (if mark-active
-                                            (buffer-substring
-                                             (region-beginning)
-                                             (region-end))
-                                          (read-string prompt))))))
+  (let* ((target (url-hexify-string (if mark-active
+                                        (buffer-substring
+                                         (region-beginning)
+                                         (region-end))
+                                      (read-string prompt))))
+         (query-string (format query-url  target)))
+
     (if (find query-url *claudio/browse-search-engine-need-lantern*
               :test (lambda(url engine)
                       "如果需翻墙搜索，需使用chromium，以便翻墙"
@@ -32,9 +34,10 @@
                                       (downcase url))))
         (browse-url-chromium query-string)
       ;; 否则使用firefox
-	  (browse-url-firefox query-string))
-	;; 输出提示消息
-	(message "搜索：%s" query-string)))
+      (browse-url-firefox query-string))
+
+    ;; 输出提示消息
+    (message "搜索：%s" query-string)))
 
 (defmacro claudio/browse-install-search-engine(search-engine-name search-engine-url search-engine-prompt)
   "定义一些不同浏览器的搜索函数.
@@ -55,22 +58,24 @@ SEARCH-ENGINE-NAME为生成函数的函数名，SEARCH-ENGINE-URL为搜索路径
      ;; 执行搜索
      (claudio/search ,search-engine-url ,search-engine-prompt)))
 
-(claudio/browse-install-search-engine "bing" "http://cn.bing.com/search?q=" "必应: ")
-(claudio/browse-install-search-engine "github" "https://github.com/search?q=" "GitHub 搜索: ")
-(claudio/browse-install-search-engine "google" "http://www.google.com/search?q=" "谷歌: ")
-(claudio/browse-install-search-engine "melpa" "http://melpa.org/#/" "Melpa：")
-(claudio/browse-install-search-engine "repo" "https://github.com/nothingthere/" "我的项目：")
-(claudio/browse-install-search-engine "douban" "https://www.douban.com/search?q=" "豆瓣搜索：")
-(claudio/browse-install-search-engine "youtube" "https://www.youtube.com/results?search_query=" "Youtube搜索：")
-(claudio/browse-install-search-engine "bilibili" "http://search.bilibili.com/all?keyword=" "bilibili：")
-(claudio/browse-install-search-engine "wiki" "https://en.wikipedia.org/wiki/" "Wiki：")
-(claudio/browse-install-search-engine "zhihu" "https://www.zhihu.com/search?type=content&q=" "知乎：")
-(claudio/browse-install-search-engine "music" "http://music.163.com/#/search/m/?s=" "163音乐：")
-(claudio/browse-install-search-engine "ximalaya" "http://www.ximalaya.com/search/" "喜马拉雅电台: ")
-(claudio/browse-install-search-engine "emacs" "http://www.google.com/search?q=emacs+" "emacs: ")
-(claudio/browse-install-search-engine "linux" "http://www.google.com/search?q=linux+" "linux: ")
-(claudio/browse-install-search-engine "python" "http://www.google.com/search?q=python+" "python: ")
-(claudio/browse-install-search-engine "stackoverflow" "http://stackoverflow.com/search?tab=votes&q=" "stackoverflow：")
+(claudio/browse-install-search-engine "bing" "http://cn.bing.com/search?q=%s" "必应: ")
+(claudio/browse-install-search-engine "github" "https://github.com/search?q=%s" "GitHub 搜索: ")
+(claudio/browse-install-search-engine "google" "http://www.google.com/search?q=%s" "谷歌: ")
+(claudio/browse-install-search-engine "melpa" "http://melpa.org/#/%s" "Melpa：")
+(claudio/browse-install-search-engine "repo" "https://github.com/nothingthere/%s" "我的项目：")
+(claudio/browse-install-search-engine "douban" "https://www.douban.com/search?q=%s" "豆瓣搜索：")
+(claudio/browse-install-search-engine "youtube" "https://www.youtube.com/results?search_query=%s" "Youtube搜索：")
+(claudio/browse-install-search-engine "bilibili" "http://search.bilibili.com/all?keyword=%s" "bilibili：")
+(claudio/browse-install-search-engine "wiki" "https://en.wikipedia.org/wiki/%s" "Wiki：")
+(claudio/browse-install-search-engine "zhihu" "https://www.zhihu.com/search?type=content&q=%s" "知乎：")
+(claudio/browse-install-search-engine "music" "http://music.163.com/#/search/m/?s=%s" "163音乐：")
+(claudio/browse-install-search-engine "ximalaya" "http://www.ximalaya.com/search/%s" "喜马拉雅电台: ")
+(claudio/browse-install-search-engine "emacs" "http://www.google.com/search?q=emacs+%s" "emacs: ")
+(claudio/browse-install-search-engine "linux" "http://www.google.com/search?q=linux+%s" "linux: ")
+(claudio/browse-install-search-engine "python" "http://www.google.com/search?q=python+%s" "python: ")
+(claudio/browse-install-search-engine "clang" "http://www.google.com/search?q=%s+in+c" "clang: ")
+(claudio/browse-install-search-engine "stackoverflow" "http://stackoverflow.com/search?tab=votes&q=%s" "stackoverflow：")
+;; (claudio/browse-install-search-engine "porn" "https://www.watchmygf.me/search/%s/" "FBI WARNING：")
 
 (defun @()
     "直接输入网址，用火狐浏览器打开."
