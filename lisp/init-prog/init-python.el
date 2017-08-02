@@ -13,7 +13,6 @@
  python-shell-interpreter (or
                            (executable-find "python3.5")
                            python-shell-interpreter)
-
  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -79,6 +78,11 @@
   (use-package company-anaconda
     :demand t
     :config
+
+    ;; https://github.com/proofit404/anaconda-mode/issues/164
+    (remove-hook 'anaconda-mode-response-read-fail-hook
+                 #'anaconda-mode-show-unreadable-response)
+
     (add-hook 'python-mode-hook
               (lambda()
                 (anaconda-mode)
@@ -103,6 +107,8 @@
 ;;   (setq elpy-rpc-python-command "python3")
 ;;   (add-hook 'python-mode-hook #'elpy-mode)
 ;;   )
+
+;; (setq python-shell-extra-pythonpaths '("/usr/local/lib/python3.5/dist-package"))
 
 (provide 'init-python)
 ;;; init-python.el ends here

@@ -5,6 +5,6 @@
 # `(claudio/util-construct-pure-buffer-file-name)`
 # Author: Claudio <3261958605@qq.com>
 # Created: `(format-time-string "%F %H:%M:%S" (current-time))`
-# Commentary:
-#+TITLE: $1
-$2
+# Commentary:$1
+#+TITLE: ${2:`(file-name-base (buffer-file-name))`}
+

@@ -69,6 +69,7 @@
 ;; 好像不能在命令行中正确显示？？？
 (use-package solarized-theme
   :if (display-graphic-p)
+  ;; :demand t
   :config
   (deftheme solarized-dark "The dark variant of the Solarized colour theme")
   (create-solarized-theme 'dark 'solarized-dark)

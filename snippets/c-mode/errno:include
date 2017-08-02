@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: errno:include
+# key: errno
+# --
+#include <errno.h>
+$1
